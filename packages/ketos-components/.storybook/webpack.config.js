@@ -15,12 +15,6 @@ module.exports = (baseConfig, env) => {
 
     })
 
-    config.module.rules.push({
-        test: /\.(eot|ttf|woff|woff2|svg|png|jpg)$/,
-        loader: require.resolve('raw-loader')
-
-    })
-
-    config.resolve.extensions.push('.ts', '.tsx', '.md', '.ttf');
+    config.resolve.extensions.push('.ts', '.tsx', '.md');
     return config;
 };
