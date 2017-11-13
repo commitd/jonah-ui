@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Segment, Button, Divider } from 'semantic-ui-react'
+import { Segment, Button } from 'semantic-ui-react'
 
 export type Props = {
     total: number

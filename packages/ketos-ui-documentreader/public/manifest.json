@@ -1,6 +1,6 @@
 {
-  "short_name": "ketos-ui-documentsearch",
-  "name": "ketos-ui-documentsearch",
+  "short_name": "ketos-ui-documentreader",
+  "name": "ketos-ui-documentreader",
   "icons": [
     {
       "src": "favicon.ico",
