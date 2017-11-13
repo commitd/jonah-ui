@@ -4,7 +4,10 @@ import DocumentSearchResults from './DocumentSearchResults'
 
 export interface OwnProps {
     datasetId: string,
-    query: string
+    query: string,
+    offset: number,
+    size: number,
+    onOffsetChange(offset: number): void
 }
 
 interface Response {
@@ -12,6 +15,7 @@ interface Response {
         id: string
         searchDocuments: {
             hits: {
+                totalCount: number
                 results: {
                     id: string
                     length: number
@@ -35,22 +39,31 @@ interface GqlProps {
 type Props = OwnProps & GqlProps
 
 const container = (props: Props) => {
-    const { data } = props
+    const { data, offset, size, onOffsetChange } = props
 
     if (!data || data.loading || !data.corpus) {
         return <div />
     }
 
+    const hits = data.corpus.searchDocuments.hits
+
     return (
-        <DocumentSearchResults results={data.corpus.searchDocuments.hits.results} />
+        <DocumentSearchResults
+            offset={offset}
+            size={size}
+            onOffsetChange={onOffsetChange}
+            totalResults={hits.totalCount}
+            results={data.corpus.searchDocuments.hits.results}
+        />
     )
 }
 
 const DOCUMENT_SEARCH_QUERY = gql`
-query search($datasetId: String!, $query: String!, $limit: Int) {
+query search($datasetId: String!, $query: String!, $offset: Int, $size: Int) {
   corpus(id: $datasetId) {
-    searchDocuments(search: $query, limit: $limit) {
+    searchDocuments(search: $query, offset: $offset, size: $size) {
         hits {
+            totalCount
             results {
               id
               length
@@ -69,5 +82,12 @@ query search($datasetId: String!, $query: String!, $limit: Int) {
 `
 
 export default graphql<Response, OwnProps, Props>(DOCUMENT_SEARCH_QUERY, {
-    options: (props: Props) => ({ variables: { datasetId: props.datasetId, query: props.query, limit: 50 } })
+    options: (props: Props) => ({
+        variables: {
+            datasetId: props.datasetId,
+            query: props.query,
+            offset: props.offset,
+            size: props.size
+        }
+    })
 })(container)

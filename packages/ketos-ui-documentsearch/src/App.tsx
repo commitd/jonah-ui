@@ -12,13 +12,14 @@ type State = {
   datasetId?: string,
   query: string,
   currentSearchQuery?: string
-
+  offset: number
 }
 
 class App extends React.Component<Props, State> {
 
   state: State = {
-    query: ''
+    query: '',
+    offset: 0
   }
 
   handleDatasetSelected = (datasetId: string) => {
@@ -35,19 +36,33 @@ class App extends React.Component<Props, State> {
 
   handleSearch = () => {
     this.setState((state: State) => ({
-      currentSearchQuery: this.state.query
+      currentSearchQuery: this.state.query,
+      offset: 0
     }))
   }
 
+  handleOffsetChange = (offset: number) => {
+    this.setState({
+      offset: offset
+    })
+  }
+
   render() {
-    const { datasetId, query, currentSearchQuery } = this.state
+    const { datasetId, query, currentSearchQuery, offset } = this.state
 
     return (
       <Container fluid={false} >
         <DatasetSelector selectedDataset={datasetId} onDatasetSelected={this.handleDatasetSelected} />
         <SearchQuery query={query} onQueryChange={this.handleQueryChange} onSearch={this.handleSearch} />
         <Divider hidden={true} />
-        {datasetId && currentSearchQuery && <DocumentSearchResults datasetId={datasetId} query={currentSearchQuery} />}
+        {datasetId && currentSearchQuery &&
+          <DocumentSearchResults
+            datasetId={datasetId}
+            query={currentSearchQuery}
+            size={5}
+            offset={offset}
+            onOffsetChange={this.handleOffsetChange}
+          />}
       </Container>
     )
   }
