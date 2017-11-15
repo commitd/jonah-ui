@@ -5,6 +5,11 @@ import { graphql, gql, QueryProps } from 'react-apollo'
 import View from './ViewContainer'
 import { DatasetSelector } from 'ketos-components'
 import { Container } from 'semantic-ui-react'
+const isEqual = require('lodash.isequal')
+
+interface ViewPayload {
+  datasetId?: string
+}
 
 interface Response {
   corpora: {
@@ -29,6 +34,16 @@ class App extends React.Component<Props, State> {
 
   state: State = {
 
+  }
+
+  componentWillReceiveProps(nextProps: Props) {
+    // Process action / payload if its changed
+    if (this.props.action !== nextProps.action || !isEqual(this.props.payload, nextProps.payload)) {
+      const payload = nextProps.payload as ViewPayload
+      this.setState({
+        datasetId: payload ? payload.datasetId : undefined,
+      })
+    }
   }
 
   handleDatasetSelected = (datasetId: string) => {
