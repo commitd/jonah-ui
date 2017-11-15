@@ -5,6 +5,7 @@ export { default as TimelineChart } from './general/charts/TimelineChart'
 
 export { default as Card } from './general/ui/Card'
 export { default as Pagination } from './general/ui/Pagination'
+export { default as ActionDropdown } from './general/ui/ActionDropdown'
 
 export { default as SearchQuery } from './general/search/SearchQuery'
 export { default as DocumentSearchResults } from './ketos/documentsearchresults/DocumentSearchResultsContainer'

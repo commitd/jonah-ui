@@ -1,6 +1,6 @@
 import * as React from 'react'
-
 import { Table } from 'semantic-ui-react'
+import { ActionDropdown } from 'ketos-components'
 
 type OwnProps = {
     datasets: {
@@ -17,8 +17,13 @@ type Props = OwnProps
 
 class View extends React.Component<Props> {
 
-    render() {
+    handleAction = (datasetId: string) => (act: (payload?: {}) => void) => {
+        act({
+            datasetId
+        })
+    }
 
+    render() {
         const { datasets } = this.props
 
         if (datasets.length === 0) {
@@ -35,6 +40,7 @@ class View extends React.Component<Props> {
                         <Table.HeaderCell textAlign="right">Documents</Table.HeaderCell>
                         <Table.HeaderCell textAlign="right">Entities</Table.HeaderCell>
                         <Table.HeaderCell textAlign="right">Relations</Table.HeaderCell>
+                        <Table.HeaderCell textAlign="right">Actions</Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>
@@ -45,6 +51,9 @@ class View extends React.Component<Props> {
                         <Table.Cell textAlign="right">{d.documentCount}</Table.Cell>
                         <Table.Cell textAlign="right">{d.entityCount}</Table.Cell>
                         <Table.Cell textAlign="right">{d.relationCount}</Table.Cell>
+                        <Table.Cell textAlign="right">
+                            <ActionDropdown text="View" action="corpus.view" onSelect={this.handleAction(d.id)} />
+                        </Table.Cell>
                     </Table.Row>)}
                 </Table.Body>
             </Table>
