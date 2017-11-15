@@ -7,15 +7,16 @@ export type Props = {
     offset: number
     size: number
     results: DocumentResult[]
-    onOffsetChange(offset: number): void
+    onOffsetChange(offset: number): void,
+    onDocumentSelect?(document: DocumentResult): void
 }
 
 class DocumentSearchResults extends React.Component<Props> {
     render() {
-        const { offset, size, totalResults, onOffsetChange, results } = this.props
+        const { offset, size, totalResults, onOffsetChange, results, onDocumentSelect } = this.props
         return (
             <div>
-                {results.map(r => <DocumentSearchResult key={r.id} document={r} />)}
+                {results.map(r => <DocumentSearchResult key={r.id} document={r} onDocumentSelect={onDocumentSelect} />)}
                 <Pagination size={size} offset={offset} total={totalResults} onOffsetChange={onOffsetChange} />
             </div>
         )

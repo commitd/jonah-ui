@@ -14,16 +14,23 @@ export interface DocumentResult {
 }
 
 export type Props = {
-    document: DocumentResult
+    document: DocumentResult,
+    onDocumentSelect?(document: DocumentResult): void
 }
 
 class DocumentSearchResult extends React.Component<Props> {
+
+    handleDocumentSelect = () => {
+        if (this.props.onDocumentSelect) {
+            this.props.onDocumentSelect(this.props.document)
+        }
+    }
     render() {
         const { document } = this.props
         const { id, length, info } = document
         return (
             <Segment>
-                <Header>{info.source}</Header>
+                <Header onClick={this.handleDocumentSelect}>{info.source}</Header>
                 <div>
                     <Label><Icon name="calendar" />{info.timestamp}</Label>
                     <Label><Icon name="file outline" />Type: {info.type}</Label>

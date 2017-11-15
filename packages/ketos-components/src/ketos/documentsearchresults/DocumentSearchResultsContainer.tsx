@@ -1,13 +1,15 @@
 import * as React from 'react'
 import { graphql, gql, QueryProps } from 'react-apollo'
 import DocumentSearchResults from './DocumentSearchResults'
+import { DocumentResult } from './DocumentSearchResult'
 
 export interface OwnProps {
     datasetId: string,
     query: string,
     offset: number,
     size: number,
-    onOffsetChange(offset: number): void
+    onOffsetChange(offset: number): void,
+    onDocumentSelect?(datasetId: string, documentId: string): void
 }
 
 interface Response {
@@ -39,13 +41,19 @@ interface GqlProps {
 type Props = OwnProps & GqlProps
 
 const container = (props: Props) => {
-    const { data, offset, size, onOffsetChange } = props
+    const { datasetId, data, offset, size, onOffsetChange } = props
 
     if (!data || data.loading || !data.corpus) {
         return <div />
     }
 
     const hits = data.corpus.searchDocuments.hits
+
+    const handleDocumentSelect = (document: DocumentResult) => {
+        if (props.onDocumentSelect) {
+            props.onDocumentSelect(datasetId, document.id)
+        }
+    }
 
     return (
         <DocumentSearchResults
@@ -54,6 +62,7 @@ const container = (props: Props) => {
             onOffsetChange={onOffsetChange}
             totalResults={hits.totalCount}
             results={data.corpus.searchDocuments.hits.results}
+            onDocumentSelect={handleDocumentSelect}
         />
     )
 }
