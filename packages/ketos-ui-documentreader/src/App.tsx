@@ -6,6 +6,11 @@ import { Container, Message } from 'semantic-ui-react'
 
 type OwnProps = {}
 
+interface ViewPayload {
+  documentId: string,
+  datasetId: string
+}
+
 type Props = OwnProps & ChildProps
 
 type State = {
@@ -16,13 +21,22 @@ type State = {
 class App extends React.Component<Props, State> {
 
   state: State = {
-    datasetId: 're3d',
-    documentId: 'ca553bc24390e15d279ebbf32903e69c1d85a11505c84a07e3863731b775b58a'
+    datasetId: undefined,
+    documentId: undefined
+  }
+
+  componentWillReceiveProps(nextProps: Props) {
+    if (this.props.action !== nextProps.action || this.props.payload !== nextProps.payload) {
+      const payload = nextProps.payload as ViewPayload
+      this.setState({
+        datasetId: payload ? payload.datasetId : undefined,
+        documentId: payload ? payload.documentId : undefined,
+      })
+    }
   }
 
   render() {
     const { datasetId, documentId } = this.state
-
     const hasDocument = datasetId != null && documentId != null
 
     return (
