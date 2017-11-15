@@ -3,6 +3,7 @@ import { ChildProps } from 'vessel-plugin'
 
 import { DocumentReaderContainer } from 'ketos-components'
 import { Container, Message } from 'semantic-ui-react'
+const isEqual = require('lodash.isequal')
 
 type OwnProps = {}
 
@@ -26,7 +27,7 @@ class App extends React.Component<Props, State> {
   }
 
   componentWillReceiveProps(nextProps: Props) {
-    if (this.props.action !== nextProps.action || this.props.payload !== nextProps.payload) {
+    if (this.props.action !== nextProps.action || !isEqual(this.props.payload, nextProps.payload)) {
       const payload = nextProps.payload as ViewPayload
       this.setState({
         datasetId: payload ? payload.datasetId : undefined,
