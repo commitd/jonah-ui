@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Segment, Label, Header, Icon } from 'semantic-ui-react'
+import { Label, Icon, Item } from 'semantic-ui-react'
 
 export interface DocumentResult {
     id: string
@@ -31,17 +31,23 @@ class DocumentSearchResult extends React.Component<Props> {
         const { document } = this.props
         const { id, length, title, summary, info } = document
         return (
-            <Segment>
-                <Header onClick={this.handleDocumentSelect}>{title}</Header>
-                <div>{summary}</div>
-                <div>
-                    <Label><Icon name="calendar" />{info.timestamp}</Label>
-                    <Label><Icon name="file outline" />Type: {info.type}</Label>
-                    <Label><Icon name="talk outline" />Language: {info.language}</Label>
-                    <Label><Icon name="lock" />Classification: {info.classification}</Label>
-                </div>
-                <p><small>id: {id} | {length} bytes </small></p>
-            </Segment>
+            <Item>
+                {/* TODO: By doctype or something?
+                 <Item.Image size='tiny' src='/assets/images/wireframe/image.png' /> */}
+                <Item.Content>
+                    <Item.Header as="a" onClick={this.handleDocumentSelect}>{title}</Item.Header>
+                    <Item.Meta><small>id: {id} | {length} bytes </small></Item.Meta>
+                    <Item.Description>
+                        {summary}
+                    </Item.Description>
+                    <Item.Extra>
+                        <Label><Icon name="calendar" />{info.timestamp}</Label>
+                        <Label><Icon name="file outline" />Type: {info.type}</Label>
+                        <Label><Icon name="talk outline" />Language: {info.language}</Label>
+                        <Label><Icon name="lock" />Classification: {info.classification}</Label>
+                    </Item.Extra>
+                </Item.Content>
+            </Item>
         )
     }
 }

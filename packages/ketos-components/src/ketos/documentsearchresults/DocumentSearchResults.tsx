@@ -1,6 +1,7 @@
 import * as React from 'react'
 import DocumentSearchResult, { DocumentResult } from './DocumentSearchResult'
 import Pagination from '../../general/ui/Pagination'
+import { Item } from 'semantic-ui-react'
 
 export type Props = {
     totalResults: number
@@ -16,7 +17,10 @@ class DocumentSearchResults extends React.Component<Props> {
         const { offset, size, totalResults, onOffsetChange, results, onDocumentSelect } = this.props
         return (
             <div>
-                {results.map(r => <DocumentSearchResult key={r.id} document={r} onDocumentSelect={onDocumentSelect} />)}
+                <Item.Group>
+                    {results.map(r =>
+                        <DocumentSearchResult key={r.id} document={r} onDocumentSelect={onDocumentSelect} />)}
+                </Item.Group>
                 <Pagination size={size} offset={offset} total={totalResults} onOffsetChange={onOffsetChange} />
             </div>
         )

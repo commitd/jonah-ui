@@ -9,6 +9,7 @@ import DocumentInfo from './DocumentInfo'
 export interface Document {
     id: string
     length: number
+    title: string
     info: {
         language: string
         source: string
@@ -38,7 +39,7 @@ class DocumentReader extends React.Component<Props> {
         return (
             <Grid>
                 <Grid.Column width={10}>
-                    <DocumentContent content={document.content} title="Unknown" />
+                    <DocumentContent content={document.content} title={document.title} />
                 </Grid.Column>
                 <Grid.Column width={6}>
                     <Card title="Info">
