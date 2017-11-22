@@ -61,10 +61,10 @@ class ActionDropdown extends React.Component<Props, State> {
                     <Dropdown.Menu>
                         {
                             actions.map(p => <Dropdown.Item
+                                onClick={this.handleSelect(p)}
                                 key={`${p.pluginId}_${p.title}`}
                                 text={p.title}
-                            />)
-                        }
+                            />)}
                     </Dropdown.Menu>
                 </Dropdown>}
             </Button.Group>
