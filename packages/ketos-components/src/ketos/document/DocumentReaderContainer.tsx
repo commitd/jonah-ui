@@ -42,6 +42,7 @@ query get($datasetId: String!, $documentId: String!) {
     document(id: $documentId) {
         id
         length
+        title
         content
         info {
             language

@@ -4,6 +4,8 @@ import { Segment, Label, Header, Icon } from 'semantic-ui-react'
 export interface DocumentResult {
     id: string
     length: number
+    title: string
+    summary: string
     info: {
         language: string
         source: string
@@ -27,10 +29,11 @@ class DocumentSearchResult extends React.Component<Props> {
     }
     render() {
         const { document } = this.props
-        const { id, length, info } = document
+        const { id, length, title, summary, info } = document
         return (
             <Segment>
-                <Header onClick={this.handleDocumentSelect}>{info.source}</Header>
+                <Header onClick={this.handleDocumentSelect}>{title}</Header>
+                <div>{summary}</div>
                 <div>
                     <Label><Icon name="calendar" />{info.timestamp}</Label>
                     <Label><Icon name="file outline" />Type: {info.type}</Label>
