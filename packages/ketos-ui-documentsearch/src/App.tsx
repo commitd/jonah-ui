@@ -1,9 +1,15 @@
 import * as React from 'react'
 import { ChildProps } from 'vessel-plugin'
 import { compose, graphql, gql, QueryProps } from 'react-apollo'
+const isEqual = require('lodash.isequal')
 
 import { DocumentSearchResults, SearchQuery, DatasetSelector } from 'ketos-components'
 import { Container, Divider } from 'semantic-ui-react'
+
+interface SearchPayload {
+  query?: { [id: string]: string },
+  datasetId?: string
+}
 
 type OwnProps = {}
 
@@ -88,6 +94,17 @@ class App extends React.Component<Props, State> {
       })
     } else {
       console.error('no plugin to do that')
+    }
+  }
+
+  componentWillReceiveProps(nextProps: Props) {
+    if (this.props.action !== nextProps.action || !isEqual(this.props.payload, nextProps.payload)) {
+      const payload = nextProps.payload as SearchPayload
+      this.setState({
+        datasetId: payload ? payload.datasetId : this.state.datasetId,
+        // TODO: Currently only look for the content field, but in future we could have additional options
+        query: payload && payload.query && payload.query.content ? payload.query.content : this.state.query,
+      })
     }
   }
 
