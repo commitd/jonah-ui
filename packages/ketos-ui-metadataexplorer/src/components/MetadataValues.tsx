@@ -25,7 +25,7 @@ function countToXY(values: MetadataValue[], maxValues: number): { x: string, y: 
     const topN = sorted.slice(0, maxValues)
 
     return topN.map(v => ({
-        x: v.value,
+        x: v.value.length > 10 ? v.value.substring(0, 7) + '...' : v.value,
         y: v.count
     }))
 }
