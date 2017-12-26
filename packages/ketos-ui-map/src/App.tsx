@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { ChildProps } from 'vessel-plugin'
+import { ChildProps } from 'invest-plugin'
 import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
 
 type OwnProps = {}

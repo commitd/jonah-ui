@@ -12,9 +12,9 @@
     "react-dom": "^16.0.0",
     "react-scripts-ts": "2.8.0",
     "redux": "^3.7.0",
-    "vessel-components": "*",
-    "vessel-plugin": "*",
-    "vessel-types": "^0.1.0"
+    "invest-components": "*",
+    "invest-plugin": "*",
+    "invest-types": "*"
   },
   "scripts": {
     "start": "PORT=3001 react-scripts-ts start",

@@ -1,8 +1,8 @@
 import * as React from 'react'
 import * as PropTypes from 'prop-types'
 import { Dropdown, Button } from 'semantic-ui-react'
-import { Context as PluginContext } from 'vessel-plugin'
-import { PluginActionDefinition } from 'vessel-types'
+import { Context as PluginContext } from 'invest-plugin'
+import { PluginActionDefinition } from 'invest-types'
 
 export interface OwnProps {
     action: string

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { ChildProps } from 'vessel-plugin'
+import { ChildProps } from 'invest-plugin'
 
 import View from './ViewContainer'
 import { Container } from 'semantic-ui-react'

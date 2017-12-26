@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { ChildProps } from 'vessel-plugin'
+import { ChildProps } from 'invest-plugin'
 import { compose, graphql, gql, QueryProps } from 'react-apollo'
 const isEqual = require('lodash.isequal')
 
@@ -14,7 +14,7 @@ interface SearchPayload {
 type OwnProps = {}
 
 interface Response {
-  vesselUi: {
+  investUi: {
     actions: {
       definitions: {
         pluginId: string
@@ -85,8 +85,8 @@ class App extends React.Component<Props, State> {
   handleDocumentSelect = (datasetId: string, documentId: string) => {
     // TODO: This is just selecting the first... not the best etc
     const pluginId = this.props.data
-      && this.props.data.vesselUi
-      && this.props.data.vesselUi.actions.definitions[0].pluginId
+      && this.props.data.investUi
+      && this.props.data.investUi.actions.definitions[0].pluginId
     if (pluginId != null) {
       this.navigate(pluginId, 'document.view', {
         datasetId,
@@ -132,7 +132,7 @@ class App extends React.Component<Props, State> {
 
 const DOCUMENT_VIEW_ACTIONS = gql`
 query {
-  vesselUi {
+  investUi {
     actions(input: { action: "document.view" }) {
       definitions {
         pluginId
@@ -147,7 +147,7 @@ query {
 
 const NAVIGATE_MUTATION = gql`
 mutation navigate($pluginId: String!, $action: String, $payload: String) {
-  vesselUi {
+  investUi {
     navigate(input: {pluginId: $pluginId, action: $action, payload: $payload}) {
       success
     }

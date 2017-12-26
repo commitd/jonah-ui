@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { ChildProps } from 'vessel-plugin'
+import { ChildProps } from 'invest-plugin'
 import { graphql, gql, QueryProps } from 'react-apollo'
 
 import View from './ViewContainer'

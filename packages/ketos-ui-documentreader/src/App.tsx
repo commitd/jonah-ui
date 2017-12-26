@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { ChildProps } from 'vessel-plugin'
+import { ChildProps } from 'invest-plugin'
 
 import { DocumentReaderContainer } from 'ketos-components'
 import { Container, Message } from 'semantic-ui-react'

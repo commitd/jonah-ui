@@ -17,4 +17,4 @@ export { default as DocumentReaderContainer } from './ketos/document/DocumentRea
 
 export { default as MetadataCountTable } from './ketos/metadata/MetadataCountTable'
 
-export { default as DatasetSelector } from './vessel/dataselector/DatasetSelectorContainer'
+export { default as DatasetSelector } from './invest/dataselector/DatasetSelectorContainer'

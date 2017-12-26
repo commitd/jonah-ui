@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { ChildProps } from 'vessel-plugin'
+import { ChildProps } from 'invest-plugin'
 import { graphql, gql, MutationFunc, compose, QueryProps } from 'react-apollo'
 import { Loader } from 'semantic-ui-react'
 import View from './View'
@@ -16,7 +16,7 @@ interface MutationVariables {
 }
 
 interface QueryResponse {
-    vesselServer: {
+    investServer: {
         uiPlugins: {
             id: string
             name: string
@@ -76,14 +76,14 @@ class Container extends React.Component<Props, State> {
     render() {
         const { data } = this.props
 
-        if (!data || data.loading || !data.vesselServer) {
+        if (!data || data.loading || !data.investServer) {
             return <Loader active={true} />
         }
 
         return (
             <View
                 data={this.state}
-                plugins={data.vesselServer.uiPlugins}
+                plugins={data.investServer.uiPlugins}
                 onSubmit={this.handleSubmit}
                 onChange={this.handleChange}
             />
@@ -99,11 +99,11 @@ mutation AddFeedback($subject: String!, $comment: String!, $type:String!, $plugi
 }
 `
 
-// Note that here we go back to the server to get all the plugins. Rather than using the vesselUi to get the info.
+// Note that here we go back to the server to get all the plugins. Rather than using the investUi to get the info.
 // This is something of a stylistic choice, but it allows us to expand to say non-ui plugins at a later point.
 const GET_PLUGINS_QUERY = gql`
 query GetPlugins {
-    vesselServer {
+    investServer {
       uiPlugins {
         id
         name
