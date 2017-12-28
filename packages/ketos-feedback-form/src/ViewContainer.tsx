@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { ChildProps } from 'invest-plugin'
-import { graphql, gql, MutationFunc, compose, QueryProps } from 'react-apollo'
+import { graphql, MutationFunc, compose, QueryProps } from 'react-apollo'
+import gql from 'graphql-tag'
 import { Loader } from 'semantic-ui-react'
 import View from './View'
 

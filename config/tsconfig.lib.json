@@ -4,9 +4,5 @@
         "module": "commonjs",
         "target": "es5",
         "declaration": true
-    },
-    "exclude": [
-        "node_modules",
-        "build"
-    ]
+    }
 }

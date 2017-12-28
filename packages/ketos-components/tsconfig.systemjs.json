@@ -3,6 +3,6 @@
     "compilerOptions": {
         "module": "system",
         "declaration": false,
-        "outFile": "./lib/invest-framework.js"
+        "outFile": "./lib/ketos-componets.js"
     }
 }

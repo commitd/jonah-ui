@@ -1,6 +1,8 @@
 import * as React from 'react'
 import { ChildProps } from 'invest-plugin'
-import { compose, graphql, gql, QueryProps } from 'react-apollo'
+import { compose, graphql, QueryProps } from 'react-apollo'
+import gql from 'graphql-tag'
+
 const isEqual = require('lodash.isequal')
 
 import { DocumentSearchResults, SearchQuery, DatasetSelector } from 'ketos-components'

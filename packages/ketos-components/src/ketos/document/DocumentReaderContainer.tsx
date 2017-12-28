@@ -1,5 +1,7 @@
 import * as React from 'react'
-import { graphql, gql, QueryProps } from 'react-apollo'
+import { graphql, QueryProps } from 'react-apollo'
+import gql from 'graphql-tag'
+
 import DocumentReader, { Document } from './DocumentReader'
 
 export interface OwnProps {

@@ -1,5 +1,7 @@
 import * as React from 'react'
-import { graphql, gql, QueryProps } from 'react-apollo'
+import { graphql, QueryProps } from 'react-apollo'
+import gql from 'graphql-tag'
+
 import View from './View'
 import { Loader } from 'semantic-ui-react'
 
