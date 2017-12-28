@@ -13,9 +13,9 @@ export type Props = OwnProps
 
 class DatasetSelector extends React.Component<Props> {
 
-    handleDatasetSelected = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+    handleDatasetSelected = (e: {}, data: { value: string }) => {
         if (this.props.onDatasetSelected) {
-            this.props.onDatasetSelected(e.target.value)
+            this.props.onDatasetSelected(data.value)
         }
     }
 
@@ -41,13 +41,19 @@ class DatasetSelector extends React.Component<Props> {
         const { datasets, selectedDataset } = this.props
 
         const dataset = selectedDataset && datasets.find(d => d.id === selectedDataset)
+
+        const datasetOptions = datasets.map(d => (
+            { id: d.id, text: d.name, value: d.id }
+        ))
         return (
             <Menu vertical={false}>
-                <Dropdown item={true} text={dataset ? dataset.name : 'Select dataset'}>
-                    <Dropdown.Menu>
-                        {datasets.map(d => <Dropdown.Item key={d.id}>{d.name}</Dropdown.Item>)}
-                    </Dropdown.Menu>
-                </Dropdown>
+                <Dropdown
+                    item={true}
+                    text={dataset ? dataset.name : 'Select dataset'}
+                    selection={true}
+                    options={datasetOptions}
+                    onChange={this.handleDatasetSelected}
+                />
             </Menu>
         )
     }
