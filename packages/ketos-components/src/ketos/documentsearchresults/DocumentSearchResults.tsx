@@ -1,6 +1,6 @@
 import * as React from 'react'
 import DocumentSearchResult, { DocumentResult } from './DocumentSearchResult'
-import Pagination from '../../general/ui/Pagination'
+import { Pagination } from 'invest-components'
 import { Item } from 'semantic-ui-react'
 
 export type Props = {

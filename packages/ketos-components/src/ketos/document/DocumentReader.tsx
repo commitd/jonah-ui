@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Grid } from 'semantic-ui-react'
-import Card from '../../general/ui/Card'
+import { Card } from 'invest-components'
 
 import DocumentContent from './DocumentContent'
 import DocumentMeta from './DocumentMeta'

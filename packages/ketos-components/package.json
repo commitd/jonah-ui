@@ -7,13 +7,10 @@
   "types": "build/index.d.ts",
   "license": "Apache-2.0",
   "dependencies": {
-    "numeral": "^2.0.6",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
-    "react-sizeme": "^2.3.6",
     "semantic-ui-css": "^2.2.12",
-    "semantic-ui-react": "^0.76.0",
-    "victory": "^0.24.1"
+    "semantic-ui-react": "^0.76.0"
   },
   "peerDependencies": {
     "react-apollo": "^2"

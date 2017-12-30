@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Table } from 'semantic-ui-react'
-import Ellipsis from '../../general/utils/Ellipsis'
+import { Ellipsis } from 'invest-components'
 
 export interface OwnProps {
     documentId: string
