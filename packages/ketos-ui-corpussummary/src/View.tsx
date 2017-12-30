@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 import { Grid } from 'semantic-ui-react'
-import { Counter, PieChart, BarChart, TimelineChart, Card } from 'ketos-components'
+import { Counter, PieChart, BarChart, TimelineChart, Card } from 'invest-components'
 
 type TermCount = {
     term: string,

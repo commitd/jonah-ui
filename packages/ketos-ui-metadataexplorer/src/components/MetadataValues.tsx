@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Table } from 'semantic-ui-react'
-import { Card, PieChart } from 'ketos-components'
+import { Card, PieChart } from 'invest-components'
 
 type MetadataValue = {
     value: string

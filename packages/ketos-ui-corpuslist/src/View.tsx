@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Table } from 'semantic-ui-react'
-import { ActionDropdown } from 'ketos-components'
+import { ActionDropdown } from 'invest-components'
 
 type OwnProps = {
     datasets: {

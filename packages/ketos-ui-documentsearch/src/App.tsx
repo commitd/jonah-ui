@@ -5,7 +5,8 @@ import gql from 'graphql-tag'
 
 const isEqual = require('lodash.isequal')
 
-import { DocumentSearchResults, SearchQuery, DatasetSelector } from 'ketos-components'
+import { DocumentSearchResults } from 'ketos-components'
+import { SearchQuery, DatasetSelector } from 'invest-components'
 import { Container, Divider } from 'semantic-ui-react'
 
 interface SearchPayload {

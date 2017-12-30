@@ -3,7 +3,7 @@ import { ChildProps } from 'invest-plugin'
 import { graphql, QueryProps } from 'react-apollo'
 import gql from 'graphql-tag'
 import View from './ViewContainer'
-import { DatasetSelector } from 'ketos-components'
+import { DatasetSelector } from 'invest-components'
 import { Container } from 'semantic-ui-react'
 const isEqual = require('lodash.isequal')
 

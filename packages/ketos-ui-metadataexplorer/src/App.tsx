@@ -6,7 +6,7 @@ import { ChildProps } from 'invest-plugin'
 import View from './ViewContainer'
 import { Container } from 'semantic-ui-react'
 
-import { DatasetSelector } from 'ketos-components'
+import { DatasetSelector } from 'invest-components'
 
 type Payload = {
   datasetId?: string
