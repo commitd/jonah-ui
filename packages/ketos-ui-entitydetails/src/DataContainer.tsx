@@ -3,28 +3,52 @@ import gql from 'graphql-tag'
 import { createDataContainer } from 'ketos-components'
 
 type Variables = {
-    datasetId: string
-    entityId: string
+  datasetId: string
+  entityId: string
 }
 
-type Response = {
-    corpus: {
-        entity: {
-            id: string,
-            type: string,
-            longestValue: string,
-            mentions: {
-                begin: number,
-                end: number,
-                type: string,
-                value: string
-            }[]
-            document: {
-                id: string,
-                content: string
-            }
-        }
+export type Response = {
+  corpus: {
+    entity: {
+      id: string,
+      type: string,
+      longestValue: string,
+      mentions: {
+        id: string
+        begin: number,
+        end: number,
+        type: string,
+        value: string
+        properties: {
+          key: string,
+          value: {}
+        }[]
+        targetOf: {
+          id: string
+          relationshipType: string
+          relationSubtype: string
+          source: {
+            value: string
+            type: string
+          }
+        }[]
+        sourceOf: {
+          id: string
+          relationshipType: string
+          relationSubtype: string
+          type: string
+          target: {
+            value: string
+            type: string
+          }
+        }[]
+      }[]
+      document: {
+        id: string,
+        content: string
+      }
     }
+  }
 }
 
 const QUERY = gql`
@@ -40,6 +64,29 @@ query GetEntityView($datasetId: String!, $entityId: ID) {
           end
           type
           value
+          properties {
+              key
+              value
+          }
+          targetOf {
+            id
+            relationshipType
+            relationSubtype 
+            target {
+              value
+              type
+            }
+          }
+            sourceOf {
+            id
+            relationshipType
+            relationSubtype
+            type 
+            target {
+              value
+              type
+            }
+          }
         }
         document {
           id
