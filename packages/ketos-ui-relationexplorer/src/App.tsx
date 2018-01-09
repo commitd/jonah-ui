@@ -3,7 +3,7 @@ const isEqual = require('lodash.isequal')
 import { ChildProps } from 'invest-plugin'
 import DataContainer from './DataContainer'
 import RelationView from './RelationView'
-
+import { MessageBox } from 'ketos-components'
 type OwnProps = {}
 
 type Props = OwnProps & ChildProps
@@ -41,13 +41,18 @@ class App extends React.Component<Props, State> {
     const { entityId, datasetId } = this.state
 
     if (datasetId == null || entityId == null) {
-      return <p>No data yet</p>
+      return (
+        <MessageBox
+          title="No entity or dataset"
+          description="Please use another plugin to select an entity of dataset"
+        />
+      )
     }
 
     return (
-      <DataContainer variables={{ datasetId: datasetId, entityId: entityId }}>
+      <DataContainer variables={{ datasetId: datasetId, entityId: entityId }} >
         <RelationView />
-      </DataContainer>
+      </DataContainer >
 
     )
   }

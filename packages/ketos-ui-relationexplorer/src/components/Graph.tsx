@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { SigmaGraphHelper } from './SigmaGraphExpander'
+import { SigmaGraphHelper } from './GraphHelper'
 
 type SigmaProps = {
     sigma?: SigmaJs.Sigma
@@ -16,10 +16,8 @@ type SigmaEdgeProps = SigmaJs.Edge & {
 export class Node extends React.Component<SigmaNodeProps> {
     static defaultProps = {
         size: 15,
-        // Somewhat strange to have a random start pos
-        //  but if they all start at the same point the force atlas doesn't seem to work
-        x: -1,
-        y: -1
+        x: 0,
+        y: 0
     }
 }
 
@@ -42,11 +40,11 @@ class Graph extends React.Component<SigmaProps> {
 
         const graph = sigma.graph
         const nodes = graph.nodes()
-        const edges = graph.nodes()
+        const edges = graph.edges()
 
         const graphHelper = new SigmaGraphHelper(sigma)
 
-        let changed = false
+        let changes: number = 0
 
         const array = React.Children.toArray(this.props.children)
 
@@ -72,16 +70,18 @@ class Graph extends React.Component<SigmaProps> {
             nodesIds.push(id)
 
             if (!nodes.find(n => n.id === id)) {
-
                 const { children, ...node } = props
                 graphHelper.addNode(node)
-                changed = true
+                changes++
             }
         })
 
         // Remove nodes that are no long in our children
-        graph.nodes().filter(n => !nodesIds.find(id => id === n.id))
-            .forEach(n => graph.dropNode(n.id))
+        const nodesToRemove = graph.nodes().filter(n => !nodesIds.find(id => id === n.id))
+        if (nodesToRemove.length > 0) {
+            changes += nodesToRemove.length
+            nodesToRemove.forEach(n => graph.dropNode(n.id))
+        }
 
         // Deal with edges
 
@@ -96,21 +96,27 @@ class Graph extends React.Component<SigmaProps> {
 
             if (!edges.find(e => e.id === id)) {
                 const { children, ...edge } = props
+                console.log(edge)
                 graphHelper.addEdge(edge)
-                changed = true
+                changes++
+
             }
 
         })
 
-        graph.edges().filter(e => !edgesIds.find(id => id === e.id))
-            .forEach(e => graph.dropEdge(e.id))
+        const edgesToRemove = graph.edges().filter(e => !edgesIds.find(id => id === e.id))
+        if (edgesToRemove.length > 0) {
+            changes += edgesToRemove.length
+            edgesToRemove.forEach(e => graph.dropEdge(e.id))
+        }
 
         // TODO: if node or edge found, then check if the key is the same and not not then replace
 
-        if (changed) {
+        if (changes > 0) {
             graphHelper.refresh()
 
-            graphHelper.layout()
+            // TODO: scale the layout run time vs the number of changes made, but it needs to reasonable
+            graphHelper.layout(Math.min(5000, changes * 50))
         }
 
         return null

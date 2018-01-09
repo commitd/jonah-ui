@@ -26,6 +26,7 @@ export type Response = {
                         id: string
                         value: string
                         type: string
+                        entityId: string
                     }
                 }[]
                 sourceOf: {
@@ -37,6 +38,7 @@ export type Response = {
                         id: string
                         value: string
                         type: string
+                        entityId: string
                     }
                 }[]
             }[]
@@ -44,7 +46,7 @@ export type Response = {
     }
 }
 
-const QUERY = gql`
+export const GET_RELATIONS_FOR_ENTITY_QUERY = `
 query GetRelationsForEntity($datasetId: String!, $entityId: ID) {
     corpus(id: $datasetId) {
       entity(id: $entityId) {
@@ -64,6 +66,7 @@ query GetRelationsForEntity($datasetId: String!, $entityId: ID) {
               id
               value
               type
+              entityId
             }
           }
           sourceOf {
@@ -75,6 +78,7 @@ query GetRelationsForEntity($datasetId: String!, $entityId: ID) {
               id
               value
               type
+              entityId
             }
           }
         }
@@ -82,6 +86,8 @@ query GetRelationsForEntity($datasetId: String!, $entityId: ID) {
     }
   }
 `
+
+export const QUERY = gql(GET_RELATIONS_FOR_ENTITY_QUERY)
 
 const dataContainer = createDataContainer<Variables, Response>(QUERY)
 export default dataContainer

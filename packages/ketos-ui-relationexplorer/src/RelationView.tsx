@@ -1,9 +1,13 @@
 import * as React from 'react'
+import * as PropTypes from 'prop-types'
+import { Table, Container } from 'semantic-ui-react'
 import SigmaGraph from './components/SigmaGraph'
-import { GraphHelper } from './components/SigmaGraphExpander'
+import { GraphHelper } from './components/GraphHelper'
 import { Graph } from 'react-sigma'
-
+import { Context as PluginContext } from 'invest-plugin'
+import { GET_RELATIONS_FOR_ENTITY_QUERY } from './DataContainer'
 import { Response } from './DataContainer'
+import { ApolloQueryResult } from 'apollo-client'
 
 type Props = {
     data?: Response
@@ -18,7 +22,19 @@ type State = {
 //     edges: [{ id: 'e1', source: 'n1', target: 'n2', label: 'SEES' }]
 //   }
 
+type MentionNode = SigmaJs.Node & {
+    entityId: string
+}
+
+type Context = PluginContext
+
 class RelationView extends React.Component<Props, State> {
+
+    static contextTypes = {
+        pluginApi: PropTypes.object
+    }
+
+    context: Context
 
     state: State = {
         graph: {
@@ -29,19 +45,98 @@ class RelationView extends React.Component<Props, State> {
 
     componentDidMount() {
         if (this.props.data) {
-            this.createGraphFromProps(this.props.data)
+            this.createGraph(this.props.data)
         }
     }
 
     componentWillReceiveProps(nextProps: Props) {
         if (this.props.data !== nextProps.data && nextProps.data) {
-            this.createGraphFromProps(nextProps.data)
+            this.createGraph(nextProps.data)
         }
     }
 
-    createGraphFromProps(data: Response) {
+    handleFakeNodeExpand = (node: SigmaJs.Node, helper: GraphHelper) => {
+        const newNodeId = `n-${node.id}-${Math.random()}`
+        helper.addNode({
+            id: newNodeId,
+            label: newNodeId
+        })
+        helper.addEdge({
+            id: newNodeId,
+            source: node.id,
+            target: newNodeId,
+        })
+        helper.refresh()
+        helper.layout()
+    }
+
+    handleNodeExpand = (node: SigmaJs.Node, helper: GraphHelper) => {
+        if (node.type === 'Mention') {
+            const entityId = (node as MentionNode).entityId
+            this.context.pluginApi.query(GET_RELATIONS_FOR_ENTITY_QUERY, {
+                datasetId: 're3d',
+                entityId: entityId
+            }).then((value: ApolloQueryResult<Response>) => {
+                this.addToGraph(this.state.graph.nodes, this.state.graph.edges, value.data)
+            })
+        } else if (node.type === 'Entity') {
+            const entityId = node.id
+            this.context.pluginApi.query(GET_RELATIONS_FOR_ENTITY_QUERY, {
+                datasetId: 're3d',
+                entityId: entityId
+            }).then((value: ApolloQueryResult<Response>) => {
+                this.addToGraph(this.state.graph.nodes, this.state.graph.edges, value.data)
+            })
+        } else {
+            console.log('Can\'t expand that yet')
+            // TODO: Expand at the Document level
+        }
+    }
+
+    render() {
+        return (
+            <Container>
+                <div style={{ height: '700px' }}>
+                    <SigmaGraph
+                        graph={this.state.graph}
+                        onNodeExpand={this.handleNodeExpand}
+                    />
+                </div>
+                {/* TODO THis is generated from the edges which is a bit strange as it 
+                makes it very bespoke to this, when we already have an edges table */}
+                <Table>
+                    <Table.Header>
+                        <Table.HeaderCell>From</Table.HeaderCell>
+                        <Table.HeaderCell>Relation</Table.HeaderCell>
+                        <Table.HeaderCell>To</Table.HeaderCell>
+                    </Table.Header>
+                    <Table.Body>
+                        {this.state.graph.edges.map(e => {
+                            const from = this.findNode(this.state.graph.nodes, e.source)
+                            const to = this.findNode(this.state.graph.nodes, e.target)
+                            return <Table.Row key={e.id}>
+                                <Table.Cell>{from == null ? 'Unknown' : `${from.label} [${from.type}]`}</Table.Cell>
+                                <Table.Cell>{e.label}</Table.Cell>
+                                <Table.Cell>{to == null ? 'Unknown' : `${to.label} [${to.type}]`}</Table.Cell>
+                            </Table.Row>
+                        })}
+                    </Table.Body>
+                </Table>
+            </Container>
+
+        )
+    }
+
+    // All these should be helpers
+
+    createGraph(data: Response) {
         const nodes: SigmaJs.Node[] = []
         const edges: SigmaJs.Edge[] = []
+
+        this.addToGraph(nodes, edges, data)
+    }
+
+    addToGraph(nodes: SigmaJs.Node[], edges: SigmaJs.Edge[], data: Response) {
 
         // TODO: Would like to add some control over this... how everthing is turn into a graph...
         // but currently we'll render a very default view
@@ -50,116 +145,114 @@ class RelationView extends React.Component<Props, State> {
 
         const entity = data.corpus.entity
 
-        const documentNode = this.createDocumentNode(nodes, entity.docId)
-        nodes.push(documentNode)
+        const documentNode = this.addDocumentNode(nodes, entity.docId)
 
-        const entityNode = this.createEntityNode(nodes, entity.id, entity.type, entity.longestValue)
-        nodes.push(entityNode)
+        const entityNode = this.addEntityNode(nodes, entity.id, entity.type, entity.longestValue)
 
-        edges.push(this.createEdge(edges, documentNode, entityNode, 'contains'))
+        this.addEdge(edges, documentNode, entityNode, 'contains')
 
         entity.mentions.forEach(m => {
 
-            const mentionNode = this.createMentionNode(nodes, m.id, m.type, m.value)
-            nodes.push(mentionNode)
+            const mentionNode = this.addMentionNode(nodes, m.id, m.type, m.value, entity.id)
 
             // Mention to entity
-            edges.push(this.createEdge(edges, entityNode, mentionNode, 'refers'))
+            this.addEdge(edges, entityNode, mentionNode, 'refers')
 
             // Mention to related mention
 
             m.sourceOf.forEach(r => {
-                const s = this.createMentionNode(nodes, r.target.id, r.target.type, r.target.value)
-                nodes.push(s)
+                const s = this.addMentionNode(nodes, r.target.id, r.target.type, r.target.value, r.target.entityId)
 
-                edges.push(this.createEdge(edges, mentionNode, s, r.relationshipType))
+                this.addEdge(edges, mentionNode, s, r.relationshipType)
             })
 
             m.targetOf.forEach(r => {
-                const s = this.createMentionNode(nodes, r.source.id, r.source.type, r.source.value)
-                nodes.push(s)
+                const s = this.addMentionNode(nodes, r.source.id, r.source.type, r.source.value, r.source.entityId)
 
-                edges.push(this.createEdge(edges, s, mentionNode, r.relationshipType))
+                this.addEdge(edges, s, mentionNode, r.relationshipType)
             })
 
         })
 
         const graph = {
-            nodes: nodes.map(n => Object.assign({ x: 0, y: 0, size: 15 }, n))
-
-            ,
+            nodes: nodes,
             edges: edges
         }
 
         this.setState({
             graph: graph
         })
-
-        console.log(graph)
     }
 
     findNode(nodes: SigmaJs.Node[], id: string): SigmaJs.Node | undefined {
-        const found = nodes.find(n => n.id === id)
-        return found
+        return nodes.find(n => n.id === id)
     }
 
     findEdge(edges: SigmaJs.Edge[], id: string): SigmaJs.Edge | undefined {
-        const found = edges.find(e => e.id === id)
-        return found
+        return edges.find(e => e.id === id)
     }
 
-    createDocumentNode(nodes: SigmaJs.Node[], documentId: string): SigmaJs.Node {
-        const n = this.findNode(nodes, documentId)
+    addDocumentNode(nodes: SigmaJs.Node[], documentId: string): SigmaJs.Node {
+        let n = this.findNode(nodes, documentId)
         if (n != null) {
             return n
         }
 
-        return {
+        n = {
             id: documentId,
             label: documentId,
-            kind: 'Document',
+            type: 'Document',
             color: '#0000ff'
 
         }
+        nodes.push(n)
+        return n
     }
 
-    createEntityNode(nodes: SigmaJs.Node[], entityId: string, type: string, value: string): SigmaJs.Node {
-        const n = this.findNode(nodes, entityId)
+    addEntityNode(nodes: SigmaJs.Node[], entityId: string, type: string, value: string): SigmaJs.Node {
+        let n = this.findNode(nodes, entityId)
         if (n != null) {
             return n
         }
 
-        return {
+        n = {
             id: entityId,
-            kind: 'Entity',
-            type: type,
+            type: 'Entity',
+            entityType: type,
             label: value,
             color: '#00ff00'
         }
+        nodes.push(n)
+        return n
     }
 
-    createMentionNode(nodes: SigmaJs.Node[], mentionId: string, type: string, value: string): SigmaJs.Node {
-        const n = this.findNode(nodes, mentionId)
+    addMentionNode(
+        nodes: SigmaJs.Node[], mentionId: string, type: string, value: string, entityId: string): SigmaJs.Node {
+        let n = this.findNode(nodes, mentionId)
         if (n != null) {
             return n
         }
 
-        return {
+        n = {
             id: mentionId,
-            kind: 'Mention',
-            type: type,
+            type: 'Mention',
+            mentionType: type,
+            entityId: entityId,
             label: value,
             color: '#ff0000'
         }
+        nodes.push(n)
+        return n
+
     }
 
-    createEdge(edges: SigmaJs.Edge[], from: SigmaJs.Node, to: SigmaJs.Node, type: string): SigmaJs.Edge {
+    addEdge(edges: SigmaJs.Edge[], from: SigmaJs.Node, to: SigmaJs.Node, type: string): SigmaJs.Edge {
         const id = `e-${from.id}-${to.id}`
-        const e = this.findEdge(edges, id)
+        let e = this.findEdge(edges, id)
         if (e != null) {
             return e
         }
-        return {
+        e = {
             id: id,
             kind: 'Edge',
             label: type,
@@ -168,28 +261,8 @@ class RelationView extends React.Component<Props, State> {
             target: to.id
 
         }
-    }
-
-    render() {
-        return (
-            <SigmaGraph
-                graph={this.state.graph}
-                onNodeExpand={(node: SigmaJs.Node, helper: GraphHelper) => {
-                    const newNodeId = `n-${node.id}-${Math.random()}`
-                    helper.addNode({
-                        id: newNodeId,
-                        label: newNodeId
-                    })
-                    helper.addEdge({
-                        id: newNodeId,
-                        source: node.id,
-                        target: newNodeId,
-                    })
-                    helper.refresh()
-                    helper.layout()
-                }}
-            />
-        )
+        edges.push(e)
+        return e
     }
 
 }

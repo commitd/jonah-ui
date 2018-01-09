@@ -1,7 +1,8 @@
 import * as React from 'react'
 import { Sigma, Graph } from 'react-sigma'
+import SigmaGraphExpander from './SigmaGraphExpander'
+import { GraphHelper } from './GraphHelper'
 // import { Sigma, RandomizeNodePositions, RelativeSize, Graph,  } from 'react-sigma'
-import SigmaGraphExpander, { GraphHelper } from './SigmaGraphExpander'
 // import SigmaDragNodes from './SigmaDragNodes'
 import ReactGraph, { Node, Edge } from './Graph'
 
