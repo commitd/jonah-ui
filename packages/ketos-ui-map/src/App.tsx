@@ -1,29 +1,71 @@
 import * as React from 'react'
 import { ChildProps } from 'invest-plugin'
-import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
+import DataContainer from './DataContainer'
+import Results from './Results'
+import { Container, Form, InputOnChangeData } from 'semantic-ui-react'
+import { DatasetSelector } from 'invest-components'
 
 type OwnProps = {}
 
 type Props = OwnProps & ChildProps
 
-class App extends React.Component<Props> {
+type State = {
+  datasetId?: string,
+  query?: string,
+  offset: number,
+  limit: number
+
+  submittedQuery?: string
+}
+
+class App extends React.Component<Props, State> {
+
+  state: State = {
+    datasetId: 're3d',
+    query: 'France',
+    offset: 0,
+    limit: 100
+  }
+
+  handleDatasetSelected = (datasetId: string) => {
+    this.setState({
+      datasetId: datasetId
+    })
+  }
+
+  handleFormChange = (event: React.SyntheticEvent<HTMLInputElement>, data: InputOnChangeData) => {
+    this.setState({
+      [data.name]: data.value
+    })
+  }
+
+  handleSubmit = () => {
+    this.setState((state) => ({
+      submittedQuery: state.query
+    }))
+  }
 
   render() {
-    const position = { lat: 51.897806, lng: -2.071795 }
+    const { datasetId, submittedQuery, offset, limit } = this.state
 
-    const attribution = '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
     return (
-      <Map center={position} zoom={13}>
-        <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution={attribution}
-        />
-        <Marker position={position}>
-          <Popup>
-            <span>Committed</span>
-          </Popup>
-        </Marker>
-      </Map>)
+      <Container>
+        <DatasetSelector selectedDataset={datasetId} onDatasetSelected={this.handleDatasetSelected} />
+
+        <Form onSubmit={this.handleSubmit} >
+          <Form.Input name="query" placeholder="Document search query" onChange={this.handleFormChange} />
+        </Form>
+
+        {
+          datasetId != null && submittedQuery != null && <DataContainer
+            variables={{ datasetId, query: submittedQuery, offset, limit }}
+          >
+            <Results />
+          </DataContainer>
+        }
+
+      </Container >
+    )
   }
 }
 
