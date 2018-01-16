@@ -13,10 +13,10 @@ type Props = OwnProps & ChildProps
 
 type State = {
   datasetId?: string,
-  fromType?: string,
-  fromValue?: string,
-  toType?: string,
-  toValue?: string,
+  sourceType?: string,
+  sourceValue?: string,
+  targetType?: string,
+  targetValue?: string,
   relationshipType?: string
 }
 
@@ -46,20 +46,20 @@ class App extends React.Component<Props, State> {
 
   render() {
 
-    const { datasetId, fromValue, fromType, relationshipType, toValue, toType } = this.state
+    const { datasetId, sourceValue, sourceType, relationshipType, targetType, targetValue } = this.state
 
     return (
       <Container>
         <DatasetSelector selectedDataset={datasetId} onDatasetSelected={this.handleDatasetSelected} />
         <Form>
           <Form.Input
-            name="fromValue"
+            name="sourceValue"
             label="From Entity"
             placeholder="Value for entity"
             onChange={this.handleFormChange}
           />
           <Form.Input
-            name="fromType"
+            name="sourceType"
             label="of type"
             placeholder="Type (optional)"
           />
@@ -70,16 +70,20 @@ class App extends React.Component<Props, State> {
             onChange={this.handleFormChange}
           />
           <Form.Input
-            name="toValue"
+            name="targetValue"
             label="To Entity"
             placeholder="Value for entity"
             onChange={this.handleFormChange}
           />
-          <Form.Input name="toType" label="of Type" placeholder="Type (optional)" />
+          <Form.Input name="targetType" label="of Type" placeholder="Type (optional)" />
         </Form>
         {datasetId != null
-          && (fromValue != null || fromType != null || relationshipType != null || toValue != null || toType != null) &&
-          < DataContainer variables={{ datasetId, fromValue, fromType, relationshipType, toValue, toType }} >
+          && (sourceValue != null || sourceType != null ||
+            relationshipType != null ||
+            targetValue != null || targetType != null) &&
+          < DataContainer
+            variables={{ datasetId, sourceValue, sourceType, relationshipType, targetType, targetValue }}
+          >
             <Results />
           </DataContainer>
         }

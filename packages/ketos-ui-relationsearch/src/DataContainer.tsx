@@ -4,10 +4,10 @@ import { createDataContainer } from 'ketos-components'
 
 type Variables = {
     datasetId: string
-    fromType?: string,
-    fromValue?: string,
-    toType?: string,
-    toValue?: string,
+    sourceType?: string,
+    sourceValue?: string,
+    targetType?: string,
+    targetValue?: string,
     relationshipType?: string,
     relationshipSubType?: string
 
