@@ -62,6 +62,7 @@ class App extends React.Component<Props, State> {
             name="sourceType"
             label="of type"
             placeholder="Type (optional)"
+            onChange={this.handleFormChange}
           />
           <Form.Input
             name="relationshipType"
@@ -75,7 +76,12 @@ class App extends React.Component<Props, State> {
             placeholder="Value for entity"
             onChange={this.handleFormChange}
           />
-          <Form.Input name="targetType" label="of Type" placeholder="Type (optional)" />
+          <Form.Input
+            name="targetType"
+            label="of Type"
+            placeholder="Type (optional)"
+            onChange={this.handleFormChange}
+          />
         </Form>
         {datasetId != null
           && (sourceValue != null || sourceType != null ||

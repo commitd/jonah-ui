@@ -45,12 +45,14 @@ query findRelation($datasetId: String!,
       $targetValue: String) {
     corpus(id: $datasetId) {
     relations(
-      relationshipType:$relationshipType,
-      relationshipSubType:$relationshipSubType,
-      targetValue:$targetValue,
-      targetType:$targetType,
-      sourceType:$sourceType,
-      sourceValue:$sourceValue,
+      probe:{
+        relationshipType:$relationshipType,
+        relationSubtype:$relationshipSubType,
+        targetValue:$targetValue,
+        targetType:$targetType,
+        sourceType:$sourceType,
+        sourceValue:$sourceValue
+      }
     ) {
       id
       relationshipType
