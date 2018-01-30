@@ -11,23 +11,22 @@ class Results extends React.Component<Props> {
 
         const { data } = this.props
 
-        if (!data || !data.corpus.entities || data.corpus.entities.length === 0) {
+        if (!data || !data.corpus || !data.corpus.mentions || data.corpus.mentions.length === 0) {
             return <p>No results found</p>
         }
 
-        const entities = data.corpus.entities
+        const mentions = data.corpus.mentions
 
         return (
             <Segment>
                 {
-                    entities.map(e => {
+                    mentions.map(e => {
                         return <Card
                             key={e.id}
                             fluid={true}
-                            header={e.longestValue}
+                            header={e.value}
                             meta={e.type}
-                            description={e.values.join('; ')}
-                            extra={<span>{e.document.title}: {e.document.summary}</span>}
+                            extra={e.document && <span>{e.document.title}: {e.document.summary}</span>}
                         />
                     })
                 }

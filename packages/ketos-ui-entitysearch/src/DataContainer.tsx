@@ -10,12 +10,12 @@ type Variables = {
 
 export type Response = {
     corpus: {
-        entities: {
+        mentions: {
             id: string
             type: string
-            values: string[]
-            longestValue: string
-            document: {
+            value: string
+            entityId: string
+            document?: {
                 id: string
                 title: string
                 summary: string
@@ -25,13 +25,13 @@ export type Response = {
 }
 
 const QUERY = gql`
-query GetEntityView($datasetId: String!, $value: String!, $type: String) {
+query GetEntityView($datasetId: String!, $value: String, $type: String) {
     corpus(id: $datasetId) {
-      entities(type: $type, value:$value) {
+      mentions(probe:{type: $type, value:$value}) {
         id
         type 
-        values
-        longestValue
+        value
+        entityId
         document {
             id
             title

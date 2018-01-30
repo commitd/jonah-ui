@@ -13,15 +13,15 @@ type Props = OwnProps & ChildProps
 
 type State = {
   datasetId?: string,
-  type: string,
-  value: string
+  type?: string,
+  value?: string
 }
 
 class App extends React.Component<Props, State> {
 
   state: State = {
-    type: '',
-    value: ''
+    type: undefined,
+    value: undefined
   }
 
   componentWillReceiveProps(nextProps: Props) {
@@ -38,7 +38,7 @@ class App extends React.Component<Props, State> {
 
   handleFormChange = (event: React.SyntheticEvent<HTMLInputElement>, data: InputOnChangeData) => {
     this.setState({
-      [data.name]: data.value
+      [data.name]: data.value !== '' ? data.value : null
     })
   }
 
@@ -49,8 +49,8 @@ class App extends React.Component<Props, State> {
       <Container>
         <DatasetSelector selectedDataset={datasetId} onDatasetSelected={this.handleDatasetSelected} />
         <Form>
-          <Form.Input name="value" label="Entity" placeholder="Value for entity" onChange={this.handleFormChange} />
-          <Form.Input name="type" label="Type" placeholder="Type (optional)" />
+          <Form.Input name="value" label="Value" placeholder="Value" onChange={this.handleFormChange} />
+          <Form.Input name="type" label="Type" placeholder="Type" onChange={this.handleFormChange} />
         </Form>
         {datasetId != null && value != null &&
           < DataContainer variables={{ datasetId, type, value }} >
