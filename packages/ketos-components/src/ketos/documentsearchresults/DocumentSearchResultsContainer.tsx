@@ -9,8 +9,7 @@ export interface OwnProps {
     query: string,
     offset: number,
     size: number,
-    onOffsetChange(offset: number): void,
-    onDocumentSelect?(datasetId: string, documentId: string): void
+    onOffsetChange(offset: number): void
 }
 
 interface Response {
@@ -18,7 +17,7 @@ interface Response {
         id: string
         searchDocuments: {
             hits: {
-                totalCount: number
+                total?: number
                 results: {
                     id: string
                     length: number
@@ -52,20 +51,14 @@ const container = (props: Props) => {
 
     const hits = data.corpus.searchDocuments.hits
 
-    const handleDocumentSelect = (document: DocumentResult) => {
-        if (props.onDocumentSelect) {
-            props.onDocumentSelect(datasetId, document.id)
-        }
-    }
-
     return (
         <DocumentSearchResults
+            datasetId={datasetId}
             offset={offset}
             size={size}
             onOffsetChange={onOffsetChange}
-            totalResults={hits.totalCount}
+            total={hits.total}
             results={data.corpus.searchDocuments.hits.results}
-            onDocumentSelect={handleDocumentSelect}
         />
     )
 }
@@ -75,7 +68,7 @@ query search($datasetId: String!, $query: String!, $offset: Int, $size: Int) {
   corpus(id: $datasetId) {
     searchDocuments(query: { content: $query }) {
         hits(offset: $offset, size: $size) {
-            totalCount
+            total
             results {
               id
               length

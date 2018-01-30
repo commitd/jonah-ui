@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Label, Icon, Item } from 'semantic-ui-react'
+import { ActionDropdown } from 'invest-components'
 
 export interface DocumentResult {
     id: string
@@ -16,17 +17,19 @@ export interface DocumentResult {
 }
 
 export type Props = {
+    datasetId: string,
     document: DocumentResult,
-    onDocumentSelect?(document: DocumentResult): void
 }
 
 class DocumentSearchResult extends React.Component<Props> {
 
-    handleDocumentSelect = () => {
-        if (this.props.onDocumentSelect) {
-            this.props.onDocumentSelect(this.props.document)
-        }
+    handleAction = (act: (payload?: {}) => void) => {
+        act({
+            datasetId: this.props.datasetId,
+            documentId: this.props.document.id
+        })
     }
+
     render() {
         const { document } = this.props
         const { id, length, title, summary, info } = document
@@ -35,7 +38,9 @@ class DocumentSearchResult extends React.Component<Props> {
                 {/* TODO: By doctype or something?
                  <Item.Image size='tiny' src='/assets/images/wireframe/image.png' /> */}
                 <Item.Content>
-                    <Item.Header as="a" onClick={this.handleDocumentSelect}>{title}</Item.Header>
+                    <Item.Header>
+                        {title}
+                    </Item.Header>
                     <Item.Meta><small>id: {id} | {length} bytes </small></Item.Meta>
                     <Item.Description>
                         {summary}
@@ -45,9 +50,10 @@ class DocumentSearchResult extends React.Component<Props> {
                         <Label><Icon name="file outline" />Type: {info.type}</Label>
                         <Label><Icon name="talk outline" />Language: {info.language}</Label>
                         <Label><Icon name="lock" />Classification: {info.classification}</Label>
+                        <ActionDropdown text="View" action="document.view" onSelect={this.handleAction} />
                     </Item.Extra>
                 </Item.Content>
-            </Item>
+            </Item >
         )
     }
 }
