@@ -11,9 +11,10 @@ interface Response {
         id: string
         name: string
         description: string
-        entityCount: number
-        documentCount: number
-        relationCount: number
+        entities?: number
+        documents?: number
+        relations?: number
+        mentions?: number
     }[]
 }
 
@@ -43,9 +44,10 @@ query Corpora {
     id
     name
     description
-    entityCount
-    documentCount
-    relationCount
+    entities: countEntities
+    documents: countDocuments
+    relations: countRelations
+    mentions: countMentions
   }
 }
 `

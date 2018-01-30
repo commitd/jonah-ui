@@ -73,8 +73,8 @@ const container = (props: Props) => {
 const DOCUMENT_SEARCH_QUERY = gql`
 query search($datasetId: String!, $query: String!, $offset: Int, $size: Int) {
   corpus(id: $datasetId) {
-    searchDocuments(search: $query, offset: $offset, size: $size) {
-        hits {
+    searchDocuments(query: { content: $query }) {
+        hits(offset: $offset, size: $size) {
             totalCount
             results {
               id

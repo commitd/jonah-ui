@@ -7,9 +7,10 @@ type OwnProps = {
         id: string
         name: string
         description: string
-        entityCount: number
-        documentCount: number
-        relationCount: number
+        entities?: number
+        documents?: number
+        relations?: number
+        mentions?: number
     }[]
 }
 
@@ -38,6 +39,7 @@ class View extends React.Component<Props> {
                         <Table.HeaderCell>Name</Table.HeaderCell>
                         <Table.HeaderCell>Description</Table.HeaderCell>
                         <Table.HeaderCell textAlign="right">Documents</Table.HeaderCell>
+                        <Table.HeaderCell textAlign="right">Mentions</Table.HeaderCell>
                         <Table.HeaderCell textAlign="right">Entities</Table.HeaderCell>
                         <Table.HeaderCell textAlign="right">Relations</Table.HeaderCell>
                         <Table.HeaderCell textAlign="right">Actions</Table.HeaderCell>
@@ -48,9 +50,10 @@ class View extends React.Component<Props> {
                         <Table.Cell>{d.id}</Table.Cell>
                         <Table.Cell>{d.name}</Table.Cell>
                         <Table.Cell>{d.description}</Table.Cell>
-                        <Table.Cell textAlign="right">{d.documentCount}</Table.Cell>
-                        <Table.Cell textAlign="right">{d.entityCount}</Table.Cell>
-                        <Table.Cell textAlign="right">{d.relationCount}</Table.Cell>
+                        <Table.Cell textAlign="right">{d.documents != null ? d.documents : 'NA'}</Table.Cell>
+                        <Table.Cell textAlign="right">{d.mentions != null ? d.mentions : 'NA'}</Table.Cell>
+                        <Table.Cell textAlign="right">{d.entities != null ? d.entities : 'NA'}</Table.Cell>
+                        <Table.Cell textAlign="right">{d.relations != null ? d.relations : 'NA'}</Table.Cell>
                         <Table.Cell textAlign="right">
                             <ActionDropdown text="View" action="corpus.view" onSelect={this.handleAction(d.id)} />
                         </Table.Cell>
