@@ -31,8 +31,8 @@ export type Response = {
 const QUERY = gql`
 query searchForLocation($datasetId: String!, $query: String!, $offset: Int, $limit: Int) {
     corpus(id: $datasetId) {
-      searchDocuments(search: $query, size:$limit, offset:$offset) {
-        hits {
+      searchDocuments(query: {content:$query}, ) {
+        hits(size:$limit, offset:$offset) {
           results {
             id
             summary
