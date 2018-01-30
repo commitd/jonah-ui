@@ -25,11 +25,11 @@
     "build-storybook": "build-storybook"
   },
   "devDependencies": {
-    "@types/graphql": "^0.11.7",
     "@storybook/addon-info": "^3.2.14",
     "@storybook/addon-knobs": "^3.2.14",
     "@storybook/addon-storyshots": "^3.2.14",
     "@storybook/react": "^3.2.14",
+    "@types/graphql": "^0.11.7",
     "@types/jest": "^21.1.5",
     "@types/leaflet": "^1.2.2",
     "@types/loglevel": "^1.5.3",
