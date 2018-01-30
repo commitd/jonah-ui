@@ -17,11 +17,12 @@ type OwnProps = {
     numDocuments?: number,
     numEntities?: number,
     numRelations?: number,
+    numMentions?: number,
     numEvents?: number,
     documentTypes?: TermCount[],
     documentLanguages?: TermCount[],
     documentClassifications?: TermCount[],
-    entityTypes?: TermCount[],
+    mentionTypes?: TermCount[],
     documentTimeline?: TimeCount[],
 }
 
@@ -45,16 +46,19 @@ class View extends React.Component<Props> {
 
     render() {
 
-        const { numDocuments, numEntities, numRelations,
+        const { numDocuments, numMentions, numEntities, numRelations,
             documentClassifications, documentLanguages,
-            numEvents, documentTypes, entityTypes, documentTimeline } = this.props
+            numEvents, documentTypes, mentionTypes, documentTimeline } = this.props
 
         return (
             <div >
                 <Grid>
-                    <Grid.Row columns={4}>
+                    <Grid.Row columns={5}>
                         {numDocuments != null && <Grid.Column>
                             <Counter value={numDocuments || 0} singular="document" plural="documents" />
+                        </Grid.Column>}
+                        {numMentions != null && <Grid.Column>
+                            <Counter value={numMentions || 0} singular="mention" plural="mentions" />
                         </Grid.Column>}
                         {numEntities != null && <Grid.Column>
                             <Counter value={numEntities || 0} singular="entity" plural="entities" />
@@ -90,12 +94,12 @@ class View extends React.Component<Props> {
                     </Grid.Column>}
                 </Grid.Row>
                 </Grid>
-                {entityTypes && <Grid><Grid.Row columns={1}><Grid.Column>
+                {mentionTypes && <Grid><Grid.Row columns={1}><Grid.Column>
                     <Card
-                        title="Entity types"
-                        subTitle={`${entityTypes.length} entity types within the corpus`}
+                        title="Mention types"
+                        subTitle={`${mentionTypes.length} mention types within the corpus`}
                     >
-                        <BarChart data={typeCountToXY(entityTypes)} />
+                        <BarChart data={typeCountToXY(mentionTypes)} />
                     </Card>
                 </Grid.Column></Grid.Row></Grid>}
 

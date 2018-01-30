@@ -13,9 +13,10 @@ interface Response {
     corpus: {
         id: string
         name: string
-        documentCount: number
-        entityCount: number
-        relationCount: number
+        countDocuments?: number
+        countEntities?: number
+        countMentions?: number
+        countRelations?: number
         documentTypes: {
             bins: {
                 count: number
@@ -34,7 +35,7 @@ interface Response {
                 term: string
             }[]
         }
-        entityTypes: {
+        mentionTypes: {
             bins: {
                 count: number
                 term: string
@@ -64,13 +65,14 @@ const container = (props: Props) => {
 
     return (
         <View
-            numDocuments={data.corpus.documentCount}
-            numEntities={data.corpus.entityCount}
-            numRelations={data.corpus.relationCount}
+            numDocuments={data.corpus.countDocuments}
+            numMentions={data.corpus.countMentions}
+            numEntities={data.corpus.countEntities}
+            numRelations={data.corpus.countRelations}
             documentTypes={data.corpus.documentTypes.bins}
             documentLanguages={data.corpus.documentLanguages.bins}
             documentClassifications={data.corpus.documentClassifications.bins}
-            entityTypes={data.corpus.entityTypes.bins}
+            mentionTypes={data.corpus.mentionTypes.bins}
             documentTimeline={data.corpus.documentTimeline.bins.map(b => ({ ts: Date.parse(b.ts), count: b.count }))}
         />
     )
@@ -81,34 +83,34 @@ query CorpusInfo($datasetId: String!)  {
   corpus(id:$datasetId) {
     id
     name
-    documentCount
-    entityCount
-    relationCount
-    documentTypes {
+    countDocuments
+    countEntities
+    countRelations
+    documentTypes: countByDocumentField(field:"info.type") {
         bins {
             count
             term
         }
     }
-    documentLanguages {
+    documentLanguages: countByDocumentField(field:"info.language") {
         bins {
             count
             term
         }
     }
-    documentClassifications {
+    documentClassifications: countByDocumentField(field:"info.classification")  {
         bins {
             count
             term
         }
     }
-    entityTypes {
+    mentionTypes: countByMentionField(field:"type")  {
         bins {
             count
             term
         }
     }
-    documentTimeline {
+    documentTimeline: documentTimeline {
         bins {
             ts
             count

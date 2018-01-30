@@ -19,7 +19,7 @@ const documentTypes = [
     },
 ]
 
-const entityTypes = [
+const mentionTypes = [
     {
         term: 'people',
         count: 233
@@ -58,6 +58,6 @@ storiesOf('View', module)
             numEvents={42}
             numRelations={12331}
             documentTypes={documentTypes}
-            entityTypes={entityTypes}
+            mentionTypes={mentionTypes}
             documentTimeline={documentTimeline}
         />))
