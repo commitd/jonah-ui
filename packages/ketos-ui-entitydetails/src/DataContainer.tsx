@@ -9,7 +9,7 @@ type Variables = {
 
 export type Response = {
   corpus: {
-    entity: {
+    entity?: {
       id: string,
       type: string,
       longestValue: string,
@@ -60,6 +60,7 @@ query GetEntityView($datasetId: String!, $entityId: ID) {
         type
         longestValue
         mentions {
+          id
           begin
           end
           type

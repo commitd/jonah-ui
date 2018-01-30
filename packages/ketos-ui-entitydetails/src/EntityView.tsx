@@ -22,6 +22,10 @@ class EntityView extends React.Component<Props> {
 
         const entity = data.corpus.entity
 
+        if (entity == null) {
+            return <p>Not found</p>
+        }
+
         return (
             <div>
                 <Header as="h1">{entity.type} Entity: {entity.longestValue}</Header>
