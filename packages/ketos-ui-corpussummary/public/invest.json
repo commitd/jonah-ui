@@ -1,0 +1,14 @@
+{
+    "id": "ketos-ui-corpussummary",
+    "name": "Summarise corpus",
+    "description": "Overview of corpus content",
+    "icon": "line chart",
+    "roles": [],
+    "actions": [
+        {
+            "title": "Summary",
+            "description": "Corpus summary",
+            "action": "corpus.view"
+        }
+    ]
+}

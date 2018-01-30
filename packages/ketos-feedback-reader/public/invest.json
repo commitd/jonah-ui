@@ -1,0 +1,10 @@
+{
+    "id": "ketos-ui-feedback-reader",
+    "name": "Read feedback",
+    "description": "Read feedback from users",
+    "icon": "comments",
+    "roles": [
+        "ADMIN"
+    ],
+    "actions": []
+}

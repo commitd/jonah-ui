@@ -1,0 +1,14 @@
+{
+    "id": "ketos-ui-documentreader",
+    "name": "Read document",
+    "description": "View documents and metadata",
+    "icon": "file text outline",
+    "roles": [],
+    "actions": [
+        {
+            "title": "Read",
+            "description": "View document and metadata",
+            "action": "document.view"
+        }
+    ]
+}

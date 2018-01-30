@@ -1,0 +1,19 @@
+{
+    "id": "ketos-ui-documentsearch",
+    "name": "Search document",
+    "description": "Find documents by content",
+    "icon": "search",
+    "roles": [],
+    "actions": [
+        {
+            "title": "Search",
+            "description": "Search for documents",
+            "action": "document.search"
+        },
+        {
+            "title": "Search",
+            "description": "Explore by search",
+            "action": "corpus.view"
+        }
+    ]
+}

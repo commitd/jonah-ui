@@ -1,0 +1,14 @@
+{
+    "id": "ketos-ui-entitydetails",
+    "name": "Entity details",
+    "description": "View entity information",
+    "icon": "user",
+    "roles": [],
+    "actions": [
+        {
+            "title": "Details",
+            "description": "View details of entity",
+            "action": "entity.view"
+        }
+    ]
+}

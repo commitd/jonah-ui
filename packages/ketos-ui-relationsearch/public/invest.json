@@ -1,4 +1,14 @@
 {
- "id": "ketos-ui-relationsearch",
- "name": "Relationship search"
+    "id": "ketos-ui-relationsearch",
+    "name": "Relationship search",
+    "description": "Find relations",
+    "icon": "search",
+    "roles": [],
+    "actions": [
+        {
+            "title": "Search",
+            "description": "Find relations",
+            "action": "relations.search"
+        }
+    ]
 }

@@ -1,0 +1,8 @@
+{
+    "id": "ketos-ui-corpuslist",
+    "name": "Corpora",
+    "description": "List available corpora",
+    "icon": "book",
+    "roles": [],
+    "actions": []
+}

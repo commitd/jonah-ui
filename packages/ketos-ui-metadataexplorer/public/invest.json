@@ -1,0 +1,14 @@
+{
+    "id": "ketos-ui-metadata",
+    "name": "Metadata",
+    "description": "Explore metadata available in the corpus",
+    "icon": "browser",
+    "roles": [],
+    "actions": [
+        {
+            "title": "Metadata",
+            "description": "Overview of corpus metadata",
+            "action": "corpus.view"
+        }
+    ]
+}

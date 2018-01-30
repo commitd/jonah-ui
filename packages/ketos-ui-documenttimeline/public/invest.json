@@ -1,0 +1,14 @@
+{
+    "id": "ketos-ui-documenttimeline",
+    "name": "Document timeline",
+    "description": "Explore documents by time",
+    "icon": "time",
+    "roles": [],
+    "actions": [
+        {
+            "title": "Timeline",
+            "description": "View document on timeline",
+            "action": "document.search"
+        }
+    ]
+}

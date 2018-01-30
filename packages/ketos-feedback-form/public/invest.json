@@ -1,0 +1,8 @@
+{
+    "id": "ketos-ui-feedback-form",
+    "name": "Feedback",
+    "description": "Leave comments on existing functions or request new features",
+    "icon": "send",
+    "roles": [],
+    "actions": []
+}
