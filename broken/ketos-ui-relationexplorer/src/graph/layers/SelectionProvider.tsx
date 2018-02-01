@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Event } from 'react-sigma'
+import { SigmaClickNodeEvent, SigmaClickEdgeEvent } from '../Events'
 
 type SigmaProps = {
     sigma?: SigmaJs.Sigma
@@ -22,13 +22,13 @@ class SigmaSelectionProvider extends React.Component<SigmaProps> {
     }
 
     update = (sigma: SigmaJs.Sigma) => {
-        sigma.bind('nodeClick', (e: Event) => {
+        sigma.bind('clickNode', (e: SigmaClickNodeEvent) => {
             if (e.data.node != null && this.props.onNodeSelected) {
                 this.props.onNodeSelected(e.data.node)
             }
         })
 
-        sigma.bind('clickEdge', (e: Event) => {
+        sigma.bind('clickEdge', (e: SigmaClickEdgeEvent) => {
             if (e.data.edge != null && this.props.onEdgeSelected) {
                 this.props.onEdgeSelected(e.data.edge)
             }

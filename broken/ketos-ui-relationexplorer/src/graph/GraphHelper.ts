@@ -4,9 +4,18 @@ export interface GraphHelper {
 
     addEdge(e: SigmaJs.Edge): void
 
+    dropNode(n: SigmaJs.Node): void
+
+    dropEdge(e: SigmaJs.Edge): void
+
     refresh(): void
 
     layout(timeout?: number): void
+
+    nodes(): SigmaJs.Node[]
+
+    edges(): SigmaJs.Node[]
+
 }
 
 export class SigmaGraphHelper implements GraphHelper {
@@ -32,8 +41,23 @@ export class SigmaGraphHelper implements GraphHelper {
     }
 
     addEdge = (e: SigmaJs.Edge) => {
+        if (e.size == null) {
+            e.size = 1
+        }
         this.graph.addEdge(e)
     }
+
+    dropNode = (n: SigmaJs.Node) => {
+        this.graph.dropNode(n.id)
+    }
+
+    dropEdge = (e: SigmaJs.Edge) => {
+        this.graph.dropEdge(e.id)
+    }
+
+    nodes = () => this.graph.nodes()
+
+    edges = () => this.graph.edges()
 
     refresh = () => {
         this.sigma.refresh()

@@ -1,9 +1,8 @@
 import * as React from 'react'
 import * as PropTypes from 'prop-types'
 import { Table, Container } from 'semantic-ui-react'
-import SigmaGraph from './components/SigmaGraph'
-import { GraphHelper } from './components/GraphHelper'
-import { Graph } from 'react-sigma'
+import SimpleGraph from './graph/SimpleGraph'
+import { GraphHelper } from './graph/GraphHelper'
 import { Context as PluginContext } from 'invest-plugin'
 import { GET_RELATIONS_FOR_ENTITY_QUERY } from './DataContainer'
 import { Response } from './DataContainer'
@@ -14,13 +13,8 @@ type Props = {
 }
 
 type State = {
-    graph: Graph
+    graph: SigmaJs.GraphData
 }
-
-// graph: {
-//     nodes: [{ id: 'n1', label: 'Alice' }, { id: 'n2', label: 'Rabbit' }],
-//     edges: [{ id: 'e1', source: 'n1', target: 'n2', label: 'SEES' }]
-//   }
 
 type MentionNode = SigmaJs.Node & {
     entityId: string
@@ -38,8 +32,8 @@ class RelationView extends React.Component<Props, State> {
 
     state: State = {
         graph: {
-            nodes: [],
-            edges: []
+            edges: [],
+            nodes: []
         }
     }
 
@@ -66,8 +60,8 @@ class RelationView extends React.Component<Props, State> {
             source: node.id,
             target: newNodeId,
         })
-        helper.refresh()
-        helper.layout()
+        // helper.refresh()
+        // helper.layout()
     }
 
     handleNodeExpand = (node: SigmaJs.Node, helper: GraphHelper) => {
@@ -97,7 +91,7 @@ class RelationView extends React.Component<Props, State> {
         return (
             <Container>
                 <div style={{ height: '700px' }}>
-                    <SigmaGraph
+                    <SimpleGraph
                         graph={this.state.graph}
                         onNodeExpand={this.handleNodeExpand}
                     />
@@ -106,9 +100,11 @@ class RelationView extends React.Component<Props, State> {
                 makes it very bespoke to this, when we already have an edges table */}
                 <Table>
                     <Table.Header>
-                        <Table.HeaderCell>From</Table.HeaderCell>
-                        <Table.HeaderCell>Relation</Table.HeaderCell>
-                        <Table.HeaderCell>To</Table.HeaderCell>
+                        <Table.Row>
+                            <Table.HeaderCell>From</Table.HeaderCell>
+                            <Table.HeaderCell>Relation</Table.HeaderCell>
+                            <Table.HeaderCell>To</Table.HeaderCell>
+                        </Table.Row>
                     </Table.Header>
                     <Table.Body>
                         {this.state.graph.edges.map(e => {
