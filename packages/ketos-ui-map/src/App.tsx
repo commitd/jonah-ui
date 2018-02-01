@@ -24,7 +24,7 @@ class App extends React.Component<Props, State> {
     datasetId: 're3d',
     query: 'France',
     offset: 0,
-    limit: 100
+    limit: 10
   }
 
   handleDatasetSelected = (datasetId: string) => {
