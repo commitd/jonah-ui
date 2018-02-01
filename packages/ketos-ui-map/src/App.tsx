@@ -50,7 +50,12 @@ class App extends React.Component<Props, State> {
 
     return (
       <Container>
-        <DatasetSelector selectedDataset={datasetId} onDatasetSelected={this.handleDatasetSelected} />
+        <DatasetSelector
+          // As we are dealing with documents, we know we need at least this!
+          provider="DocumentProvider"
+          selectedDataset={datasetId}
+          onDatasetSelected={this.handleDatasetSelected}
+        />
 
         <Form onSubmit={this.handleSubmit} >
           <Form.Input name="query" placeholder="Document search query" onChange={this.handleFormChange} />

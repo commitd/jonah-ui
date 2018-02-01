@@ -2,7 +2,6 @@ import * as React from 'react'
 import { graphql, QueryProps } from 'react-apollo'
 import gql from 'graphql-tag'
 import DocumentSearchResults from './DocumentSearchResults'
-import { DocumentResult } from './DocumentSearchResult'
 
 export interface OwnProps {
     datasetId: string,

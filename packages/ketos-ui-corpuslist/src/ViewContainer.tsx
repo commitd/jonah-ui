@@ -40,7 +40,7 @@ const container = (props: Props) => {
 
 const CORPORA_QUERY = gql`
 query Corpora {
-  corpora {
+  corpora(provider:"DocumentProvider") {
     id
     name
     description
