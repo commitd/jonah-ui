@@ -3,6 +3,10 @@ import { GraphHelper, SigmaGraphHelper } from './GraphHelper'
 import GraphModel from './layers/GraphModel'
 
 const sigma = require('sigma')
+const g = window as { sigma?: SigmaJs.Sigma }
+g.sigma = sigma
+require('imports-loader?sigma,this=>window!sigma/build/plugins/sigma.plugins.dragNodes.min.js')
+require('imports-loader?sigma,this=>window!sigma/build/plugins/sigma.layout.forceAtlas2.min.js')
 
 export interface GraphChild {
     sigma?: SigmaJs.Sigma,
@@ -39,6 +43,7 @@ class Graph extends React.Component<GraphProps> {
         if (this.renderer) {
             console.log(this.renderer)
             this.sigma.killRenderer(this.renderer)
+            this.renderer = undefined
         }
 
         if (container) {
@@ -54,10 +59,14 @@ class Graph extends React.Component<GraphProps> {
     }
 
     render() {
+
+
         const { children } = this.props
 
-        const withSigmaChildren = React.Children.map(children, (child: React.ReactElement<GraphChildSet>) =>
-            React.cloneElement(child, { sigma: this.sigma, graph: this.helper }))
+        const withSigmaChildren = this.renderer ?
+            React.Children.map(children, (child: React.ReactElement<GraphChildSet>) =>
+                React.cloneElement(child, { sigma: this.sigma, graph: this.helper }))
+            : []
 
         return (
             <div

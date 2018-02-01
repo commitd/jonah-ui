@@ -28,7 +28,7 @@ class App extends React.Component<Props, State> {
 
   state: State = {
     datasetId: 're3d',
-    entityId: '59ccc637f8b8e45f0a9dfcf7'
+    entityId: '5a5dc9fc793439d353c3874b'
   }
 
   componentWillReceiveProps(nextProps: Props) {

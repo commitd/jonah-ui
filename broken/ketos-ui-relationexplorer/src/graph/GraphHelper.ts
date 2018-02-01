@@ -65,12 +65,14 @@ export class SigmaGraphHelper implements GraphHelper {
 
     layout = (timeout?: number) => {
         // Don't know if I need to so this in order to pick up the new nodes and edges?
-        this.sigma.killForceAtlas2()
+        if (this.sigma.killForceAtlas2 != null) {
+            this.sigma.killForceAtlas2()
 
-        if (!this.sigma.isForceAtlas2Running()) {
-            this.sigma.startForceAtlas2()
-            const runtime = timeout !== undefined ? timeout : Math.min(2000, this.graph.nodes().length * 10)
-            setTimeout(() => this.sigma.stopForceAtlas2(), runtime)
+            if (!this.sigma.isForceAtlas2Running()) {
+                this.sigma.startForceAtlas2()
+                const runtime = timeout !== undefined ? timeout : Math.min(2000, this.graph.nodes().length * 10)
+                setTimeout(() => this.sigma.stopForceAtlas2(), runtime)
+            }
         }
     }
 }

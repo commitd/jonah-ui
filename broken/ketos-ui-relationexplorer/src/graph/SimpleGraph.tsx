@@ -5,6 +5,7 @@ import Graph from './Graph'
 import GraphModel from './layers/GraphModel'
 import GraphNode from './layers/GraphNode'
 import GraphEdge from './layers/GraphEdge'
+import DragNodes from './layers/DragNodes'
 
 type OwnProps = {
     graph: SigmaJs.GraphData
@@ -71,6 +72,7 @@ class SigmaGraph extends React.Component<Props, State> {
                         <GraphEdge key={e.id} {...e} />
                     )}
                 </GraphModel>
+                <DragNodes />
             </Graph>
 
         )
