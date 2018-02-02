@@ -11,20 +11,9 @@ interface ViewPayload {
   datasetId?: string
 }
 
-interface Response {
-  corpora: {
-    id: string
-    name: string
-  }[]
-}
-
-interface GqlProps {
-  data?: QueryProps & Partial<Response>
-}
-
 type OwnProps = {}
 
-type Props = OwnProps & GqlProps & ChildProps
+type Props = OwnProps & ChildProps
 
 type State = {
   datasetId?: string,
@@ -68,13 +57,4 @@ class App extends React.Component<Props, State> {
   }
 }
 
-const CORPUS_SUMMARY_QUERY = gql`
-query Corpora {
-  corpora {
-    id
-    name
-  }
-}
-`
-
-export default graphql<Response, OwnProps & ChildProps, Props>(CORPUS_SUMMARY_QUERY)(App)
+export default App

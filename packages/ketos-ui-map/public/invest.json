@@ -6,7 +6,7 @@
     "roles": [],
     "actions": [
         {
-            "title": "Search",
+            "title": "Map",
             "description": "View corpus on map",
             "action": "corpus.view"
         },
