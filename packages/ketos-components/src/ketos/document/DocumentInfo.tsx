@@ -30,7 +30,7 @@ class DocumentInfo extends React.Component<Props> {
             <Table size="small" definition={true}>
                 <Table.Body>
                     <Table.Row>
-                        <Table.Cell>
+                        <Table.Cell colSpan="2">
                             <ActionDropdown
                                 text="View"
                                 action="document.view"
