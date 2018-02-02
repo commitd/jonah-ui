@@ -1,12 +1,17 @@
 import * as React from 'react'
 import * as PropTypes from 'prop-types'
 import { Table, Container } from 'semantic-ui-react'
-import SimpleGraph from './graph/SimpleGraph'
-import { GraphHelper } from './graph/GraphHelper'
+import { SimpleGraph, GraphHelper } from 'invest-components'
 import { Context as PluginContext } from 'invest-plugin'
 import { GET_RELATIONS_FOR_ENTITY_QUERY } from './DataContainer'
 import { Response } from './DataContainer'
 import { ApolloQueryResult } from 'apollo-client'
+
+const sigma = require('sigma')
+const g = window as { sigma?: SigmaJs.Sigma }
+g.sigma = sigma
+require('imports-loader?sigma,this=>window!sigma/build/plugins/sigma.plugins.dragNodes.min.js')
+require('imports-loader?sigma,this=>window!sigma/build/plugins/sigma.layout.forceAtlas2.min.js')
 
 type Props = {
     data?: Response
