@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Segment, Table } from 'semantic-ui-react'
+import { Table } from 'semantic-ui-react'
 import { ActionDropdown } from 'invest-components'
 
 export interface OwnProps {

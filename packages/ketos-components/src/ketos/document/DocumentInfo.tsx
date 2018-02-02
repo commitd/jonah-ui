@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { Table } from 'semantic-ui-react'
 import { Ellipsis } from 'invest-components'
+import { ActionDropdown } from 'invest-components'
 
 export interface OwnProps {
     documentId: string
@@ -15,12 +16,28 @@ export type Props = OwnProps
 
 class DocumentInfo extends React.Component<Props> {
 
+    handleAction = (act: (payload?: {}) => void) => {
+        act({
+            documentId: this.props.documentId,
+            datasetId: this.props.datasetId
+        })
+    }
+
     render() {
 
         const { documentId, datasetId, length, language, source, type } = this.props
         return (
             <Table size="small" definition={true}>
                 <Table.Body>
+                    <Table.Row>
+                        <Table.Cell>
+                            <ActionDropdown
+                                text="View"
+                                action="document.view"
+                                onSelect={this.handleAction}
+                            />
+                        </Table.Cell>
+                    </Table.Row>
                     <Table.Row>
                         <Table.Cell>Id</Table.Cell>
                         <Table.Cell><Ellipsis text={documentId} /></Table.Cell>
