@@ -1,7 +1,5 @@
 import * as React from 'react'
 import { ChildProps } from 'invest-plugin'
-import { graphql, QueryProps } from 'react-apollo'
-import gql from 'graphql-tag'
 import View from './ViewContainer'
 import { DatasetSelector } from 'invest-components'
 import { Container } from 'semantic-ui-react'
