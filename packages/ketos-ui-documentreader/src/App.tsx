@@ -22,8 +22,8 @@ type State = {
 class App extends React.Component<Props, State> {
 
   state: State = {
-    datasetId: undefined,
-    documentId: undefined
+    datasetId: 're3d',
+    documentId: '3933f6e22da917896bb07ebe081f760e13783378a6c866461dc45808a918b491'
   }
 
   componentWillReceiveProps(nextProps: Props) {
@@ -52,7 +52,10 @@ class App extends React.Component<Props, State> {
             </p>
           </Message>
         }
-        {hasDocument && <DocumentReaderContainer datasetId={datasetId || ''} documentId={documentId || ''} />}
+        {hasDocument && <DocumentReaderContainer
+          datasetId={datasetId || ''}
+          documentId={documentId || ''}
+        />}
       </Container>
     )
   }

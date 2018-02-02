@@ -57,6 +57,14 @@ query get($datasetId: String!, $documentId: String!) {
             key
             value
         }
+        mentions {
+            id
+            entityId
+            begin
+            end
+            type
+            value
+        }
     }
   }
 }

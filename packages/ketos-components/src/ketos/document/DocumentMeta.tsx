@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Table } from 'semantic-ui-react'
+import { Table, List } from 'semantic-ui-react'
 import { Ellipsis } from 'invest-components'
 
 export interface Metadata {
@@ -20,7 +20,7 @@ class DocumentMeta extends React.Component<Props> {
             return <span />
         } else if (v instanceof Array) {
             const l = v as Array<{}>
-            return <div>{l.map(this.renderSafeValue)}</div>
+            return <List>{l.map((s, i) => <List.Item key={i}>{this.renderSafeValue(s)}</List.Item>)}</List>
         } else {
             const s = v.toString()
             return <Ellipsis key={s} text={s} />
