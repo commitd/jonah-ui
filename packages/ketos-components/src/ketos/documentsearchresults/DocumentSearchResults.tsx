@@ -16,11 +16,34 @@ class DocumentSearchResults extends React.Component<Props> {
     render() {
         const { datasetId, offset, size, total, onOffsetChange, results } = this.props
 
-        // If we don't know the total then let assume it's bigger that what we have
-        const totalResults = total != null ? total : offset + size + 1
+        let pageInfo: React.ReactElement<{}>
+
+        let totalResults: number
+        if (total != null) {
+            totalResults = total
+            pageInfo = <p>Showing results {offset} to {results.length + offset}, of a total of {total} matches.</p>
+        } else {
+            // If we don't know the total then we need to guess what to do
+            // in reality this is only used to display Next or not in pagination so it can be course
+
+            if (results.length < size) {
+                // if we have less than we asked for, we must be done
+                totalResults = results.length + offset
+            } else {
+                // otherwise there might be another page
+                totalResults = offset + size + size
+            }
+
+            if (totalResults === 0) {
+                pageInfo = <p>No results found.</p>
+            } else {
+                pageInfo = <p>Showing results {offset} to {results.length + offset}.</p>
+            }
+        }
 
         return (
             <div>
+                {pageInfo}
                 <Item.Group>
                     {results.map(r =>
                         <DocumentSearchResult datasetId={datasetId} key={r.id} document={r} />)}

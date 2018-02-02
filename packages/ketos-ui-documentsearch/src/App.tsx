@@ -32,7 +32,8 @@ class App extends React.Component<Props, State> {
 
   handleDatasetSelected = (datasetId: string) => {
     this.setState({
-      datasetId
+      datasetId,
+      offset: 0
     })
   }
 
