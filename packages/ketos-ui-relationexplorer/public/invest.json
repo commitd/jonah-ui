@@ -1,19 +1,19 @@
 {
     "id": "ketos-ui-relationdetails",
     "name": "Relation details",
-    "description": "View documents by locations",
-    "icon": "search",
+    "description": "View relations information",
+    "icon": "linkify",
     "roles": [],
     "actions": [
         {
-            "title": "Search",
-            "description": "View corpus on map",
-            "action": "corpus.view"
+            "title": "View relation",
+            "description": "View relation details",
+            "action": "relation.view"
         },
         {
-            "title": "Map",
-            "description": "View documents on map",
-            "action": "document.search"
+            "title": "Relations",
+            "description": "View relations to entity",
+            "action": "entity.view"
         }
     ]
 }
