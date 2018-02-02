@@ -7,9 +7,11 @@ import { GET_RELATIONS_FOR_ENTITY_QUERY } from './DataContainer'
 import { Response } from './DataContainer'
 import { ApolloQueryResult } from 'apollo-client'
 
+/** Required to use Sigma */
 const sigma = require('sigma')
 const g = window as { sigma?: SigmaJs.Sigma }
 g.sigma = sigma
+// this requires yarn add imports-loader
 require('imports-loader?sigma,this=>window!sigma/build/plugins/sigma.plugins.dragNodes.min.js')
 require('imports-loader?sigma,this=>window!sigma/build/plugins/sigma.layout.forceAtlas2.min.js')
 
@@ -58,15 +60,15 @@ class RelationView extends React.Component<Props, State> {
         const newNodeId = `n-${node.id}-${Math.random()}`
         helper.addNode({
             id: newNodeId,
-            label: newNodeId
+            label: newNodeId,
         })
         helper.addEdge({
             id: newNodeId,
             source: node.id,
             target: newNodeId,
         })
-        // helper.refresh()
-        // helper.layout()
+        helper.refresh()
+        helper.layout()
     }
 
     handleNodeExpand = (node: SigmaJs.Node, helper: GraphHelper) => {
@@ -97,6 +99,7 @@ class RelationView extends React.Component<Props, State> {
             <Container>
                 <div style={{ height: '700px' }}>
                     <SimpleGraph
+                        settings={{ drawEdges: true, drawNodes: true, drawLabels: true, enableEdgeHovering: true, edgeHoverSizeRatio: 5 }}
                         graph={this.state.graph}
                         onNodeExpand={this.handleNodeExpand}
                     />
@@ -240,7 +243,7 @@ class RelationView extends React.Component<Props, State> {
             mentionType: type,
             entityId: entityId,
             label: value,
-            color: '#ff0000'
+            color: '#ff0000',
         }
         nodes.push(n)
         return n
@@ -259,7 +262,7 @@ class RelationView extends React.Component<Props, State> {
             label: type,
             type: type,
             source: from.id,
-            target: to.id
+            target: to.id,
 
         }
         edges.push(e)
