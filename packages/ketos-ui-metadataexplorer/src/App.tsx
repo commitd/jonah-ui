@@ -47,7 +47,11 @@ class App extends React.Component<Props, State> {
 
     return (
       <Container>
-        <DatasetSelector selectedDataset={datasetId} onDatasetSelected={this.handleDatasetSelected} />
+        <DatasetSelector
+          selectedDataset={datasetId}
+          onDatasetSelected={this.handleDatasetSelected}
+          provider="DocumentProvider"
+        />
         {datasetId && <View datasetId={datasetId} />}
       </Container>
     )
