@@ -6,14 +6,9 @@
     "roles": [],
     "actions": [
         {
-            "title": "View relation",
+            "title": "Relation details",
             "description": "View relation details",
             "action": "relation.view"
-        },
-        {
-            "title": "Relations",
-            "description": "View relations to entity",
-            "action": "entity.view"
         }
     ]
 }

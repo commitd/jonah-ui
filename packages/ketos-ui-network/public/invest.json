@@ -1,0 +1,29 @@
+{
+    "id": "ketos-ui-network",
+    "name": "Network",
+    "description": "View network of corpus",
+    "icon": "linkify",
+    "roles": [],
+    "actions": [
+        {
+            "title": "Network from relation",
+            "description": "View relation network",
+            "action": "relation.view"
+        },
+        {
+            "title": "Network from entity",
+            "description": "View entity on network",
+            "action": "entity.view"
+        },
+        {
+            "title": "Network from mention",
+            "description": "View mention on network",
+            "action": "mention.view"
+        },
+        {
+            "title": "Network from document",
+            "description": "View document on network",
+            "action": "document.view"
+        }
+    ]
+}
