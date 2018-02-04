@@ -95,11 +95,6 @@ class RelationView extends React.Component<Props, State> {
 
     addToGraph(nodes: SigmaJs.Node[], edges: SigmaJs.Edge[], data: Response) {
 
-        // TODO: Would like to add some control over this... how everthing is turn into a graph...
-        // but currently we'll render a very default view
-
-        // Doc --contains-> Entity --refers--> Mention --The Relation-> Mention (-> Entity)
-
         const corpus = data.corpus
 
         if (corpus == null) {
