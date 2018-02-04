@@ -36,10 +36,15 @@ class EntityView extends React.Component<Props> {
                 <Header as="h3" content="Properties" />
                 <MentionProperties mentions={entity.mentions} />
                 <Header as="h3" content="Document snippets" />
-                <MentionsSnippets mentions={entity.mentions} content={entity.document.content} />
+                <MentionsSnippets
+                    mentions={entity.mentions}
+                    content={entity.document.content}
+                    datasetId={data.corpus.id}
+                    documentId={entity.document.id}
+                />
 
                 <Header as="h3" content="Related entities" />
-                <RelatedMentionsTable mentions={entity.mentions} />
+                <RelatedMentionsTable mentions={entity.mentions} datasetId={data.corpus.id} />
             </div>
         )
     }

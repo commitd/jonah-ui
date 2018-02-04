@@ -1,7 +1,9 @@
 import * as React from 'react'
 import { Table } from 'semantic-ui-react'
+import { ActionDropdown } from 'invest-components'
 
 type OwnProps = {
+    datasetId: string
     mentions: {
         id: string
         begin: number,
@@ -57,24 +59,42 @@ class RelatedMentionsTable extends React.Component<Props> {
                         <Table.HeaderCell>From</Table.HeaderCell>
                         <Table.HeaderCell>Relation</Table.HeaderCell>
                         <Table.HeaderCell>To</Table.HeaderCell>
+                        <Table.HeaderCell>Action</Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>
                     {
                         mentions.map(m => {
-                            m.sourceOf.map(r => {
+                            return m.sourceOf.map(r => {
                                 return <Table.Row key={`${m.id}-${r.id}`}>
                                     <Table.Cell positive={true} content={m.value} />
                                     <Table.Cell content={`${r.relationshipType} ${r.relationSubtype}`} />
                                     <Table.Cell content={`${r.target.value} [${r.target.type}]`} />
+                                    <Table.Cell>
+                                        <ActionDropdown
+                                            text="View"
+                                            actions={['relation.view', 'mention.view']}
+                                            onSelect={this.handleRelationAction(m.id, r.id)}
+                                        />
+                                    </Table.Cell>
                                 </Table.Row>
                             })
-
-                            m.targetOf.map(r => {
+                        })
+                    }
+                    {
+                        mentions.map(m => {
+                            return m.targetOf.map(r => {
                                 return <Table.Row key={`${m.id}-${r.id}`}>
                                     <Table.Cell content={`${r.source.value} [${r.source.type}]`} />
                                     <Table.Cell content={`${r.relationshipType} ${r.relationSubtype}`} />
                                     <Table.Cell positive={true} content={m.value} />
+                                    <Table.Cell>
+                                        <ActionDropdown
+                                            text="View"
+                                            actions={['relation.view', 'mention.view']}
+                                            onSelect={this.handleRelationAction(m.id, r.id)}
+                                        />
+                                    </Table.Cell>
                                 </Table.Row>
                             })
                         })
@@ -83,6 +103,21 @@ class RelatedMentionsTable extends React.Component<Props> {
             </Table>
         )
     }
+
+    private handleRelationAction = (mentionId: string, relationId: string) =>
+        (act: (payload: {}) => void, action: string) => {
+            if (action === 'mention.view') {
+                act({
+                    datasetId: this.props.datasetId,
+                    mentionId: mentionId
+                })
+            } else if (action === 'relation.view') {
+                act({
+                    datasetId: this.props.datasetId,
+                    relationId: relationId
+                })
+            }
+        }
 }
 
 export default RelatedMentionsTable

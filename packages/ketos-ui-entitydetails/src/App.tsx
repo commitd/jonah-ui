@@ -24,7 +24,7 @@ type EntityViewPayload = {
 class App extends React.Component<Props, State> {
 
   state: State = {
-    entityId: '5a5dc9fb793439d353c38731',
+    entityId: '5a744a089ba91d1891f2cd12',
     dataset: 're3d'
   }
 

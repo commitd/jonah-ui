@@ -9,6 +9,7 @@ type Variables = {
 
 export type Response = {
   corpus: {
+    id: string
     entity?: {
       id: string,
       type: string,
@@ -54,6 +55,7 @@ export type Response = {
 const QUERY = gql`
 query GetEntityView($datasetId: String!, $entityId: ID) {
     corpus(id: $datasetId) {
+      id
       entity(id: $entityId) {
         id
         docId
@@ -73,12 +75,12 @@ query GetEntityView($datasetId: String!, $entityId: ID) {
             id
             relationshipType
             relationSubtype 
-            target {
+            source {
               value
               type
             }
           }
-            sourceOf {
+          sourceOf {
             id
             relationshipType
             relationSubtype
