@@ -1,15 +1,20 @@
 import * as React from 'react'
-import { Card, Segment } from 'semantic-ui-react'
+import { Segment, Item } from 'semantic-ui-react'
 import { Response } from './DataContainer'
+import { Pagination } from 'invest-components'
+import { MentionView } from 'ketos-components'
 
 type Props = {
-    data?: Response
+    data?: Response,
+    offset: number,
+    size: number,
+    onOffsetChange(offset: number): void
 }
 
 class Results extends React.Component<Props> {
     render() {
 
-        const { data } = this.props
+        const { data, offset, size } = this.props
 
         if (!data || !data.corpus || !data.corpus.mentions || data.corpus.mentions.length === 0) {
             return <p>No results found</p>
@@ -18,19 +23,27 @@ class Results extends React.Component<Props> {
         const mentions = data.corpus.mentions
 
         return (
-            <Segment>
-                {
-                    mentions.map(e => {
-                        return <Card
-                            key={e.id}
-                            fluid={true}
-                            header={e.value}
-                            meta={e.type}
-                            extra={e.document && <span>{e.document.title}: {e.document.summary}</span>}
-                        />
-                    })
-                }
+            <Segment basic={true}>
+                <Item.Group>
+
+                    {
+                        mentions.map(e => {
+                            return <MentionView
+                                key={e.id}
+                                datasetId={data.corpus.id}
+                                mention={e}
+                            />
+                        })
+                    }
+                </Item.Group>
+                <Pagination
+                    offset={offset}
+                    size={size}
+                    resultsOnPage={data.corpus.mentions.length}
+                    onOffsetChange={this.props.onOffsetChange}
+                />
             </Segment>
+
         )
 
     }

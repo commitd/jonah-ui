@@ -4,6 +4,8 @@ const isEqual = require('lodash.isequal')
 import { ChildProps } from 'invest-plugin'
 import { Container, Form, InputOnChangeData } from 'semantic-ui-react'
 import { DatasetSelector } from 'invest-components'
+import { SearchButton } from 'ketos-components'
+
 import DataContainer from './DataContainer'
 import Results from './Results'
 
@@ -19,15 +21,25 @@ type Props = OwnProps & ChildProps
 
 type State = {
   datasetId?: string,
-  type?: string,
-  value?: string
+  type: string,
+  value: string
+  submittedType?: string,
+  submittedValue?: string,
+
+  offset: number,
+  size: number
 }
 
 class App extends React.Component<Props, State> {
 
   state: State = {
-    type: undefined,
-    value: undefined
+    type: '',
+    value: '',
+    submittedType: undefined,
+    submittedValue: undefined,
+
+    offset: 0,
+    size: 10
   }
 
   componentWillReceiveProps(nextProps: Props) {
@@ -38,18 +50,33 @@ class App extends React.Component<Props, State> {
 
   handleDatasetSelected = (datasetId: string) => {
     this.setState({
-      datasetId: datasetId
+      datasetId: datasetId,
+      offset: 0
     })
   }
 
   handleFormChange = (event: React.SyntheticEvent<HTMLInputElement>, data: InputOnChangeData) => {
     this.setState({
-      [data.name]: data.value !== '' ? data.value : null
+      [data.name]: data.value
     })
   }
 
+  handleOffsetChange = (offset: number) => {
+    this.setState({
+      offset
+    })
+  }
+
+  handleSubmit = () => {
+    this.setState(state => ({
+      submittedType: state.type !== '' ? state.type : undefined,
+      submittedValue: state.value !== '' ? state.value : undefined,
+      offset: 0
+    }))
+  }
+
   render() {
-    const { datasetId, type, value } = this.state
+    const { datasetId, submittedType, submittedValue, offset, size } = this.state
 
     return (
       <Container>
@@ -59,12 +86,21 @@ class App extends React.Component<Props, State> {
           provider="MentionProvider"
         />
         <Form>
-          <Form.Input name="value" label="Value" placeholder="Value" onChange={this.handleFormChange} />
-          <Form.Input name="type" label="Type" placeholder="Type" onChange={this.handleFormChange} />
+          <Form.Group widths="equal">
+            <Form.Input
+              name="value"
+              label="Value"
+              value={this.state.value}
+              placeholder="Value"
+              onChange={this.handleFormChange}
+            />
+            <Form.Input name="type" label="Type" placeholder="Type" onChange={this.handleFormChange} />
+            <SearchButton onSubmit={this.handleSubmit} />
+          </Form.Group>
         </Form>
-        {datasetId != null && value != null &&
-          < DataContainer variables={{ datasetId, type, value }} >
-            <Results />
+        {datasetId != null && (submittedType != null || submittedValue != null) &&
+          <DataContainer variables={{ datasetId, type: submittedType, value: submittedValue, offset: offset, size }} >
+            <Results onOffsetChange={this.handleOffsetChange} offset={offset} size={size} />
           </DataContainer>
         }
 
@@ -73,16 +109,13 @@ class App extends React.Component<Props, State> {
   }
 
   private onAction = (action?: string, payload?: {}) => {
-    // Implement to deal with new action requests
-    // typically this will setState in order and then pass
-    // that state as props to a subcomponent (which will
-    // then respond with a )
     if (action === 'mention.search') {
       const msp = payload as MentionSearchPayload
       this.setState({
         datasetId: msp.datasetId,
-        type: msp.type,
-        value: msp.value
+        type: msp.type || '',
+        value: msp.value || '',
+        offset: 0
       })
     }
   }
