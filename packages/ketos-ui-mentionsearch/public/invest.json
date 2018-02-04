@@ -1,5 +1,5 @@
 {
-    "id": "ketos-ui-entitysearch",
+    "id": "ketos-ui-mentionsearch",
     "name": "Mention search",
     "description": "Find mentions",
     "icon": "search",
