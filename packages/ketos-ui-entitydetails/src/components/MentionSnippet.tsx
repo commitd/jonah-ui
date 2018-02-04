@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Feed, Icon } from 'semantic-ui-react'
-import DocumentSnippet from './DocumentSnippet'
+import { DocumentSnippet } from 'ketos-components'
 
 type OwnProps = {
     content: string

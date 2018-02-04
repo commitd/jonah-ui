@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-type OwnProps = {
+export type OwnProps = {
     content: string
     begin: number,
     end: number,
@@ -9,7 +9,7 @@ type OwnProps = {
     ellipsis?: string
 }
 
-type DefaultedProps = OwnProps & {
+export type DefaultedProps = OwnProps & {
     content: string
     begin: number,
     end: number,
@@ -18,7 +18,7 @@ type DefaultedProps = OwnProps & {
     ellipsis: string
 }
 
-type Props = OwnProps
+export type Props = OwnProps
 
 class DocumentSnippet extends React.Component<Props> {
 

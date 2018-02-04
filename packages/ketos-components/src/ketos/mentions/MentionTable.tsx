@@ -17,7 +17,7 @@ export interface OwnProps {
 
 export type Props = OwnProps
 
-class DocumentReader extends React.Component<Props> {
+class MentionTable extends React.Component<Props> {
 
     handleMentionAction = (m: Mention) => (act: (payload?: {}) => void, action: string) => {
         if (action === 'mention.view') {
@@ -85,4 +85,4 @@ class DocumentReader extends React.Component<Props> {
     }
 }
 
-export default DocumentReader
+export default MentionTable
