@@ -7,6 +7,12 @@ import { DatasetSelector } from 'invest-components'
 import DataContainer from './DataContainer'
 import Results from './Results'
 
+type MentionSearchPayload = {
+  datasetId?: string,
+  type?: string
+  value?: string
+}
+
 type OwnProps = {}
 
 type Props = OwnProps & ChildProps
@@ -50,7 +56,7 @@ class App extends React.Component<Props, State> {
         <DatasetSelector
           selectedDataset={datasetId}
           onDatasetSelected={this.handleDatasetSelected}
-          provider="EntityProvider"
+          provider="MentionProvider"
         />
         <Form>
           <Form.Input name="value" label="Value" placeholder="Value" onChange={this.handleFormChange} />
@@ -71,7 +77,14 @@ class App extends React.Component<Props, State> {
     // typically this will setState in order and then pass
     // that state as props to a subcomponent (which will
     // then respond with a )
-
+    if (action === 'mention.search') {
+      const msp = payload as MentionSearchPayload
+      this.setState({
+        datasetId: msp.datasetId,
+        type: msp.type,
+        value: msp.value
+      })
+    }
   }
 }
 
