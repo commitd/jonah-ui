@@ -1,14 +1,14 @@
 {
     "id": "ketos-ui-entitysearch",
-    "name": "Entity search",
-    "description": "Find entity",
+    "name": "Mention search",
+    "description": "Find mentions",
     "icon": "search",
     "roles": [],
     "actions": [
         {
             "title": "Search",
-            "description": "Find entity",
-            "action": "entity.search"
+            "description": "Find mentions",
+            "action": "mention.search"
         }
     ]
 }

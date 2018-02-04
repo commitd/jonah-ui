@@ -1,6 +1,6 @@
 {
-  "short_name": "ketos-ui-entitysearch",
-  "name": "ketos-ui-entitysearch",
+  "short_name": "ketos-ui-mentionsearch",
+  "name": "ketos-ui-mentionsearch",
   "icons": [
     {
       "src": "favicon.ico",
