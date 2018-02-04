@@ -21,6 +21,7 @@ class Results extends React.Component<Props> {
 
         const relations = data.corpus.relations
 
+        // TODO: This can be replaced with ketos-components RelationTable
         return (
             <div>
                 <Table>

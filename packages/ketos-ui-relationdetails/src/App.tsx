@@ -19,16 +19,11 @@ type RelationViewPayload = {
   relationId: string
 }
 
-type EntityViewPayload = {
-  dataset: string
-  entityId: string
-}
-
 class App extends React.Component<Props, State> {
 
   state: State = {
     datasetId: 're3d',
-    entityId: '5a5dc9fc793439d353c3874b'
+    relationId: 'db7aeace0bf3c363ecd3f0c8a1f38419d714c34fa286f6e3e83f934d6fd6619f'
   }
 
   componentWillReceiveProps(nextProps: Props) {
@@ -38,9 +33,9 @@ class App extends React.Component<Props, State> {
   }
 
   render() {
-    const { entityId, datasetId } = this.state
+    const { relationId, datasetId } = this.state
 
-    if (datasetId == null || entityId == null) {
+    if (datasetId == null || relationId == null) {
       return (
         <MessageBox
           title="No entity or dataset"
@@ -50,7 +45,7 @@ class App extends React.Component<Props, State> {
     }
 
     return (
-      <DataContainer variables={{ datasetId: datasetId, entityId: entityId }} >
+      <DataContainer variables={{ datasetId: datasetId, relationId: relationId }} >
         <RelationView />
       </DataContainer >
 
@@ -64,14 +59,6 @@ class App extends React.Component<Props, State> {
       this.setState({
         datasetId: p.dataset,
         relationId: p.relationId,
-        entityId: undefined
-      })
-    } else if (action === 'entity.view') {
-      const p = payload as EntityViewPayload
-      this.setState({
-        datasetId: p.dataset,
-        entityId: p.entityId,
-        relationId: undefined
       })
     }
 

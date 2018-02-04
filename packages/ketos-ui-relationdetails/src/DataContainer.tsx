@@ -4,85 +4,62 @@ import { createDataContainer } from 'ketos-components'
 
 type Variables = {
     datasetId: string
-    entityId: string
+    relationId: string
 }
 
 export type Response = {
-    corpus: {
-        entity: {
-            id: string,
-            docId: string,
-            type: string,
-            longestValue: string,
-            mentions: {
+
+    corpus?: {
+        id: string,
+        name: string,
+        relation: {
+            id: string
+            begin: number
+            end: number
+            relationshipType: string
+            relationSubtype: string
+            type: string
+            sourceType: string
+            sourceId: string
+            sourceValue: string
+            targetType: string
+            targetId: string
+            targetValue: string
+            docId: string
+            document: {
                 id: string
-                type: string,
-                value: string,
-                targetOf: {
-                    id: string
-                    relationshipType: string
-                    relationSubtype: string
-                    source: {
-                        id: string
-                        value: string
-                        type: string
-                        entityId: string
-                    }
-                }[]
-                sourceOf: {
-                    id: string
-                    relationshipType: string
-                    relationSubtype: string
-                    type: string
-                    target: {
-                        id: string
-                        value: string
-                        type: string
-                        entityId: string
-                    }
-                }[]
-            }[]
+                title: string
+                content: string
+            }
         }
     }
 }
 
 export const GET_RELATIONS_FOR_ENTITY_QUERY = `
-query GetRelationsForEntity($datasetId: String!, $entityId: ID) {
+query GetRelations($datasetId: String!, $relationId: String!) {
     corpus(id: $datasetId) {
-      entity(id: $entityId) {
         id
-        docId
-        type
-        longestValue
-        mentions {
-          id
-          type
-          value
-          targetOf {
+        name
+        relation(id:$relationId) {
             id
-            relationshipType
-            relationSubtype 
-            source {
-              id
-              value
-              type
-              entityId
-            }
-          }
-          sourceOf {
-            id
+            begin
+            end
             relationshipType
             relationSubtype
-            type 
-            target {
-              id
-              value
-              type
-              entityId
+            type
+            sourceType
+            sourceId
+            sourceValue
+            targetType
+            targetId
+            targetValue
+            docId
+            document {
+                id
+                title
+                content
             }
-          }
         }
-      }
     }
   }
 `
