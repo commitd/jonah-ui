@@ -46,7 +46,7 @@ const METADATA_QUERY = gql`
 query getMetadataKeys($datasetId: String!) {
     corpus(id: $datasetId) {
       metadata {
-        keys {
+        keys(size: 50) {
          bins {
             key: term
             count
