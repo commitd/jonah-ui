@@ -2,14 +2,16 @@ import * as React from 'react'
 import { Table } from 'semantic-ui-react'
 import { ActionDropdown } from 'invest-components'
 
+export type Mention = {
+    value: string
+    type: number
+    id: string,
+    entityId: string
+}
+
 export interface OwnProps {
     datasetId: string,
-    mentions: {
-        value: string
-        type: number
-        id: string,
-        entityId: string
-    }[]
+    mentions: Mention[]
     selectedMentions?: string[]
 }
 
@@ -17,18 +19,24 @@ export type Props = OwnProps
 
 class DocumentReader extends React.Component<Props> {
 
-    handleMentionAction = (mentionId: string) => (act: (payload?: {}) => void) => {
-        act({
-            datasetId: this.props.datasetId,
-            mentionId
-        })
-    }
-
-    handleEntityAction = (entityId: string) => (act: (payload?: {}) => void) => {
-        act({
-            datasetId: this.props.datasetId,
-            entityId
-        })
+    handleMentionAction = (m: Mention) => (act: (payload?: {}) => void, action: string) => {
+        if (action === 'mention.view') {
+            act({
+                datasetId: this.props.datasetId,
+                mentionId: m.id
+            })
+        } else if (action === 'mention.view') {
+            act({
+                datasetId: this.props.datasetId,
+                entityId: m.entityId
+            })
+        } else if (action === 'mention.search') {
+            act({
+                datasetId: this.props.datasetId,
+                type: m.type,
+                value: m.value
+            })
+        }
     }
 
     render() {
@@ -62,14 +70,9 @@ class DocumentReader extends React.Component<Props> {
                                     </Table.Cell>
                                     <Table.Cell>
                                         <ActionDropdown
-                                            text="View mention"
-                                            action="mention.view"
-                                            onSelect={this.handleMentionAction(m.id)}
-                                        />
-                                        <ActionDropdown
-                                            text="View entity"
-                                            action="entity.view"
-                                            onSelect={this.handleEntityAction(m.entityId)}
+                                            text="View"
+                                            actions={['mention.view', 'entity.view', 'mention.search']}
+                                            onSelect={this.handleMentionAction(m)}
                                         />
                                     </Table.Cell>
                                 </Table.Row>
