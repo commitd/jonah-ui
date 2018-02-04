@@ -47,7 +47,11 @@ class App extends React.Component<Props, State> {
 
     return (
       <Container>
-        <DatasetSelector selectedDataset={datasetId} onDatasetSelected={this.handleDatasetSelected} />
+        <DatasetSelector
+          selectedDataset={datasetId}
+          onDatasetSelected={this.handleDatasetSelected}
+          provider="EntityProvider"
+        />
         <Form>
           <Form.Input name="value" label="Value" placeholder="Value" onChange={this.handleFormChange} />
           <Form.Input name="type" label="Type" placeholder="Type" onChange={this.handleFormChange} />
