@@ -23,7 +23,7 @@ class App extends React.Component<Props, State> {
 
   state: State = {
     datasetId: 're3d',
-    documentId: '3933f6e22da917896bb07ebe081f760e13783378a6c866461dc45808a918b491'
+    documentId: '70d504e534bd69436c05cb2bdc8cf60c49414b9d60d7c642b8b9d7b13931465f'
   }
 
   componentWillReceiveProps(nextProps: Props) {

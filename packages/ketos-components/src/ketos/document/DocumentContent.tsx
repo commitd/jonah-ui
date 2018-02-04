@@ -119,7 +119,7 @@ class DocumentReader extends React.Component<Props> {
             // Are we in an mention offset? 
             if (offset) {
                 // If we overlap then extend the offset to cover our mention
-                if (offset.end >= m.begin && offset.end < m.end) {
+                if (offset.end >= m.begin && offset.end <= m.end) {
                     offset.end = m.end
                     offset.mentions.push(m.id)
                 } else {
@@ -138,6 +138,8 @@ class DocumentReader extends React.Component<Props> {
                 offsets.push(offset)
             }
         })
+
+        console.log(offsets)
 
         const lines: React.ReactElement<{}>[] = []
 
