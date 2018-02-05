@@ -23,21 +23,28 @@ class MentionView extends React.Component<Props> {
 
     handleActions = (act: (payload?: {}) => void, action: string) => {
         const datasetId = this.props.datasetId
-
+        const m = this.props.mention
         if (action === 'mention.view') {
             act({
                 datasetId,
-                mentionId: this.props.mention.id
+                mentionId: m.id
             })
-        } else if (action === 'entity.view' && this.props.mention.entityId) {
+        } else if (action === 'entity.view' && m.entityId) {
             act({
                 datasetId,
                 entityId: this.props.mention.entityId
             })
-        } else if (action === 'document.view' && this.props.mention.document) {
+        } else if (action === 'document.view' && m.document) {
             act({
                 datasetId,
-                documentId: this.props.mention.document.id
+                documentId: m.document.id
+            })
+        } else if (action === 'relation.search') {
+
+            act({
+                datasetId: this.props.datasetId,
+                sourceType: m.type,
+                sourceValue: m.value
             })
         }
     }

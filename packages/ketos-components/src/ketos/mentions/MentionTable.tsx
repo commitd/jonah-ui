@@ -36,6 +36,13 @@ class MentionTable extends React.Component<Props> {
                 type: m.type,
                 value: m.value
             })
+        } else if (action === 'relation.search') {
+            // TODO... this is only source... how would we do target too? (its the same action). 
+            act({
+                datasetId: this.props.datasetId,
+                sourceType: m.type,
+                sourceValue: m.value
+            })
         }
     }
 
@@ -71,7 +78,8 @@ class MentionTable extends React.Component<Props> {
                                     <Table.Cell>
                                         <ActionDropdown
                                             text="View"
-                                            actions={['mention.view', 'entity.view', 'mention.search']}
+                                            actions={['mention.view', 'entity.view',
+                                                'mention.search', 'relation.search']}
                                             onSelect={this.handleMentionAction(m)}
                                         />
                                     </Table.Cell>

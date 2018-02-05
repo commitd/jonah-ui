@@ -6,7 +6,7 @@
     "roles": [],
     "actions": [
         {
-            "title": "Search",
+            "title": "Find relation",
             "description": "Find relations",
             "action": "relation.search"
         }
