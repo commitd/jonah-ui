@@ -17,7 +17,7 @@ type State = {
 }
 
 type EntityViewPayload = {
-  dataset: string
+  datasetId: string
   entityId: string
 }
 
@@ -64,7 +64,7 @@ class App extends React.Component<Props, State> {
     } else if (action === 'entity.view') {
       const p = ((payload || {}) as EntityViewPayload)
       this.setState({
-        dataset: p.dataset,
+        dataset: p.datasetId,
         entityId: p.entityId
       })
     }
