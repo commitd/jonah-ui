@@ -21,8 +21,8 @@ type State = {
 class App extends React.Component<Props, State> {
 
   state: State = {
-    datasetId: 're3d',
-    query: 'France',
+    datasetId: undefined,
+    query: undefined,
     offset: 0,
     limit: 10
   }

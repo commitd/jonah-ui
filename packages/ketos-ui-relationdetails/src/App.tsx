@@ -22,8 +22,8 @@ type RelationViewPayload = {
 class App extends React.Component<Props, State> {
 
   state: State = {
-    datasetId: 're3d',
-    relationId: 'db7aeace0bf3c363ecd3f0c8a1f38419d714c34fa286f6e3e83f934d6fd6619f'
+    datasetId: undefined,
+    relationId: undefined
   }
 
   componentWillReceiveProps(nextProps: Props) {

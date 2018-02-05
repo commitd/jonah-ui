@@ -72,10 +72,13 @@ class RelationView extends React.Component<Props, State> {
     }
 
     handleNodeExpand = (node: SigmaJs.Node, helper: GraphHelper) => {
+        // TODO: Data is not really null... (especially if you get to here!)
+        const corpusId = this.props.data ? this.props.data.corpus.id : ''
+
         if (node.type === 'Mention') {
             const entityId = (node as MentionNode).entityId
             this.context.pluginApi.query(GET_RELATIONS_FOR_ENTITY_QUERY, {
-                datasetId: 're3d',
+                datasetId: corpusId,
                 entityId: entityId
             }).then((value: ApolloQueryResult<Response>) => {
                 this.addToGraph(this.state.graph.nodes, this.state.graph.edges, value.data)
@@ -83,7 +86,7 @@ class RelationView extends React.Component<Props, State> {
         } else if (node.type === 'Entity') {
             const entityId = node.id
             this.context.pluginApi.query(GET_RELATIONS_FOR_ENTITY_QUERY, {
-                datasetId: 're3d',
+                datasetId: corpusId,
                 entityId: entityId
             }).then((value: ApolloQueryResult<Response>) => {
                 this.addToGraph(this.state.graph.nodes, this.state.graph.edges, value.data)
@@ -99,7 +102,11 @@ class RelationView extends React.Component<Props, State> {
             <Container>
                 <div style={{ height: '700px' }}>
                     <SimpleGraph
-                        settings={{ drawEdges: true, drawNodes: true, drawLabels: true, enableEdgeHovering: true, edgeHoverSizeRatio: 5 }}
+                        settings={{
+                            drawEdges: true,
+                            drawNodes: true, drawLabels: true,
+                            enableEdgeHovering: true, edgeHoverSizeRatio: 5
+                        }}
                         graph={this.state.graph}
                         onNodeExpand={this.handleNodeExpand}
                     />

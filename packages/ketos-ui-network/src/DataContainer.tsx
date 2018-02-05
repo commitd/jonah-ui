@@ -9,6 +9,7 @@ type Variables = {
 
 export type Response = {
     corpus: {
+        id: string
         entity: {
             id: string,
             docId: string,
@@ -49,6 +50,7 @@ export type Response = {
 export const GET_RELATIONS_FOR_ENTITY_QUERY = `
 query GetRelationsForEntity($datasetId: String!, $entityId: ID) {
     corpus(id: $datasetId) {
+      id: string
       entity(id: $entityId) {
         id
         docId
