@@ -22,19 +22,21 @@ export type Props = {
 class MentionView extends React.Component<Props> {
 
     handleActions = (act: (payload?: {}) => void, action: string) => {
+        const datasetId = this.props.datasetId
+
         if (action === 'mention.view') {
             act({
-                datasetId: this.props.datasetId,
+                datasetId,
                 mentionId: this.props.mention.id
             })
         } else if (action === 'entity.view' && this.props.mention.entityId) {
             act({
-                datasetId: this.props.datasetId,
+                datasetId,
                 entityId: this.props.mention.entityId
             })
         } else if (action === 'document.view' && this.props.mention.document) {
             act({
-                datasetId: this.props.datasetId,
+                datasetId,
                 documentId: this.props.mention.document.id
             })
         }

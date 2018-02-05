@@ -2,14 +2,9 @@
     "id": "ketos-ui-map",
     "name": "Document map",
     "description": "View documents by locations",
-    "icon": "search",
+    "icon": "map outline",
     "roles": [],
     "actions": [
-        {
-            "title": "Map",
-            "description": "View corpus on map",
-            "action": "corpus.view"
-        },
         {
             "title": "Map",
             "description": "View documents on map",

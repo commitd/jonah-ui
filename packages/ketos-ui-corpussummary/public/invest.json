@@ -6,7 +6,7 @@
     "roles": [],
     "actions": [
         {
-            "title": "Summary",
+            "title": "Summarise corpus",
             "description": "Corpus summary",
             "action": "corpus.view"
         }

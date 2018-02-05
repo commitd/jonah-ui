@@ -1,8 +1,14 @@
 {
     "id": "ketos-ui-feedback-form",
-    "name": "Feedback",
+    "name": "Leave feedback",
     "description": "Leave comments on existing functions or request new features",
     "icon": "send",
     "roles": [],
-    "actions": []
+    "actions": [
+        {
+            "title": "Leave feedback",
+            "description": "Leave feedback on this feature",
+            "action": "feedback.form"
+        }
+    ]
 }

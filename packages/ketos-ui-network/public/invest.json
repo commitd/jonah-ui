@@ -2,7 +2,7 @@
     "id": "ketos-ui-network",
     "name": "Network",
     "description": "View network of corpus",
-    "icon": "linkify",
+    "icon": "share alternate",
     "roles": [],
     "actions": [
         {

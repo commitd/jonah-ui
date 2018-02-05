@@ -6,7 +6,7 @@
     "roles": [],
     "actions": [
         {
-            "title": "Search",
+            "title": "Find mentions",
             "description": "Find mentions",
             "action": "mention.search"
         }

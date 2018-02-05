@@ -6,7 +6,7 @@
     "roles": [],
     "actions": [
         {
-            "title": "Timeline",
+            "title": "View timeline",
             "description": "View document on timeline",
             "action": "document.search"
         }

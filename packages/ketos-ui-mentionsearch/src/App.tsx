@@ -76,7 +76,10 @@ class App extends React.Component<Props, State> {
   }
 
   render() {
-    const { datasetId, submittedType, submittedValue, offset, size } = this.state
+    const { datasetId,
+      submittedType, submittedValue,
+      type, value,
+      offset, size } = this.state
 
     return (
       <Container>
@@ -90,11 +93,11 @@ class App extends React.Component<Props, State> {
             <Form.Input
               name="value"
               label="Value"
-              value={this.state.value}
+              value={value}
               placeholder="Value"
               onChange={this.handleFormChange}
             />
-            <Form.Input name="type" label="Type" placeholder="Type" onChange={this.handleFormChange} />
+            <Form.Input name="type" label="Type" placeholder="Type" value={type} onChange={this.handleFormChange} />
             <SearchButton onSubmit={this.handleSubmit} />
           </Form.Group>
         </Form>

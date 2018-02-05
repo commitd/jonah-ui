@@ -25,7 +25,7 @@ class MentionTable extends React.Component<Props> {
                 datasetId: this.props.datasetId,
                 mentionId: m.id
             })
-        } else if (action === 'mention.view') {
+        } else if (action === 'entity.view') {
             act({
                 datasetId: this.props.datasetId,
                 entityId: m.entityId

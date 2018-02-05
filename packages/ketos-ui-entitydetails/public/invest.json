@@ -6,7 +6,7 @@
     "roles": [],
     "actions": [
         {
-            "title": "Details",
+            "title": "Entity details",
             "description": "View details of entity",
             "action": "entity.view"
         }

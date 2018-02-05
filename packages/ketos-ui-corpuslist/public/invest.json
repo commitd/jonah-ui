@@ -4,5 +4,11 @@
     "description": "List available corpora",
     "icon": "book",
     "roles": [],
-    "actions": []
+    "actions": [
+        {
+            "title": "List corpora",
+            "description": "View all corpora",
+            "action": "corpus.list"
+        }
+    ]
 }

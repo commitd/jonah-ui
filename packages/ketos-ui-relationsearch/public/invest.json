@@ -8,7 +8,7 @@
         {
             "title": "Search",
             "description": "Find relations",
-            "action": "relations.search"
+            "action": "relation.search"
         }
     ]
 }
