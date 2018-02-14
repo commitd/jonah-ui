@@ -9,7 +9,7 @@
     "invest-components": "*",
     "invest-plugin": "*",
     "invest-types": "*",
-    "ketos-components": "*",
+    "ketos-components": "^0.1.0",
     "latlon-geohash": "^1.1.0",
     "leaflet": "^1.2.0",
     "prop-types": "^15.6.0",
