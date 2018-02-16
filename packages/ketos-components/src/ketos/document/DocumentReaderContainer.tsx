@@ -44,14 +44,14 @@ query get($datasetId: String!, $documentId: String!) {
     document(id: $documentId) {
         id
         length
-        title
         content
         info {
+            title
             language
             source
             type
             classification
-            timestamp
+            documentDate: date
         } 
         metadata {
             key

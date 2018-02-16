@@ -10,18 +10,18 @@ import MentionTable from '../mentions/MentionTable'
 export interface Document {
     id: string
     length: number
-    title: string
     info: {
+        title: string
         language: string
         source: string
         type: string
         classification: string
-        timestamp: string
+        documentDate: number
     }
     content: string
     metadata: {
         key: string
-        value: string[]
+        value: string
     }[]
     mentions: {
         begin: number
@@ -65,17 +65,17 @@ class DocumentReader extends React.Component<Props, State> {
                 <Grid.Column width={10}>
                     <DocumentContent
                         content={document.content}
-                        title={document.title}
+                        title={document.info.title}
                         mentions={document.mentions}
                         onMentionSelect={this.handleSelectedMentions}
                     />
-                    <Divider hidden={true} />
+                    {/* <Divider hidden={true} />
                     <h3>Mentions in document</h3>
                     <MentionTable
                         datasetId={datasetId}
                         mentions={document.mentions}
                         selectedMentions={selectedMentions}
-                    />
+                    /> */}
                 </Grid.Column>
                 <Grid.Column width={6}>
                     <Card title="Info">

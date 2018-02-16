@@ -4,7 +4,7 @@ import { Ellipsis } from 'invest-components'
 
 export interface Metadata {
     key: string
-    value: string[]
+    value: string
 }
 
 export interface OwnProps {
@@ -44,7 +44,7 @@ class DocumentMeta extends React.Component<Props> {
                 </Table.Header>
                 <Table.Body>
                     {
-                        metadata.map(m => <Table.Row key={m.key}>
+                        metadata.map((m, i) => <Table.Row key={m.key + '_' + i}>
                             <Table.Cell>{m.key}</Table.Cell>
                             <Table.Cell>{this.renderSafeValue(m.value)}</Table.Cell>
                         </Table.Row>
