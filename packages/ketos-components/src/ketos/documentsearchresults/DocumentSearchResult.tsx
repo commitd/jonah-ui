@@ -5,9 +5,9 @@ import { ActionDropdown } from 'invest-components'
 export interface DocumentResult {
     id: string
     length: number
-    title: string
     summary: string
     info: {
+        title: string
         language: string
         source: string
         type: string
@@ -32,7 +32,7 @@ class DocumentSearchResult extends React.Component<Props> {
 
     render() {
         const { document } = this.props
-        const { id, length, title, summary, info } = document
+        const { id, length, summary, info } = document
         return (
             <Item>
                 <Item.Content>
@@ -40,7 +40,7 @@ class DocumentSearchResult extends React.Component<Props> {
                         <ActionDropdown text="View" action="document.view" onSelect={this.handleAction} />
                     </Segment>
                     <Item.Header>
-                        {title}
+                        {info.title}
                     </Item.Header>
                     <Item.Meta><small>id: {id} | {length} characters </small></Item.Meta>
                     <Item.Description>

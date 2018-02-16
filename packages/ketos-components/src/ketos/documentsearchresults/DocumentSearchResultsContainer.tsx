@@ -20,9 +20,9 @@ interface Response {
                 results: {
                     id: string
                     length: number
-                    title: string
                     summary: string
                     info: {
+                        title: string
                         language: string
                         source: string
                         type: string
@@ -71,9 +71,9 @@ query search($datasetId: String!, $query: String!, $offset: Int, $size: Int) {
             results {
               id
               length
-              title
               summary
               info {
+                title
                 language
                 source
                 type
