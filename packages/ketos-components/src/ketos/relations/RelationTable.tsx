@@ -3,19 +3,22 @@ import { Table } from 'semantic-ui-react'
 import { ActionDropdown } from 'invest-components'
 
 export type Relation = {
-    sourceId: string
-    sourceValue: string
-    sourceType: string
-    sourceEntityId?: string
-    targetId: string
-    targetValue: string
-    targetType: string
-    targetEntityId?: string
+    source: {
+        id: string
+        value: string
+        type: string
+        entityId?: string
+    }
+    target: {
+        id: string
+        value: string
+        type: string
+        entityId?: string
+    }
     id: string,
-    relationshipType: string
-    relationSubtype?: string
-    docId?: string
     type: string
+    subType?: string
+    docId?: string
 }
 
 export interface OwnProps {
@@ -50,18 +53,18 @@ class RelationTable extends React.Component<Props> {
                         relations.map(r => {
                             return <Table.Row key={r.id}>
                                 <Table.Cell>
-                                    {r.sourceValue} [{r.sourceType}]
+                                    {r.source.value} [{r.source.type}]
                             </Table.Cell>
 
-                                <Table.Cell>{r.relationshipType}
-                                    {r.relationSubtype != null && r.relationSubtype !== ''
-                                        ? ': ' + r.relationSubtype : ''}</Table.Cell>
-                                <Table.Cell>{r.targetValue} [{r.targetType}]</Table.Cell>
+                                <Table.Cell>{r.type}
+                                    {r.subType != null && r.subType !== ''
+                                        ? ': ' + r.subType : ''}</Table.Cell>
+                                <Table.Cell>{r.target.value} [{r.target.type}]</Table.Cell>
                                 <Table.Cell>
                                     <ActionDropdown
                                         text="Source"
-                                        actions={r.targetEntityId != null ? MENTION_ENTITY_ACTIONS : MENTION_ACTIONS}
-                                        onSelect={this.handleMentionSelect(r.sourceId, r.sourceEntityId)}
+                                        actions={r.target.entityId != null ? MENTION_ENTITY_ACTIONS : MENTION_ACTIONS}
+                                        onSelect={this.handleMentionSelect(r.source.id, r.source.entityId)}
                                     />
                                     <ActionDropdown
                                         text="Relation"
@@ -70,8 +73,8 @@ class RelationTable extends React.Component<Props> {
                                     />
                                     <ActionDropdown
                                         text="Target"
-                                        actions={r.targetEntityId != null ? MENTION_ENTITY_ACTIONS : MENTION_ACTIONS}
-                                        onSelect={this.handleMentionSelect(r.targetId, r.targetEntityId)}
+                                        actions={r.target.entityId != null ? MENTION_ENTITY_ACTIONS : MENTION_ACTIONS}
+                                        onSelect={this.handleMentionSelect(r.target.od, r.target.entityId)}
                                     />
                                     {r.docId && <ActionDropdown
                                         text="Document"

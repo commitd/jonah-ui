@@ -109,13 +109,13 @@ class RelationView extends React.Component<Props, State> {
 
         const corpusNode = this.addCorpusNode(nodes, corpus.id, corpus.name)
 
-        const documentNode = this.addDocumentNode(nodes, relation.document.id, relation.document.title)
+        const documentNode = this.addDocumentNode(nodes, relation.document.id, relation.document.info.title)
 
-        const sourceNode = this.addMentionNode(nodes, relation.sourceId, relation.sourceType, relation.sourceValue)
+        const sourceNode = this.addMentionNode(nodes, relation.source.id, relation.source.type, relation.source.value)
 
-        const targetNode = this.addMentionNode(nodes, relation.targetId, relation.targetType, relation.targetValue)
+        const targetNode = this.addMentionNode(nodes, relation.target.id, relation.target.type, relation.target.value)
 
-        const relationNode = this.addRelationNode(nodes, relation.id, relation.relationshipType)
+        const relationNode = this.addRelationNode(nodes, relation.id, relation.type)
 
         this.addEdge(edges, corpusNode, documentNode, 'contains')
         this.addEdge(edges, documentNode, sourceNode, 'mentions')

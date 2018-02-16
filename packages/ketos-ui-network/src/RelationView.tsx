@@ -149,7 +149,7 @@ class RelationView extends React.Component<Props, State> {
 
     addToGraph(nodes: SigmaJs.Node[], edges: SigmaJs.Edge[], data: Response) {
 
-        // TODO: Would like to add some control over this... how everthing is turn into a graph...
+        // TODO: Would like to add some control over this... how everything is turn into a graph...
         // but currently we'll render a very default view
 
         // Doc --contains-> Entity --refers--> Mention --The Relation-> Mention (-> Entity)
@@ -158,7 +158,7 @@ class RelationView extends React.Component<Props, State> {
 
         const documentNode = this.addDocumentNode(nodes, entity.docId)
 
-        const entityNode = this.addEntityNode(nodes, entity.id, entity.type, entity.longestValue)
+        const entityNode = this.addEntityNode(nodes, entity.id, entity.type, entity.value)
 
         this.addEdge(edges, documentNode, entityNode, 'contains')
 
@@ -174,13 +174,13 @@ class RelationView extends React.Component<Props, State> {
             m.sourceOf.forEach(r => {
                 const s = this.addMentionNode(nodes, r.target.id, r.target.type, r.target.value, r.target.entityId)
 
-                this.addEdge(edges, mentionNode, s, r.relationshipType)
+                this.addEdge(edges, mentionNode, s, r.type)
             })
 
             m.targetOf.forEach(r => {
                 const s = this.addMentionNode(nodes, r.source.id, r.source.type, r.source.value, r.source.entityId)
 
-                this.addEdge(edges, s, mentionNode, r.relationshipType)
+                this.addEdge(edges, s, mentionNode, r.type)
             })
 
         })

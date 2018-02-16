@@ -16,8 +16,8 @@ type OwnProps = {
         }[]
         targetOf: {
             id: string
-            relationshipType: string
-            relationSubtype: string
+            type: string
+            subType: string
             source: {
                 value: string
                 type: string
@@ -25,9 +25,8 @@ type OwnProps = {
         }[]
         sourceOf: {
             id: string
-            relationshipType: string
-            relationSubtype: string
             type: string
+            subType: string
             target: {
                 value: string
                 type: string
@@ -68,7 +67,7 @@ class RelatedMentionsTable extends React.Component<Props> {
                             return m.sourceOf.map(r => {
                                 return <Table.Row key={`${m.id}-${r.id}`}>
                                     <Table.Cell positive={true} content={m.value} />
-                                    <Table.Cell content={`${r.relationshipType} ${r.relationSubtype}`} />
+                                    <Table.Cell content={`${r.type} ${r.subType}`} />
                                     <Table.Cell content={`${r.target.value} [${r.target.type}]`} />
                                     <Table.Cell>
                                         <ActionDropdown
@@ -86,7 +85,7 @@ class RelatedMentionsTable extends React.Component<Props> {
                             return m.targetOf.map(r => {
                                 return <Table.Row key={`${m.id}-${r.id}`}>
                                     <Table.Cell content={`${r.source.value} [${r.source.type}]`} />
-                                    <Table.Cell content={`${r.relationshipType} ${r.relationSubtype}`} />
+                                    <Table.Cell content={`${r.type} ${r.subType}`} />
                                     <Table.Cell positive={true} content={m.value} />
                                     <Table.Cell>
                                         <ActionDropdown

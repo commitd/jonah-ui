@@ -9,8 +9,10 @@ export interface MentionResult {
     entityId?: string
     document?: {
         id: string
-        title: string
         summary: string
+        info: {
+            title: string
+        }
     }
 }
 
@@ -74,7 +76,7 @@ class MentionView extends React.Component<Props> {
                         {type}
                     </Item.Description>
                     <Item.Extra>
-                        {document != null && <span><b>{document.title}</b>: {document.summary}</span>}
+                        {document != null && <span><b>{document.info.title}</b>: {document.summary}</span>}
                     </Item.Extra>
                 </Item.Content >
             </Item >

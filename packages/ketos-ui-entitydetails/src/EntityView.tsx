@@ -28,7 +28,7 @@ class EntityView extends React.Component<Props> {
 
         return (
             <div>
-                <Header as="h1">{entity.type} Entity: {entity.longestValue}</Header>
+                <Header as="h1">{entity.type} Entity: {entity.value}</Header>
                 <Header sub={true}>
                     Mentioned as:&nbsp;
                     <EntityMentionAliases mentions={entity.mentions} />

@@ -14,15 +14,15 @@ export type Response = {
             id: string,
             docId: string,
             type: string,
-            longestValue: string,
+            value: string,
             mentions: {
                 id: string
                 type: string,
                 value: string,
                 targetOf: {
                     id: string
-                    relationshipType: string
-                    relationSubtype: string
+                    type: string
+                    subtype: string
                     source: {
                         id: string
                         value: string
@@ -32,9 +32,8 @@ export type Response = {
                 }[]
                 sourceOf: {
                     id: string
-                    relationshipType: string
-                    relationSubtype: string
                     type: string
+                    subtype: string
                     target: {
                         id: string
                         value: string
@@ -55,15 +54,15 @@ query GetRelationsForEntity($datasetId: String!, $entityId: ID) {
         id
         docId
         type
-        longestValue
+        value
         mentions {
           id
           type
           value
           targetOf {
             id
-            relationshipType
-            relationSubtype 
+            type
+            subtype 
             source {
               id
               value
@@ -73,8 +72,8 @@ query GetRelationsForEntity($datasetId: String!, $entityId: ID) {
           }
           sourceOf {
             id
-            relationshipType
-            relationSubtype
+            type
+            subtype
             type 
             target {
               id

@@ -22,8 +22,8 @@ type State = {
 class App extends React.Component<Props, State> {
 
   state: State = {
-    datasetId: 're3d',
-    documentId: '6c590659d85a29ec16e004a025b9e4a08ac9428249425091085b1500e0ddd3eb'
+    datasetId: undefined,
+    documentId: undefined
   }
 
   componentWillReceiveProps(nextProps: Props) {

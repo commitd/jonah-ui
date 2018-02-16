@@ -42,9 +42,9 @@ class Results extends React.Component<Props> {
                                         {r.source.value} [{r.source.type}]
                                     </Table.Cell>
 
-                                    <Table.Cell>{r.relationshipType}
-                                        {r.relationSubtype != null && r.relationSubtype !== ''
-                                            ? ': ' + r.relationSubtype : ''}</Table.Cell>
+                                    <Table.Cell>{r.type}
+                                        {r.subType != null && r.subType !== ''
+                                            ? ': ' + r.subType : ''}</Table.Cell>
                                     <Table.Cell>{r.target.value} [{r.target.type}]</Table.Cell>
                                     <Table.Cell>
                                         <ActionDropdown

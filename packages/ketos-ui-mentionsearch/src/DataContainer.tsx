@@ -20,8 +20,10 @@ export type Response = {
             entityId: string
             document?: {
                 id: string
-                title: string
                 summary: string
+                info: {
+                    title: string
+                }
             }
         }[]
     }
@@ -38,8 +40,10 @@ query GetEntityView($datasetId: String!, $value: String, $type: String, $offset:
         entityId
         document {
             id
-            title
             summary
+            info {
+                title
+            }
         }
       }
     }

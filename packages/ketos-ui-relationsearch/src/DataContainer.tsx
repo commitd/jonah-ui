@@ -19,8 +19,8 @@ export type Response = {
     id: string
     relations: {
       id: string,
-      relationshipType: string,
-      relationSubtype?: string,
+      type: string,
+      subType?: string,
       docId: string
       source: {
         id: string,
@@ -52,19 +52,23 @@ query findRelation($datasetId: String!,
       id
     relations(
       probe:{
-        relationshipType:$relationshipType,
-        relationSubtype:$relationshipSubType,
-        targetValue:$targetValue,
-        targetType:$targetType,
-        sourceType:$sourceType,
-        sourceValue:$sourceValue
+        type:$relationshipType,
+        subType:$relationshipSubType,
+        target: {
+          type:$targetType,
+          value: $targetValue
+        },        
+        source: {
+          type:$sourceType,
+          value: $sourceValue
+        }
       },
       offset: $offset,
       limit: $size
     ) {
       id
-      relationshipType
-      relationSubtype
+      type
+      subType
       docId
       source {
         id

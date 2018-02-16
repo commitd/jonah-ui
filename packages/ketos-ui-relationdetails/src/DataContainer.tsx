@@ -16,20 +16,24 @@ export type Response = {
             id: string
             begin: number
             end: number
-            relationshipType: string
-            relationSubtype: string
             type: string
-            sourceType: string
-            sourceId: string
-            sourceValue: string
-            targetType: string
-            targetId: string
-            targetValue: string
-            docId: string
+            subtype: string
+            source: {
+                type: string
+                id: string
+                value: string
+            }
+            target: {
+                type: string
+                id: string
+                value: string
+            }
             document: {
                 id: string
-                title: string
                 content: string
+                info: {
+                    title: string
+                }
             }
         }
     }
@@ -44,20 +48,24 @@ query GetRelations($datasetId: String!, $relationId: String!) {
             id
             begin
             end
-            relationshipType
-            relationSubtype
             type
-            sourceType
-            sourceId
-            sourceValue
-            targetType
-            targetId
-            targetValue
-            docId
+            subType
+            source {
+                type
+                value
+                id
+            }
+            target {
+                type
+                value
+                id
+            }
             document {
                 id
-                title
                 content
+                info {
+                    title
+                }
             }
         }
     }
