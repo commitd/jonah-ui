@@ -86,25 +86,25 @@ query CorpusInfo($datasetId: String!)  {
     countDocuments
     countEntities
     countRelations
-    documentTypes: countByDocumentField(field:"info.type") {
+    documentTypes: countByDocumentField(field:"properties.type") {
         bins {
             count
             term
         }
     }
-    documentLanguages: countByDocumentField(field:"info.language") {
+    documentLanguages: countByDocumentField(field:"properties.language") {
         bins {
             count
             term
         }
     }
-    documentClassifications: countByDocumentField(field:"info.classification")  {
+    documentClassifications: countByDocumentField(field:"properties.classification")  {
         bins {
             count
             term
         }
     }
-    mentionTypes: countByMentionField(field:"type")  {
+    mentionTypes: countByMentionField(field:"properties.type")  {
         bins {
             count
             term
