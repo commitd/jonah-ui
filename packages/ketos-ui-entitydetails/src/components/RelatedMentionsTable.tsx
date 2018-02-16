@@ -48,7 +48,7 @@ class RelatedMentionsTable extends React.Component<Props> {
             0)
 
         if (totalRelations === 0) {
-            return <p>No related entities</p>
+            return <p>No related mentions</p>
         }
 
         return (

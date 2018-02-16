@@ -15,7 +15,7 @@ type State = {
 }
 
 type RelationViewPayload = {
-  dataset: string
+  datasetId: string
   relationId: string
 }
 
@@ -57,7 +57,7 @@ class App extends React.Component<Props, State> {
     if (action === 'relation.view') {
       const p = payload as RelationViewPayload
       this.setState({
-        datasetId: p.dataset,
+        datasetId: p.datasetId,
         relationId: p.relationId,
       })
     }
