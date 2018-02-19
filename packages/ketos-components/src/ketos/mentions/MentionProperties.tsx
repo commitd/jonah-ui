@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Table } from 'semantic-ui-react'
 import { Ellipsis } from 'invest-components'
 
-type Props = {
+export type Props = {
     mentions: {
         id: string,
         value: string,

@@ -1,0 +1,14 @@
+{
+    "id": "ketos-ui-mentiondetails",
+    "name": "Mention details",
+    "description": "View mention information",
+    "icon": "user",
+    "roles": [],
+    "actions": [
+        {
+            "title": "Mention details",
+            "description": "View details of mention",
+            "action": "mention.view"
+        }
+    ]
+}

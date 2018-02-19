@@ -16,3 +16,10 @@ export { default as createDataContainer } from './general/graphql/DataContainer'
 export { default as MentionView } from './ketos/mentions/MentionView'
 export { default as MentionTable } from './ketos/mentions/MentionTable'
 export { default as RelationTable } from './ketos/relations/RelationTable'
+
+export { default as MentionSnippets } from './ketos/mentions/MentionSnippets'
+export { default as MentionAliases } from './ketos/mentions/MentionAliases'
+export { default as MentionProperties } from './ketos/mentions/MentionProperties'
+export { default as RelatedMentionsTable } from './ketos/mentions/RelatedMentionsTable'
+
+export { default as PropertiesTable } from './ketos/properties/PropertiesTable'

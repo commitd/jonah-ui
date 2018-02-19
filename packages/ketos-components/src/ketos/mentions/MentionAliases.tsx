@@ -1,13 +1,13 @@
 import * as React from 'react'
 
-type OwnProps = {
+export type OwnProps = {
     mentions: {
         value: string
         type: string
     }[]
 }
 
-type Props = OwnProps
+export type Props = OwnProps
 
 class EntityMentionAliases extends React.Component<Props> {
 

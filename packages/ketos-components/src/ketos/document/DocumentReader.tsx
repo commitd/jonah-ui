@@ -1,11 +1,11 @@
 import * as React from 'react'
-import { Grid, Divider } from 'semantic-ui-react'
+import { Grid } from 'semantic-ui-react'
 import { Card } from 'invest-components'
 
 import DocumentContent from './DocumentContent'
 import DocumentMeta from './DocumentMeta'
 import DocumentInfo from './DocumentInfo'
-import MentionTable from '../mentions/MentionTable'
+// import MentionTable from '../mentions/MentionTable'
 
 export interface Document {
     id: string
@@ -58,7 +58,7 @@ class DocumentReader extends React.Component<Props, State> {
 
     render() {
         const { datasetId, document } = this.props
-        const { selectedMentions } = this.state
+        // const { selectedMentions } = this.state
 
         return (
             <Grid>
@@ -69,7 +69,9 @@ class DocumentReader extends React.Component<Props, State> {
                         mentions={document.mentions}
                         onMentionSelect={this.handleSelectedMentions}
                     />
-                    {/* <Divider hidden={true} />
+                    {/* 
+                    // This is really too big for this view.
+                    <Divider hidden={true} />
                     <h3>Mentions in document</h3>
                     <MentionTable
                         datasetId={datasetId}

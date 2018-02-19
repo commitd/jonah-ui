@@ -74,7 +74,7 @@ class RelationTable extends React.Component<Props> {
                                     <ActionDropdown
                                         text="Target"
                                         actions={r.target.entityId != null ? MENTION_ENTITY_ACTIONS : MENTION_ACTIONS}
-                                        onSelect={this.handleMentionSelect(r.target.od, r.target.entityId)}
+                                        onSelect={this.handleMentionSelect(r.target.id, r.target.entityId)}
                                     />
                                     {r.docId && <ActionDropdown
                                         text="Document"

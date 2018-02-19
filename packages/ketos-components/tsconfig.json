@@ -6,7 +6,6 @@
             "stories/"
         ],
         "outDir": "./build",
-        "declarationDir": "./build"
     },
     "include": [
         "src/**/*"

@@ -3,7 +3,7 @@ import { Feed, Segment } from 'semantic-ui-react'
 import MentionSnippet from './MentionSnippet'
 import { ActionDropdown } from 'invest-components'
 
-type OwnProps = {
+export type OwnProps = {
     datasetId: string
     documentId: string,
     content: string
@@ -16,7 +16,7 @@ type OwnProps = {
     }[]
 }
 
-type Props = OwnProps
+export type Props = OwnProps
 
 class MentionsSnippet extends React.Component<Props> {
 
@@ -31,7 +31,7 @@ class MentionsSnippet extends React.Component<Props> {
                 </Segment>
                 {
                     mentions
-                        .map(m => <MentionSnippet key={m.id} mention={m} content={content} />)
+                        .map(m => <MentionSnippet key={m.id} datasetId={this.props.datasetId} mention={m} content={content} />)
                 }
             </Feed >
         )

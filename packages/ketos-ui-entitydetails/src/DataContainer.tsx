@@ -1,5 +1,4 @@
 import gql from 'graphql-tag'
-
 import { createDataContainer } from 'ketos-components'
 
 type Variables = {
@@ -13,35 +12,18 @@ export type Response = {
     entity?: {
       id: string,
       type: string,
+      subType?: string,
       value: string,
+      properties: {
+        key: string,
+        value: {}
+      }[]
       mentions: {
         id: string
         begin: number,
         end: number,
-        type: string,
-        value: string
-        properties: {
-          key: string,
-          value: {}
-        }[]
-        targetOf: {
-          id: string
-          type: string
-          subType: string
-          source: {
-            value: string
-            type: string
-          }
-        }[]
-        sourceOf: {
-          id: string
-          type: string
-          subType: string
-          target: {
-            value: string
-            type: string
-          }
-        }[]
+        value: string,
+        type: string
       }[]
       document: {
         id: string,
@@ -52,42 +34,24 @@ export type Response = {
 }
 
 const QUERY = gql`
-query GetEntityView($datasetId: String!, $entityId: ID) {
+query GetEntityById($datasetId: String!, $entityId: ID) {
     corpus(id: $datasetId) {
       id
       entity(id: $entityId) {
         id
-        docId
         type
+        subType
         value
+        properties {
+          key
+          value
+        }
         mentions {
           id
           begin
           end
           type
           value
-          properties {
-              key
-              value
-          }
-          targetOf {
-            id
-            type
-            subType 
-            source {
-              value
-              type
-            }
-          }
-          sourceOf {
-            id
-            type 
-            subType
-            target {
-              value
-              type
-            }
-          }
         }
         document {
           id

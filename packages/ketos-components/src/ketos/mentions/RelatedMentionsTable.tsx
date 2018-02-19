@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Table } from 'semantic-ui-react'
 import { ActionDropdown } from 'invest-components'
 
-type OwnProps = {
+export type OwnProps = {
     datasetId: string
     mentions: {
         id: string
@@ -35,7 +35,7 @@ type OwnProps = {
     }[]
 }
 
-type Props = OwnProps
+export type Props = OwnProps
 
 class RelatedMentionsTable extends React.Component<Props> {
     render() {

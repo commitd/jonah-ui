@@ -3,6 +3,6 @@
     "compilerOptions": {
         "module": "system",
         "declaration": false,
-        "outFile": "./lib/ketos-componets.js"
+        "outFile": "./lib/ketos-components.js"
     }
 }

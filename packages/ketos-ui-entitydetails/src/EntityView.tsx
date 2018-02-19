@@ -1,9 +1,6 @@
 import * as React from 'react'
-import { Header } from 'semantic-ui-react'
-import MentionsSnippets from './components/MentionsSnippets'
-import EntityMentionAliases from './components/EntityMentionAliases'
-import MentionProperties from './components/MentionProperties'
-import RelatedMentionsTable from './components/RelatedMentionsTable'
+import { Header, Grid } from 'semantic-ui-react'
+import { MentionSnippets, MentionAliases, PropertiesTable } from 'ketos-components'
 import { Response } from './DataContainer'
 
 type OwnProps = {
@@ -27,25 +24,29 @@ class EntityView extends React.Component<Props> {
         }
 
         return (
-            <div>
-                <Header as="h1">{entity.type} Entity: {entity.value}</Header>
-                <Header sub={true}>
-                    Mentioned as:&nbsp;
-                    <EntityMentionAliases mentions={entity.mentions} />
-                </Header>
-                <Header as="h3" content="Properties" />
-                <MentionProperties mentions={entity.mentions} />
-                <Header as="h3" content="Document snippets" />
-                <MentionsSnippets
-                    mentions={entity.mentions}
-                    content={entity.document.content}
-                    datasetId={data.corpus.id}
-                    documentId={entity.document.id}
-                />
+            <Grid>
+                <Grid.Column width={12}>
+                    <Header as="h1">{entity.value}</Header>
+                    <Header as="h2">{entity.type}</Header>
+                    <Header sub={true}>
+                        Mentioned as:&nbsp;
+                        <MentionAliases mentions={entity.mentions} />
+                    </Header>
+                    <Header as="h3" content="Snippets" />
+                    <MentionSnippets
+                        datasetId={data.corpus.id}
+                        documentId={entity.document.id}
+                        mentions={entity.mentions}
+                        content={entity.document.content}
+                    />
+                </Grid.Column >
 
-                <Header as="h3" content="Related entities" />
-                <RelatedMentionsTable mentions={entity.mentions} datasetId={data.corpus.id} />
-            </div>
+                <Grid.Column width={4}>
+                    <Header as="h3" content="Properties" />
+                    <PropertiesTable properties={entity.properties} />
+                </Grid.Column >
+
+            </Grid>
         )
     }
 

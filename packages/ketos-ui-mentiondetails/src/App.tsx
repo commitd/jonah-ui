@@ -12,7 +12,7 @@ type OwnProps = {}
 type Props = OwnProps & ChildProps
 
 type State = {
-  datasetId?: string
+  dataset?: string
   entityId?: string
 }
 
@@ -24,8 +24,8 @@ type EntityViewPayload = {
 class App extends React.Component<Props, State> {
 
   state: State = {
-    entityId: '6358f8caa29b7515bec183c9988a2cf632ba8d5c3dd066bd32183da1cc55c73f', // undefined,
-    datasetId: 're3d' // undefined
+    entityId: undefined,
+    dataset: undefined
   }
 
   componentWillReceiveProps(nextProps: Props) {
@@ -43,7 +43,7 @@ class App extends React.Component<Props, State> {
         description="This view requires an entity to display"
         check={() => entityId != null}
       >
-        <DataContainer variables={{ datasetId: this.state.datasetId || '', entityId: this.state.entityId || '' }}>
+        <DataContainer variables={{ datasetId: this.state.dataset || '', entityId: this.state.entityId || '' }}>
           <EntityView />
         </DataContainer>
       </PrerequisiteContainer>
@@ -64,7 +64,7 @@ class App extends React.Component<Props, State> {
     } else if (action === 'entity.view') {
       const p = ((payload || {}) as EntityViewPayload)
       this.setState({
-        datasetId: p.datasetId,
+        dataset: p.datasetId,
         entityId: p.entityId
       })
     }
