@@ -6,6 +6,7 @@ type Variables = {
     datasetId: string
     value?: string,
     type?: string,
+    subType?: string,
     offset?: number,
     size?: number
 }
@@ -13,11 +14,14 @@ type Variables = {
 export type Response = {
     corpus: {
         id: string,
-        mentions: {
+        entities: {
             id: string
             type: string
+            subType?: string
             value: string
             entityId: string
+            begin: string
+            end: string
             document?: {
                 id: string
                 summary: string
@@ -30,14 +34,14 @@ export type Response = {
 }
 
 const QUERY = gql`
-query GetEntityView($datasetId: String!, $value: String, $type: String, $offset: Int, $size: Int) {
+query GetEntity($datasetId: String!, $value: String, $type: String, $subType: String, $offset: Int, $size: Int) {
     corpus(id: $datasetId) {
       id,
-      mentions(probe:{type: $type, value:$value}, offset: $offset, limit: $size) {
+      entities(probe:{type: $type, value:$value}, offset: $offset, limit: $size) {
         id
         type 
+        subType
         value
-        entityId
         document {
             id
             summary

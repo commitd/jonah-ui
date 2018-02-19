@@ -1,15 +1,20 @@
 import * as React from 'react'
 import { Item, Segment } from 'semantic-ui-react'
 import { ActionDropdown } from 'invest-components'
+import DocumentSnippet from '../document/DocumentSnippet'
 
 export interface MentionResult {
     id: string
     type: string
+    subType?: string
     value: string
+    begin?: number
+    end?: number
     entityId?: string
     document?: {
         id: string
-        summary: string
+        summary?: string
+        content?: string
         info: {
             title: string
         }
@@ -53,7 +58,7 @@ class MentionView extends React.Component<Props> {
 
     render() {
         const { mention } = this.props
-        const { type, value, entityId, document } = mention
+        const { type, subType, value, entityId, document } = mention
 
         const actions = ['mentions.view']
         if (document != null) {
@@ -73,14 +78,28 @@ class MentionView extends React.Component<Props> {
                         {value}
                     </Item.Header>
                     <Item.Description>
-                        {type}
+                        {type} {subType != null ? <span>: {subType}</span> : ''}
                     </Item.Description>
                     <Item.Extra>
-                        {document != null && <span><b>{document.info.title}</b>: {document.summary}</span>}
+                        {document != null && <span><b>{document.info.title}</b> {this.renderSnippet()}</span>}
                     </Item.Extra>
                 </Item.Content >
             </Item >
         )
+    }
+
+    renderSnippet() {
+        const m = this.props.mention
+        if (m.document) {
+            if (m.begin != null && m.end != null && m.document.content) {
+                return <DocumentSnippet content={m.document.content} begin={m.begin} end={m.end} />
+            } else if (m.document.summary) {
+                return <span>: {m.document.summary}</span>
+            }
+        }
+
+        return <span />
+
     }
 }
 

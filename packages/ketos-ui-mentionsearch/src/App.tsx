@@ -23,9 +23,10 @@ type State = {
   datasetId?: string,
   type: string,
   value: string
+  subType: string
   submittedType?: string,
   submittedValue?: string,
-
+  submittedSubType?: string,
   offset: number,
   size: number
 }
@@ -35,9 +36,10 @@ class App extends React.Component<Props, State> {
   state: State = {
     type: '',
     value: '',
+    subType: '',
     submittedType: undefined,
     submittedValue: undefined,
-
+    submittedSubType: undefined,
     offset: 0,
     size: 10
   }
@@ -71,13 +73,15 @@ class App extends React.Component<Props, State> {
     this.setState(state => ({
       submittedType: state.type !== '' ? state.type : undefined,
       submittedValue: state.value !== '' ? state.value : undefined,
+      submittedSubType: state.subType !== '' ? state.subType : undefined,
+
       offset: 0
     }))
   }
 
   render() {
     const { datasetId,
-      submittedType, submittedValue,
+      submittedType, submittedValue, submittedSubType,
       type, value,
       offset, size } = this.state
 
@@ -98,17 +102,40 @@ class App extends React.Component<Props, State> {
               onChange={this.handleFormChange}
             />
             <Form.Input name="type" label="Type" placeholder="Type" value={type} onChange={this.handleFormChange} />
-            <SearchButton onSubmit={this.handleSubmit} />
+            <Form.Input
+              name="subType"
+              label="SubType"
+              placeholder="Sub-type"
+              value={type}
+              onChange={this.handleFormChange}
+            />
+            <SearchButton onSubmit={this.handleSubmit} disabled={this.isDisabled()} />
           </Form.Group>
         </Form>
         {datasetId != null && (submittedType != null || submittedValue != null) &&
-          <DataContainer variables={{ datasetId, type: submittedType, value: submittedValue, offset: offset, size }} >
+          <DataContainer
+            variables={{
+              datasetId,
+              type: submittedType,
+              subType: submittedSubType,
+              value: submittedValue,
+              offset: offset,
+              size
+            }}
+          >
             <Results onOffsetChange={this.handleOffsetChange} offset={offset} size={size} />
           </DataContainer>
         }
 
       </Container >
     )
+  }
+
+  private isDisabled = () => {
+    const { datasetId,
+      submittedType, submittedValue,
+    } = this.state
+    return datasetId != null && (submittedType != null || submittedValue != null)
   }
 
   private onAction = (action?: string, payload?: {}) => {

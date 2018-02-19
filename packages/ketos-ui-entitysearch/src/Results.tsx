@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Segment, Item } from 'semantic-ui-react'
 import { Response } from './DataContainer'
 import { Pagination } from 'invest-components'
-import { MentionView } from 'ketos-components'
+import { EntityView } from 'ketos-components'
 
 type Props = {
     data?: Response,
@@ -16,11 +16,11 @@ class Results extends React.Component<Props> {
 
         const { data, offset, size } = this.props
 
-        if (!data || !data.corpus || !data.corpus.mentions || data.corpus.mentions.length === 0) {
+        if (!data || !data.corpus || !data.corpus.entities || data.corpus.entities.length === 0) {
             return <p>No results found</p>
         }
 
-        const mentions = data.corpus.mentions
+        const mentions = data.corpus.entities
 
         return (
             <Segment basic={true}>
@@ -28,10 +28,10 @@ class Results extends React.Component<Props> {
 
                     {
                         mentions.map(e => {
-                            return <MentionView
+                            return <EntityView
                                 key={e.id}
                                 datasetId={data.corpus.id}
-                                mention={e}
+                                entity={e}
                             />
                         })
                     }
@@ -39,7 +39,7 @@ class Results extends React.Component<Props> {
                 <Pagination
                     offset={offset}
                     size={size}
-                    resultsOnPage={data.corpus.mentions.length}
+                    resultsOnPage={data.corpus.entities.length}
                     onOffsetChange={this.props.onOffsetChange}
                 />
             </Segment>

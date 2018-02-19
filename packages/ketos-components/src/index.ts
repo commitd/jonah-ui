@@ -13,6 +13,8 @@ export { default as MessageBox } from './general/message/MessageBox'
 export { default as PrerequisiteContainer } from './general/container/PrerequisiteContainer'
 export { default as createDataContainer } from './general/graphql/DataContainer'
 
+export { default as EntityView } from './ketos/entities/EntityView'
+
 export { default as MentionView } from './ketos/mentions/MentionView'
 export { default as MentionTable } from './ketos/mentions/MentionTable'
 export { default as RelationTable } from './ketos/relations/RelationTable'

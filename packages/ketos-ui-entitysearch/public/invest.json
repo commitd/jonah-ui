@@ -1,7 +1,7 @@
 {
     "id": "ketos-ui-entitysearch",
     "name": "Entity search",
-    "description": "Find entites",
+    "description": "Find entities",
     "icon": "search",
     "roles": [],
     "actions": [
