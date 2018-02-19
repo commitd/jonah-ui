@@ -4,7 +4,7 @@ import App from './App'
 import registerServiceWorker from './registerServiceWorker'
 import './index.css'
 
-import 'semantic-ui-css/semantic.min.css'
+import 'semantic-ui-offline/semantic.min.css'
 import 'leaflet/dist/leaflet.css'
 
 import { InvestUiPlugin } from 'invest-plugin'

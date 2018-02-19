@@ -3,7 +3,7 @@ import * as ReactDOM from 'react-dom'
 import App from './App'
 
 import './index.css'
-import 'semantic-ui-css/semantic.min.css'
+import 'semantic-ui-offline/semantic.min.css'
 
 import { InvestUiPlugin } from 'invest-plugin'
 import { PluginLifecycle } from 'invest-common'
