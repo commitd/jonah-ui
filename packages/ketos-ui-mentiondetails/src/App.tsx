@@ -5,27 +5,27 @@ import { PrerequisiteContainer } from 'ketos-components'
 import { ChildProps } from 'invest-plugin'
 
 import DataContainer from './DataContainer'
-import EntityView from './EntityView'
+import EntityView from './MentionView'
 
 type OwnProps = {}
 
 type Props = OwnProps & ChildProps
 
 type State = {
-  dataset?: string
-  entityId?: string
+  datasetId?: string
+  mentionId?: string
 }
 
-type EntityViewPayload = {
+type MentionViewPayload = {
   datasetId: string
-  entityId: string
+  mentionId: string
 }
 
 class App extends React.Component<Props, State> {
 
   state: State = {
-    entityId: undefined,
-    dataset: undefined
+    mentionId: 'd01a2154eb0f988227279858639715d1b8a7a859e3f54b42454fde8b30cf435d',
+    datasetId: 're3d'
   }
 
   componentWillReceiveProps(nextProps: Props) {
@@ -35,15 +35,15 @@ class App extends React.Component<Props, State> {
   }
 
   render() {
-    const { entityId } = this.state
+    const { mentionId } = this.state
 
     return (
       <PrerequisiteContainer
-        title="No entity"
-        description="This view requires an entity to display"
-        check={() => entityId != null}
+        title="No mention"
+        description="This view requires an mention to display"
+        check={() => mentionId != null}
       >
-        <DataContainer variables={{ datasetId: this.state.dataset || '', entityId: this.state.entityId || '' }}>
+        <DataContainer variables={{ datasetId: this.state.datasetId || '', mentionId: this.state.mentionId || '' }}>
           <EntityView />
         </DataContainer>
       </PrerequisiteContainer>
@@ -59,13 +59,13 @@ class App extends React.Component<Props, State> {
 
     if (action == null) {
       this.setState({
-        entityId: undefined
+        mentionId: undefined
       })
-    } else if (action === 'entity.view') {
-      const p = ((payload || {}) as EntityViewPayload)
+    } else if (action === 'mention.view') {
+      const p = ((payload || {}) as MentionViewPayload)
       this.setState({
-        dataset: p.datasetId,
-        entityId: p.entityId
+        datasetId: p.datasetId,
+        mentionId: p.mentionId
       })
     }
   }

@@ -29,12 +29,16 @@ class PropertiesTable extends React.Component<Props> {
                 </Table.Header>
                 <Table.Body>
                     {
-                        properties.map((p, i) => {
-                            return <Table.Row key={`${p.key}-${i}`}>
-                                <Table.Cell>{p.key}</Table.Cell>
-                                <Table.Cell><Ellipsis text={JSON.stringify(p.value)} /> </Table.Cell>
-                            </Table.Row>
-                        })
+                        properties
+                            .filter(p => p.value !== null && p.key !== null)
+                            // discard this internal Blaeen thing
+                            .filter(p => p.key !== 'isNormalised')
+                            .map((p, i) => {
+                                return <Table.Row key={`${p.key}-${i}`}>
+                                    <Table.Cell>{p.key}</Table.Cell>
+                                    <Table.Cell><Ellipsis text={JSON.stringify(p.value)} /> </Table.Cell>
+                                </Table.Row>
+                            })
                     }
                 </Table.Body>
             </Table>
