@@ -37,7 +37,7 @@ const QUERY = gql`
 query GetMention($datasetId: String!, $value: String, $type: String, $subType: String, $offset: Int, $size: Int) {
     corpus(id: $datasetId) {
       id,
-      mentions(probe:{type: $type, value:$value}, offset: $offset, limit: $size) {
+      mentions(probe:{type: $type, value:$value, subType: $subType}, offset: $offset, limit: $size) {
         id
         type 
         subType

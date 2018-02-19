@@ -82,7 +82,7 @@ class App extends React.Component<Props, State> {
   render() {
     const { datasetId,
       submittedType, submittedValue, submittedSubType,
-      type, value,
+      type, value, subType,
       offset, size } = this.state
 
     return (
@@ -106,7 +106,7 @@ class App extends React.Component<Props, State> {
               name="subType"
               label="SubType"
               placeholder="Sub-type"
-              value={type}
+              value={subType}
               onChange={this.handleFormChange}
             />
             <SearchButton onSubmit={this.handleSubmit} disabled={this.isDisabled()} />
@@ -133,9 +133,9 @@ class App extends React.Component<Props, State> {
 
   private isDisabled = () => {
     const { datasetId,
-      submittedType, submittedValue,
+      type, value,
     } = this.state
-    return datasetId != null && (submittedType != null || submittedValue != null)
+    return datasetId == null || (type === '' && value === '')
   }
 
   private onAction = (action?: string, payload?: {}) => {
