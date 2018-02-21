@@ -60,7 +60,7 @@ class MentionView extends React.Component<Props> {
         const { mention } = this.props
         const { type, subType, value, entityId, document } = mention
 
-        const actions = ['mentions.view']
+        const actions = ['mention.view']
         if (document != null) {
             actions.push('document.view')
         }
