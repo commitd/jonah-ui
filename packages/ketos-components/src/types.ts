@@ -21,6 +21,7 @@ export type TimeCount = {
 // Basic building blocks
 
 export type BasicDocumentInfo = {
+    id: string
     title: string
     date: number
     type: string

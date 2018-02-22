@@ -16,6 +16,7 @@ export type Response = {
             id: string
             begin: number
             end: number
+            value: string
             type: string
             subtype: string
             source: {
@@ -50,6 +51,7 @@ query GetRelations($datasetId: String!, $relationId: String!) {
             end
             type
             subType
+            value
             source {
                 type
                 value

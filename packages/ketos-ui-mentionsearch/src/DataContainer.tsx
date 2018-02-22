@@ -22,7 +22,7 @@ export type Response = {
             entityId: string
             begin: number
             end: number
-            document?: {
+            document: {
                 id: string
                 content: string
                 info: {

@@ -1,6 +1,6 @@
 import gql from 'graphql-tag'
 
-import { createDataContainer } from 'ketos-components'
+import { createDataContainer, BasicEntityNode, BasicDocumentNode } from 'ketos-components'
 
 type Variables = {
     datasetId: string
@@ -14,22 +14,11 @@ type Variables = {
 export type Response = {
     corpus: {
         id: string,
-        entities: {
-            id: string
-            type: string
-            subType?: string
-            value: string
-            entityId: string
-            begin: string
-            end: string
-            document?: {
-                id: string
+        entities: (BasicEntityNode & {
+            document: BasicDocumentNode & {
                 summary: string
-                info: {
-                    title: string
-                }
             }
-        }[]
+        })[]
     }
 }
 
