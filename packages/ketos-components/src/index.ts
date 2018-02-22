@@ -25,3 +25,6 @@ export { default as MentionProperties } from './ketos/mentions/MentionProperties
 export { default as RelatedMentionsTable } from './ketos/mentions/RelatedMentionsTable'
 
 export { default as PropertiesTable } from './ketos/properties/PropertiesTable'
+
+export * from './types'
+export * from './utils/ChartUtils'
