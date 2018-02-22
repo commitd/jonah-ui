@@ -1,12 +1,10 @@
 import * as React from 'react'
 import { Table } from 'semantic-ui-react'
 import { Ellipsis } from 'invest-components'
+import { Property } from '../../types';
 
 export type Props = {
-    properties: {
-        key: string,
-        value: {}
-    }[]
+    properties: Property[]
 }
 
 class PropertiesTable extends React.Component<Props> {

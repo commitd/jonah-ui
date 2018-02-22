@@ -1,24 +1,13 @@
 import * as React from 'react'
 import { Item, Segment } from 'semantic-ui-react'
 import { ActionDropdown } from 'invest-components'
-
-export interface EntityResult {
-    id: string
-    type: string
-    subType?: string
-    value: string
-    document?: {
-        id: string
-        summary?: string
-        info: {
-            title: string
-        }
-    }
-}
+import { BasicEntityNode, BasicDocumentNode } from '../../types';
 
 export type Props = {
     datasetId: string,
-    entity: EntityResult,
+    entity: BasicEntityNode & {
+        document: BasicDocumentNode
+    }
 }
 
 class EntityView extends React.Component<Props> {

@@ -2,22 +2,11 @@ import * as React from 'react'
 import { Item, Segment } from 'semantic-ui-react'
 import { ActionDropdown } from 'invest-components'
 import DocumentSnippet from '../document/DocumentSnippet'
+import { Mention, BasicDocumentNode } from '../../types'
 
-export interface MentionResult {
-    id: string
-    type: string
-    subType?: string
-    value: string
-    begin?: number
-    end?: number
-    entityId?: string
-    document?: {
-        id: string
-        summary?: string
-        content?: string
-        info: {
-            title: string
-        }
+export type MentionResult = Mention & {
+    document: BasicDocumentNode & {
+        content: string
     }
 }
 

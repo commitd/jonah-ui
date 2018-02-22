@@ -46,6 +46,7 @@ export type BasicCorpusNode = {
 
 export type BasicDocumentNode = {
     id: string
+    summary?: string
     info: {
         title: string
     }
@@ -56,6 +57,7 @@ export type BasicMentionNode = {
     type: string
     subType?: string
     value: string
+    entityId?: string
 }
 
 export type Span = {
@@ -65,6 +67,10 @@ export type Span = {
 
 export type MentionSpan = Span & {
     id: string
+}
+
+export type Mention = Span & BasicMentionNode & {
+    entityId?: string
 }
 
 export type BasicEntityNode = {
@@ -100,7 +106,7 @@ export type Metadata = {
     value: string
 }
 
-export type Properties = {
+export type Property = {
     key: string
     value: {}
 }

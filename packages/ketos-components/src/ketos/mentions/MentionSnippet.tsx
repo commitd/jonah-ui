@@ -2,17 +2,12 @@ import * as React from 'react'
 import { Feed, Icon, Segment } from 'semantic-ui-react'
 import { ActionDropdown } from 'invest-components'
 import DocumentSnippet from '../document/DocumentSnippet'
+import { Mention } from '../../types';
 
 export type OwnProps = {
     datasetId?: string
     content: string
-    mention: {
-        id?: string
-        begin: number
-        end: number
-        value: string
-        type: string
-    }
+    mention: Mention
 }
 
 export type Props = OwnProps

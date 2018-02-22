@@ -1,19 +1,13 @@
 import * as React from 'react'
 import { Table, List } from 'semantic-ui-react'
 import { Ellipsis } from 'invest-components'
+import { Metadata } from '../../types';
 
-export interface Metadata {
-    key: string
-    value: string
-}
-
-export interface OwnProps {
+export interface Props {
     metadata: Metadata[]
 }
 
-export type Props = OwnProps
-
-class DocumentMeta extends React.Component<Props> {
+export default class DocumentMeta extends React.Component<Props> {
 
     renderSafeValue(v: {}): React.ReactElement<{}> {
         if (v == null) {
@@ -54,5 +48,3 @@ class DocumentMeta extends React.Component<Props> {
         )
     }
 }
-
-export default DocumentMeta

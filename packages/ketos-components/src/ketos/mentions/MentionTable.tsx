@@ -1,13 +1,7 @@
 import * as React from 'react'
 import { Table } from 'semantic-ui-react'
 import { ActionDropdown } from 'invest-components'
-
-export type Mention = {
-    value: string
-    type: number
-    id: string,
-    entityId: string
-}
+import { Mention } from '../../types'
 
 export interface OwnProps {
     datasetId: string,
@@ -25,7 +19,7 @@ class MentionTable extends React.Component<Props> {
                 datasetId: this.props.datasetId,
                 mentionId: m.id
             })
-        } else if (action === 'entity.view') {
+        } else if (action === 'entity.view' && m.entityId) {
             act({
                 datasetId: this.props.datasetId,
                 entityId: m.entityId

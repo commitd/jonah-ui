@@ -2,21 +2,14 @@ import * as React from 'react'
 import { Feed, Segment } from 'semantic-ui-react'
 import MentionSnippet from './MentionSnippet'
 import { ActionDropdown } from 'invest-components'
+import { Mention } from '../../types';
 
-export type OwnProps = {
+export type Props = {
     datasetId: string
     documentId: string,
     content: string
-    mentions: {
-        id: string
-        begin: number
-        end: number
-        value: string
-        type: string
-    }[]
+    mentions: Mention[]
 }
-
-export type Props = OwnProps
 
 class MentionsSnippet extends React.Component<Props> {
 

@@ -33,10 +33,8 @@ export default class EntityView extends React.Component<Props> {
                     <DocumentInfo
                         datasetId={datasetId}
                         documentId={document.id}
+                        info={document.info}
                         length={document.length}
-                        source={document.info.source}
-                        type={document.info.type}
-                        language={document.info.language}
                     />
                 </Card>
 

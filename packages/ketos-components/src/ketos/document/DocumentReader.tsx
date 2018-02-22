@@ -4,31 +4,14 @@ import { Card } from 'invest-components'
 
 import DocumentContent from './DocumentContent'
 import DocumentInfo from './DocumentInfo'
+import { BasicDocumentNode, BasicDocumentInfo, Metadata, Mention } from '../../types'
 
-export interface Document {
-    id: string
+export type Document = BasicDocumentNode & {
     length: number
-    info: {
-        title: string
-        language: string
-        source: string
-        type: string
-        classification: string
-        documentDate: number
-    }
     content: string
-    metadata: {
-        key: string
-        value: string
-    }[]
-    mentions: {
-        begin: number
-        end: number
-        value: string
-        type: number
-        id: string,
-        entityId: string
-    }[]
+    info: BasicDocumentInfo
+    metadata: Metadata[]
+    mentions: Mention[]
 }
 
 export interface OwnProps {
@@ -73,10 +56,7 @@ class DocumentReader extends React.Component<Props, State> {
                         <DocumentInfo
                             datasetId={datasetId}
                             documentId={document.id}
-                            length={document.length}
-                            source={document.info.source}
-                            type={document.info.type}
-                            language={document.info.language}
+                            info={document.info}
                         />
                     </Card>
 
