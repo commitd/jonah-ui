@@ -4,10 +4,13 @@ const isEqual = require('lodash.isequal')
 import { Context as PluginContext } from 'invest-plugin'
 import {
     expandRelation, expandEntity, expandMention, expandDocument,
-    BasicDocumentNode, BasicEntityNode, BasicRelationNode, BasicMentionNode, BasicCorpusNode
 } from './Queries'
 import NetworkView from './NetworkView'
 import { GraphHelper, SigmaGraphHelper } from 'invest-components'
+import {
+    BasicCorpusNode, BasicDocumentNode, BasicEntityNode,
+    BasicMentionNode, BasicRelationNode
+} from 'ketos-components'
 
 export type Props = {
     datasetId: string,

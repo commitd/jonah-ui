@@ -1,19 +1,11 @@
 import * as React from 'react'
 import { Segment } from 'semantic-ui-react'
-
-export type Mention = {
-
-    begin: number
-    end: number
-    type: number
-    id: string,
-
-}
+import { MentionSpan } from '../../types';
 
 export interface OwnProps {
     title: string
     content: string
-    mentions?: Mention[]
+    mentions?: MentionSpan[]
     onMentionSelect?(mentions: string[]): void
 
 }
@@ -101,7 +93,7 @@ class DocumentReader extends React.Component<Props> {
         )
     }
 
-    private renderMentions(title: String, content: string, mentions: Mention[]) {
+    private renderMentions(title: String, content: string, mentions: MentionSpan[]) {
 
         const sorted = [...mentions].sort((a, b) => {
             const begin = a.begin - b.begin

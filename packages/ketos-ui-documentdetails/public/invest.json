@@ -1,0 +1,14 @@
+{
+    "id": "ketos-ui-documentdetails",
+    "name": "Document details",
+    "description": "View document information",
+    "icon": "user",
+    "roles": [],
+    "actions": [
+        {
+            "title": "Document details",
+            "description": "View details of document",
+            "action": "document.view"
+        }
+    ]
+}

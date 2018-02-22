@@ -3,9 +3,7 @@ import { Grid } from 'semantic-ui-react'
 import { Card } from 'invest-components'
 
 import DocumentContent from './DocumentContent'
-import DocumentMeta from './DocumentMeta'
 import DocumentInfo from './DocumentInfo'
-// import MentionTable from '../mentions/MentionTable'
 
 export interface Document {
     id: string
@@ -69,15 +67,6 @@ class DocumentReader extends React.Component<Props, State> {
                         mentions={document.mentions}
                         onMentionSelect={this.handleSelectedMentions}
                     />
-                    {/* 
-                    // This is really too big for this view.
-                    <Divider hidden={true} />
-                    <h3>Mentions in document</h3>
-                    <MentionTable
-                        datasetId={datasetId}
-                        mentions={document.mentions}
-                        selectedMentions={selectedMentions}
-                    /> */}
                 </Grid.Column>
                 <Grid.Column width={6}>
                     <Card title="Info">
@@ -90,11 +79,7 @@ class DocumentReader extends React.Component<Props, State> {
                             language={document.info.language}
                         />
                     </Card>
-                    <Card title="Metadata">
-                        <DocumentMeta
-                            metadata={document.metadata}
-                        />
-                    </Card>
+
                 </Grid.Column>
             </Grid>
         )

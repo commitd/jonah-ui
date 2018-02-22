@@ -1,7 +1,10 @@
 import * as React from 'react'
 import { Table } from 'semantic-ui-react'
 import { ActionDropdown } from 'invest-components'
-import { BasicMentionNode, BasicDocumentNode, BasicEntityNode, BasicCorpusNode, BasicRelationNode } from './Queries'
+import {
+    BasicCorpusNode, BasicDocumentNode, BasicEntityNode,
+    BasicMentionNode, BasicRelationNode
+} from 'ketos-components'
 
 type Props = {
     type: string

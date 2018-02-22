@@ -1,5 +1,11 @@
 import { PluginApi } from 'invest-plugin'
 
+import {
+    BasicCorpusNode, BasicDocumentNode, BasicEntityNode,
+    BasicMentionNode, BasicRelationNode, SourcedRelation,
+    TargetedRelation
+} from 'ketos-components'
+
 // Inputs
 
 export type ExpandDocumentVariables = {
@@ -20,46 +26,6 @@ export type ExpandEntityVariables = {
 export type ExpandRelationVariables = {
     datasetId: string
     relationId: string
-}
-
-// Common output building blocks
-
-export type BasicCorpusNode = {
-    id: string
-    name: string
-}
-
-export type BasicDocumentNode = {
-    id: string
-    info: {
-        title: string
-    }
-}
-
-export type BasicMentionNode = {
-    id: string
-    type: string
-    value: string
-}
-
-export type BasicEntityNode = {
-    id: string
-    type: string
-    value: string
-}
-
-export type BasicRelationNode = {
-    id: string
-    type: string
-    value: string
-}
-
-export type SourcedRelation = BasicRelationNode & {
-    source: BasicMentionNode
-}
-
-export type TargetedRelation = BasicRelationNode & {
-    target: BasicMentionNode
 }
 
 // GraphQL Responses
