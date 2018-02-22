@@ -1,20 +1,11 @@
 import * as React from 'react'
 import { Table } from 'semantic-ui-react'
 import { ActionDropdown } from 'invest-components'
-import { BasicMentionNode } from '../../types';
-
-export type Relation = {
-    source: BasicMentionNode
-    target: BasicMentionNode
-    id: string,
-    type: string
-    subType?: string
-    docId?: string
-}
+import { RelationWithMentionsNode } from '../../types'
 
 export interface OwnProps {
     datasetId: string,
-    relations: Relation[]
+    relations: RelationWithMentionsNode[]
     selectedRelations?: string[]
 }
 

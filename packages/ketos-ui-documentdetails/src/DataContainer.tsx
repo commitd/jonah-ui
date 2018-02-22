@@ -19,7 +19,7 @@ export type Response = {
       info: FullDocumentInfo
       metadata: Metadata[]
       entities: BasicEntityNode[]
-      relations: RelationWithMentionsNode
+      relations: RelationWithMentionsNode[]
     }
   }
 }

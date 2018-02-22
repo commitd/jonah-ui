@@ -58,6 +58,7 @@ export type BasicMentionNode = {
     subType?: string
     value: string
     entityId?: string
+    docId?: string
 }
 
 export type Span = {
@@ -78,6 +79,7 @@ export type BasicEntityNode = {
     type: string
     subType?: string
     value: string
+    docId?: string
 }
 
 export type BasicRelationNode = {
@@ -85,6 +87,7 @@ export type BasicRelationNode = {
     type: string
     subType?: string
     value: string
+    docId?: string
 }
 
 export type RelationWithMentionsNode = BasicRelationNode & {

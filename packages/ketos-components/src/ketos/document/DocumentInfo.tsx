@@ -75,7 +75,7 @@ class DocumentInfo extends React.Component<Props> {
                         <Table.Cell>Classification</Table.Cell>
                         <Table.Cell>{i.classification}</Table.Cell>
                     </Table.Row>}
-                    {i.caveats && <Table.Row>
+                    {i.caveats && i.caveats.length > 0 && <Table.Row>
                         <Table.Cell>Caveats</Table.Cell>
                         <Table.Cell>{i.caveats.join('; ')}</Table.Cell>
                     </Table.Row>}
