@@ -7,6 +7,13 @@ type Variables = {
     query: string
 }
 
+type Location = {
+    lat: number
+    lon: number
+    name: string
+    geohash: string
+}
+
 export type Response = {
     corpus: {
         documentTimeline: {
@@ -28,6 +35,7 @@ export type Response = {
         relationTypes: {
             bins: TermBin[]
         }
+        documentLocations: Location[]
     }
 }
 
@@ -69,12 +77,22 @@ query Do($query:String!, $datasetId: String!) {
        content:$query 
       },
         type:ENTITY,
-      field:"value") {
+      field:"value"
+      , size: 50) {
         bins {
           term
           count
         }
       }
+
+      documentLocations(query:{
+        content:$query 
+       }, size: 500) {
+        lat
+        lon
+         name
+         geohash(precision:5)
+       }
       
       relationTypes: countByTypesField(query:{
        content:$query 

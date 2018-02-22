@@ -1,5 +1,5 @@
 import * as React from 'react'
-import SimpleMap from './components/Map'
+import { SimpleMap } from 'ketos-components'
 import { Response } from './DataContainer'
 import { Marker, Tooltip } from 'react-leaflet'
 import { decode } from 'latlon-geohash'

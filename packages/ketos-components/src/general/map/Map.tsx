@@ -1,19 +1,16 @@
 import * as React from 'react'
 import { Map, TileLayer } from 'react-leaflet'
 
-type OwnProps = {
+export type Props = {
     url?: string
     center?: {
         lat: number,
         lng: number,
     }
     zoom?: number
-
 }
 
-type Props = OwnProps
-
-class SimpleMap extends React.Component<Props> {
+export default class SimpleMap extends React.Component<Props> {
 
     render() {
 
@@ -39,8 +36,6 @@ class SimpleMap extends React.Component<Props> {
                 {
                     this.props.children
                 }
-            </ Map>)
+            </Map>)
     }
 }
-
-export default SimpleMap

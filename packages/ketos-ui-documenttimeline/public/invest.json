@@ -1,13 +1,13 @@
 {
-    "id": "ketos-ui-documenttimeline",
-    "name": "Document timeline",
-    "description": "Explore documents by time",
+    "id": "ketos-ui-documentexplorer",
+    "name": "Document explorer",
+    "description": "Explore documents",
     "icon": "time",
     "roles": [],
     "actions": [
         {
-            "title": "View timeline",
-            "description": "View document on timeline",
+            "title": "Explore extraction",
+            "description": "View document by their extraction",
             "action": "document.search"
         }
     ]

@@ -1,7 +1,8 @@
 import * as React from 'react'
 
 import { Grid } from 'semantic-ui-react'
-import { Counter, PieChart, BarChart, TimelineChart, Card, TermBin, TimeBin, termBinToXY, timeBinToXY } from 'invest-components'
+import { Counter, PieChart, BarChart, TimelineChart, Card } from 'invest-components'
+import { TermBin, TimeBin, termBinsToXY, timeBinsToXY } from 'ketos-components'
 
 type OwnProps = {
     numDocuments?: number,
@@ -49,23 +50,23 @@ class View extends React.Component<Props> {
                 </Grid>
                 <Grid>
                     <Grid.Row columns={1}>
-                        {documentTimeline && <Grid.Column>
+                        {documentTimeline && documentTimeline.length > 1 && <Grid.Column>
                             <Card title="Document timeline">
-                                <TimelineChart data={termBinToXY(documentTimeline)} />
+                                <TimelineChart data={timeBinsToXY(documentTimeline)} />
                             </Card>
                         </Grid.Column>}
                     </Grid.Row>
                 </Grid>
                 <Grid><Grid.Row columns={3}>
                     {documentTypes && <Grid.Column>
-                        <Card title="Types"><PieChart data={termBinToXY(documentTypes)} /></Card>
+                        <Card title="Types"><PieChart data={termBinsToXY(documentTypes)} /></Card>
                     </Grid.Column>}
                     {documentLanguages && <Grid.Column>
-                        <Card title="Languages"><PieChart data={termBinToXY(documentLanguages)} /></Card>
+                        <Card title="Languages"><PieChart data={termBinsToXY(documentLanguages)} /></Card>
                     </Grid.Column>}
                     {documentClassifications && <Grid.Column>
                         <Card title="Classifications">
-                            <PieChart data={termBinToXY(documentClassifications)} />
+                            <PieChart data={termBinsToXY(documentClassifications)} />
                         </Card>
                     </Grid.Column>}
                 </Grid.Row>
@@ -75,7 +76,7 @@ class View extends React.Component<Props> {
                         title="Mention types"
                         subTitle={`${mentionTypes.length} mention types within the corpus`}
                     >
-                        <BarChart data={termBinToXY(mentionTypes)} />
+                        <BarChart data={termBinsToXY(mentionTypes)} />
                     </Card>
                 </Grid.Column></Grid.Row></Grid>}
 

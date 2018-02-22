@@ -12,6 +12,7 @@ export { default as SearchButton } from './general/button/SearchButton'
 export { default as MessageBox } from './general/message/MessageBox'
 export { default as PrerequisiteContainer } from './general/container/PrerequisiteContainer'
 export { default as createDataContainer } from './general/graphql/DataContainer'
+export { default as SimpleMap } from './general/map/Map'
 
 export { default as EntityView } from './ketos/entities/EntityView'
 
@@ -28,3 +29,4 @@ export { default as PropertiesTable } from './ketos/properties/PropertiesTable'
 
 export * from './types'
 export * from './utils/ChartUtils'
+export * from './utils/MapUtils'

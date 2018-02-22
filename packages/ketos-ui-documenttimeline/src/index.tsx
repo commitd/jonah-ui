@@ -9,8 +9,11 @@ import { InvestUiPlugin } from 'invest-plugin'
 import { PluginLifecycle } from 'invest-common'
 import { Handler } from 'invest-rpc'
 import { loggerFactory } from 'invest-utils'
+import { setupLeaflet } from 'ketos-components'
 
 const handlerLogger = loggerFactory.getLogger('Handler')
+
+setupLeaflet()
 
 const handler: Handler<PluginLifecycle> = {
   onLoad: () => {
