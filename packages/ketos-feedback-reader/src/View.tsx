@@ -37,9 +37,6 @@ class View extends React.Component<Props> {
             )
         }
 
-        // TODO: Find better layout than this... eg select by plugin, order by different types
-        // use icons for types etc
-
         return (
             <div>
                 {refreshButton}

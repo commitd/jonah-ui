@@ -80,7 +80,6 @@ class MentionTable extends React.Component<Props> {
                 value: m.value
             })
         } else if (action === RELATION_SEARCH) {
-            // TODO... this is only source... how would we do target too? (its the same action). 
             act({
                 datasetId: this.props.datasetId,
                 source: {

@@ -49,7 +49,7 @@ class View extends React.Component<Props, State> {
             return <p>No values associated with {metadataKey}</p>
         }
 
-        // TODO: This is a bot of a hack.. we might legimately have exactly maxValues number of values
+        // NOTE: This is a bit of a hack.. we might legimately have exactly maxValues number of values
         const isEverything = metadataValues.length < (maxValues - 1)
         const numberToDisplay = isEverything ? metadataValues.length : maxValues - 1
 
