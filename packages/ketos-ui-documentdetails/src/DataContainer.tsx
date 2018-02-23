@@ -1,5 +1,5 @@
 import gql from 'graphql-tag'
-import { createDataContainer } from 'ketos-components'
+import { createDataContainer } from 'invest-components'
 import {
   BasicDocumentNode, BasicEntityNode,
   Metadata, FullDocumentInfo,

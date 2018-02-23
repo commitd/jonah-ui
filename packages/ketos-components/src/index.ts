@@ -27,5 +27,4 @@ export { default as PropertiesTable } from './ketos/properties/PropertiesTable'
 
 export * from './types'
 export * from './Payload'
-export * from './utils/ChartUtils'
 export * from './utils/MapUtils'

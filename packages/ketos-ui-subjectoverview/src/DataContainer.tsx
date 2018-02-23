@@ -1,42 +1,42 @@
 import gql from 'graphql-tag'
-import { createDataContainer } from 'ketos-components'
-import { TermBin, TimeBin } from 'ketos-components'
+import { createDataContainer } from 'invest-components'
+import { TermBin, TimeBin } from 'invest-types'
 
 type Variables = {
-    datasetId: string
-    query: string
+  datasetId: string
+  query: string
 }
 
 type Location = {
-    lat: number
-    lon: number
-    name: string
-    geohash: string
+  lat: number
+  lon: number
+  name: string
+  geohash: string
 }
 
 export type Response = {
-    corpus: {
-        documentTimeline: {
-            bins: TimeBin[]
-        }
-
-        entityTimeline: {
-            bins: TimeBin[]
-        }
-
-        entityTypes: {
-            bins: TermBin[]
-        }
-
-        entityValues: {
-            bins: TermBin[]
-        }
-
-        relationTypes: {
-            bins: TermBin[]
-        }
-        documentLocations: Location[]
+  corpus: {
+    documentTimeline: {
+      bins: TimeBin[]
     }
+
+    entityTimeline: {
+      bins: TimeBin[]
+    }
+
+    entityTypes: {
+      bins: TermBin[]
+    }
+
+    entityValues: {
+      bins: TermBin[]
+    }
+
+    relationTypes: {
+      bins: TermBin[]
+    }
+    documentLocations: Location[]
+  }
 }
 
 const QUERY = gql`

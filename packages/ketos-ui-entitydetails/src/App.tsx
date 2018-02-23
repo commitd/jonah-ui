@@ -1,7 +1,7 @@
 import * as React from 'react'
 const isEqual = require('lodash.isequal')
 
-import { PrerequisiteContainer } from 'ketos-components'
+import { PrerequisiteContainer } from 'invest-components'
 import { PluginProps } from 'invest-plugin'
 
 import DataContainer from './DataContainer'

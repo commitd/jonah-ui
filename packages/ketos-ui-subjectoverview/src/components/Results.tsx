@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Grid, Table } from 'semantic-ui-react'
-import { BarChart, TimelineChart, Card } from 'invest-components'
-import { termBinsToXY, timeBinsToXY, SimpleMap } from 'ketos-components'
+import { BarChart, TimelineChart, Card, termBinsToXY, timeBinsToXY } from 'invest-components'
+import { SimpleMap } from 'ketos-components'
 import { Marker, Tooltip } from 'react-leaflet'
 import { Response } from '../DataContainer'
 

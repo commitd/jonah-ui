@@ -1,7 +1,7 @@
 import * as React from 'react'
 const isEqual = require('lodash.isequal')
 import { PluginProps } from 'invest-plugin'
-import { MessageBox } from 'ketos-components'
+import { MessageBox } from 'invest-components'
 import NetworkExpander from './NetworkModel'
 
 type OwnProps = {}

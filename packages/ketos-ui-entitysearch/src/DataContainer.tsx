@@ -1,6 +1,6 @@
 import gql from 'graphql-tag'
-
-import { createDataContainer, BasicEntityNode, BasicDocumentNode } from 'ketos-components'
+import { createDataContainer } from 'invest-components'
+import { BasicEntityNode, BasicDocumentNode } from 'ketos-components'
 
 type Variables = {
     datasetId: string

@@ -3,7 +3,6 @@ import { Grid, Container, Header } from 'semantic-ui-react'
 import { Response } from './DataContainer'
 import { DocumentMeta, DocumentInfo, EntityTable, RelationTable } from 'ketos-components'
 import { Counter, Card, BarChart } from 'invest-components'
-// import { termBinsToXY } from 'ketos-components'
 
 type Props = {
     data?: Response

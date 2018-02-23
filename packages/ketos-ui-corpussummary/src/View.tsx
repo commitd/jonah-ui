@@ -1,8 +1,8 @@
 import * as React from 'react'
 
 import { Grid } from 'semantic-ui-react'
-import { Counter, PieChart, BarChart, TimelineChart, Card } from 'invest-components'
-import { TermBin, TimeBin, termBinsToXY, timeBinsToXY } from 'ketos-components'
+import { Counter, PieChart, BarChart, TimelineChart, Card, termBinsToXY, timeBinsToXY } from 'invest-components'
+import { TermBin, TimeBin } from 'invest-types'
 
 type OwnProps = {
     numDocuments?: number,
