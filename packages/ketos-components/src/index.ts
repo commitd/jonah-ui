@@ -9,11 +9,7 @@ export { default as DocumentMeta } from './ketos/document/DocumentMeta'
 
 export { default as MetadataCountTable } from './ketos/metadata/MetadataCountTable'
 
-export { default as SearchButton } from './general/button/SearchButton'
-export { default as MessageBox } from './general/message/MessageBox'
-export { default as PrerequisiteContainer } from './general/container/PrerequisiteContainer'
-export { default as createDataContainer } from './general/graphql/DataContainer'
-export { default as SimpleMap } from './general/map/Map'
+export { default as SimpleMap } from './map/Map'
 
 export { default as EntityView } from './ketos/entities/EntityView'
 export { default as EntityTable } from './ketos/entities/EntityTable'
