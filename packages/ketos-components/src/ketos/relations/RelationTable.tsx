@@ -2,6 +2,7 @@ import * as React from 'react'
 import { Table } from 'semantic-ui-react'
 import { ActionDropdown } from 'invest-components'
 import { RelationWithMentionsNode } from '../../types'
+import { MENTION_VIEW, ENTITY_VIEW, RELATION_VIEW, DOCUMENT_VIEW } from '../../Actions'
 
 export interface OwnProps {
     datasetId: string,
@@ -16,8 +17,8 @@ class RelationTable extends React.Component<Props> {
     render() {
         const { relations } = this.props
 
-        const MENTION_ENTITY_ACTIONS = ['mention.view', 'entity.view']
-        const MENTION_ACTIONS = ['mention.view']
+        const MENTION_ENTITY_ACTIONS = [MENTION_VIEW, ENTITY_VIEW]
+        const MENTION_ACTIONS = [MENTION_VIEW]
 
         return (
             <Table>
@@ -50,7 +51,7 @@ class RelationTable extends React.Component<Props> {
                                     />
                                     <ActionDropdown
                                         text="Relation"
-                                        actions={['relation.view']}
+                                        actions={[RELATION_VIEW]}
                                         onSelect={this.handleRelationSelect(r.id)}
                                     />
                                     <ActionDropdown
@@ -60,7 +61,7 @@ class RelationTable extends React.Component<Props> {
                                     />
                                     {r.docId && <ActionDropdown
                                         text="Document"
-                                        actions={['document.view']}
+                                        actions={[DOCUMENT_VIEW]}
                                         onSelect={this.handleDocumentSelect(r.docId)}
                                     />}
                                 </Table.Cell>
@@ -75,12 +76,12 @@ class RelationTable extends React.Component<Props> {
     private handleMentionSelect = (mentionId: string, entityId?: string) =>
         (act: (payload?: {}) => void, action: string) => {
 
-            if (action === 'mention.view') {
+            if (action === MENTION_VIEW) {
                 act({
                     datasetId: this.props.datasetId,
                     mentionId
                 })
-            } else if (action === 'entity.view') {
+            } else if (action === ENTITY_VIEW) {
                 act({
                     datasetId: this.props.datasetId,
                     entityId
@@ -91,7 +92,7 @@ class RelationTable extends React.Component<Props> {
     private handleRelationSelect = (relationId: string) =>
         (act: (payload?: {}) => void, action: string) => {
 
-            if (action === 'relation.view') {
+            if (action === RELATION_VIEW) {
                 act({
                     datasetId: this.props.datasetId,
                     relationId
@@ -102,7 +103,7 @@ class RelationTable extends React.Component<Props> {
     private handleDocumentSelect = (documentId: string) =>
         (act: (payload?: {}) => void, action: string) => {
 
-            if (action === 'document.view') {
+            if (action === DOCUMENT_VIEW) {
                 act({
                     datasetId: this.props.datasetId,
                     documentId

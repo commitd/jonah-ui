@@ -3,6 +3,7 @@ import { Table } from 'semantic-ui-react'
 import { Ellipsis } from 'invest-components'
 import { ActionDropdown } from 'invest-components'
 import { BasicDocumentInfo, FullDocumentInfo } from '../../types'
+import { DOCUMENT_VIEW } from '../../Actions'
 
 export type Props = {
     documentId: string
@@ -34,7 +35,7 @@ class DocumentInfo extends React.Component<Props> {
                         <Table.Cell colSpan="2">
                             <ActionDropdown
                                 text="View"
-                                action="document.view"
+                                action={DOCUMENT_VIEW}
                                 onSelect={this.handleAction}
                             />
                         </Table.Cell>

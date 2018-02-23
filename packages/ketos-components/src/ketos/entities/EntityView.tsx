@@ -1,7 +1,8 @@
 import * as React from 'react'
 import { Item, Segment } from 'semantic-ui-react'
 import { ActionDropdown } from 'invest-components'
-import { BasicEntityNode, BasicDocumentNode } from '../../types';
+import { BasicEntityNode, BasicDocumentNode } from '../../types'
+import { DOCUMENT_VIEW, ENTITY_VIEW } from '../../Actions'
 
 export type Props = {
     datasetId: string,
@@ -15,12 +16,12 @@ class EntityView extends React.Component<Props> {
     handleActions = (act: (payload?: {}) => void, action: string) => {
         const datasetId = this.props.datasetId
         const e = this.props.entity
-        if (action === 'entity.view' && e.id) {
+        if (action === ENTITY_VIEW && e.id) {
             act({
                 datasetId,
                 entityId: e.id
             })
-        } else if (action === 'document.view' && e.document) {
+        } else if (action === DOCUMENT_VIEW && e.document) {
             act({
                 datasetId,
                 documentId: e.document.id
@@ -32,9 +33,9 @@ class EntityView extends React.Component<Props> {
         const { entity } = this.props
         const { type, value, document } = entity
 
-        const actions = ['entity.view']
+        const actions = [ENTITY_VIEW]
         if (document != null) {
-            actions.push('document.view')
+            actions.push(DOCUMENT_VIEW)
         }
 
         return (

@@ -6,6 +6,7 @@ import { PluginProps } from 'invest-plugin'
 
 import DataContainer from './DataContainer'
 import EntityView from './EntityView'
+import { ENTITY_VIEW, EntityViewPayload } from 'ketos-components'
 
 type OwnProps = {}
 
@@ -14,11 +15,6 @@ type Props = OwnProps & PluginProps
 type State = {
   datasetId?: string
   entityId?: string
-}
-
-type EntityViewPayload = {
-  datasetId: string
-  entityId: string
 }
 
 class App extends React.Component<Props, State> {
@@ -61,7 +57,7 @@ class App extends React.Component<Props, State> {
       this.setState({
         entityId: undefined
       })
-    } else if (action === 'entity.view') {
+    } else if (action === ENTITY_VIEW) {
       const p = ((payload || {}) as EntityViewPayload)
       this.setState({
         datasetId: p.datasetId,

@@ -2,7 +2,7 @@ import * as React from 'react'
 const isEqual = require('lodash.isequal')
 import { PrerequisiteContainer } from 'invest-components'
 
-import { DocumentViewPayload } from 'ketos-components'
+import { DocumentViewPayload, DOCUMENT_VIEW } from 'ketos-components'
 import { PluginProps } from 'invest-plugin'
 import DataContainer from './DataContainer'
 import View from './View'
@@ -56,7 +56,7 @@ class App extends React.Component<Props, State> {
       this.setState({
         documentId: undefined
       })
-    } else if (action === 'document.view') {
+    } else if (action === DOCUMENT_VIEW) {
       const p = ((payload || {}) as DocumentViewPayload)
       this.setState({
         datasetId: p.datasetId,

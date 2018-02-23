@@ -2,6 +2,7 @@ import * as React from 'react'
 import { Table } from 'semantic-ui-react'
 import { ActionDropdown } from 'invest-components'
 import { Mention } from '../../types'
+import { MENTION_SEARCH, MENTION_VIEW, ENTITY_VIEW, RELATION_SEARCH } from '../../Actions'
 
 export interface OwnProps {
     datasetId: string,
@@ -13,32 +14,7 @@ export type Props = OwnProps
 
 class MentionTable extends React.Component<Props> {
 
-    handleMentionAction = (m: Mention) => (act: (payload?: {}) => void, action: string) => {
-        if (action === 'mention.view') {
-            act({
-                datasetId: this.props.datasetId,
-                mentionId: m.id
-            })
-        } else if (action === 'entity.view' && m.entityId) {
-            act({
-                datasetId: this.props.datasetId,
-                entityId: m.entityId
-            })
-        } else if (action === 'mention.search') {
-            act({
-                datasetId: this.props.datasetId,
-                type: m.type,
-                value: m.value
-            })
-        } else if (action === 'relation.search') {
-            // TODO... this is only source... how would we do target too? (its the same action). 
-            act({
-                datasetId: this.props.datasetId,
-                sourceType: m.type,
-                sourceValue: m.value
-            })
-        }
-    }
+
 
     render() {
         const { mentions, selectedMentions } = this.props
@@ -72,8 +48,8 @@ class MentionTable extends React.Component<Props> {
                                     <Table.Cell>
                                         <ActionDropdown
                                             text="View"
-                                            actions={['mention.view', 'entity.view',
-                                                'mention.search', 'relation.search']}
+                                            actions={[MENTION_VIEW, ENTITY_VIEW,
+                                                MENTION_SEARCH, RELATION_SEARCH]}
                                             onSelect={this.handleMentionAction(m)}
                                         />
                                     </Table.Cell>
@@ -84,6 +60,35 @@ class MentionTable extends React.Component<Props> {
                 </Table>
             </div>
         )
+    }
+
+    private handleMentionAction = (m: Mention) => (act: (payload?: {}) => void, action: string) => {
+        if (action === MENTION_VIEW) {
+            act({
+                datasetId: this.props.datasetId,
+                mentionId: m.id
+            })
+        } else if (action === ENTITY_VIEW && m.entityId) {
+            act({
+                datasetId: this.props.datasetId,
+                entityId: m.entityId
+            })
+        } else if (action === MENTION_SEARCH) {
+            act({
+                datasetId: this.props.datasetId,
+                type: m.type,
+                value: m.value
+            })
+        } else if (action === RELATION_SEARCH) {
+            // TODO... this is only source... how would we do target too? (its the same action). 
+            act({
+                datasetId: this.props.datasetId,
+                source: {
+                    type: m.type,
+                    value: m.value
+                }
+            })
+        }
     }
 }
 

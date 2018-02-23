@@ -6,6 +6,7 @@ import { PluginProps } from 'invest-plugin'
 
 import DataContainer from './DataContainer'
 import EntityView from './MentionView'
+import { MENTION_VIEW, MentionViewPayload } from 'ketos-components'
 
 type OwnProps = {}
 
@@ -14,11 +15,6 @@ type Props = OwnProps & PluginProps
 type State = {
   datasetId?: string
   mentionId?: string
-}
-
-type MentionViewPayload = {
-  datasetId: string
-  mentionId: string
 }
 
 class App extends React.Component<Props, State> {
@@ -61,7 +57,7 @@ class App extends React.Component<Props, State> {
       this.setState({
         mentionId: undefined
       })
-    } else if (action === 'mention.view') {
+    } else if (action === MENTION_VIEW) {
       const p = ((payload || {}) as MentionViewPayload)
       this.setState({
         datasetId: p.datasetId,

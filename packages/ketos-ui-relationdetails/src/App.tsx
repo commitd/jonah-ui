@@ -4,6 +4,7 @@ import { PluginProps } from 'invest-plugin'
 import DataContainer from './DataContainer'
 import RelationView from './RelationView'
 import { MessageBox } from 'invest-components'
+import { RELATION_VIEW, RelationViewPayload } from 'ketos-components';
 type OwnProps = {}
 
 type Props = OwnProps & PluginProps
@@ -12,11 +13,6 @@ type State = {
   datasetId?: string,
   entityId?: string,
   relationId?: string
-}
-
-type RelationViewPayload = {
-  datasetId: string
-  relationId: string
 }
 
 class App extends React.Component<Props, State> {
@@ -54,7 +50,7 @@ class App extends React.Component<Props, State> {
 
   private onAction = (action?: string, payload?: {}) => {
 
-    if (action === 'relation.view') {
+    if (action === RELATION_VIEW) {
       const p = payload as RelationViewPayload
       this.setState({
         datasetId: p.datasetId,

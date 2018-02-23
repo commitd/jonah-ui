@@ -5,18 +5,9 @@ import { PluginProps } from 'invest-plugin'
 import { Container, Form, InputOnChangeData, Divider } from 'semantic-ui-react'
 import { DatasetSelector } from 'invest-components'
 import { SearchButton } from 'invest-components'
-
+import { RELATION_SEARCH, RelationSearchPayload } from 'ketos-components'
 import DataContainer from './DataContainer'
 import Results from './Results'
-
-type RelationSearchPayload = {
-  datasetId?: string,
-  sourceType?: string,
-  sourceValue?: string,
-  targetType?: string,
-  targetValue?: string,
-  relationshipType?: string
-}
 
 type OwnProps = {}
 
@@ -167,15 +158,15 @@ class App extends React.Component<Props, State> {
     // typically this will setState in order and then pass
     // that state as props to a subcomponent (which will
     // then respond with a )
-    if (action === 'relation.search') {
+    if (action === RELATION_SEARCH) {
       const rsp = payload as RelationSearchPayload
       this.setState({
         datasetId: rsp.datasetId,
-        sourceType: rsp.sourceType,
-        sourceValue: rsp.sourceValue,
-        targetType: rsp.targetType,
-        targetValue: rsp.targetValue,
-        relationshipType: rsp.relationshipType
+        sourceType: rsp.source && rsp.source.type,
+        sourceValue: rsp.source && rsp.source.value,
+        targetType: rsp.target && rsp.target.type,
+        targetValue: rsp.target && rsp.target.value,
+        relationshipType: rsp.type
       })
     }
   }

@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { Label, Icon, Item, Segment } from 'semantic-ui-react'
 import { ActionDropdown } from 'invest-components'
+import { DOCUMENT_VIEW } from '../../Actions';
 
 export interface DocumentResult {
     id: string
@@ -37,7 +38,7 @@ class DocumentSearchResult extends React.Component<Props> {
             <Item>
                 <Item.Content>
                     <Segment basic={true} floated="right">
-                        <ActionDropdown text="View" action="document.view" onSelect={this.handleAction} />
+                        <ActionDropdown text="View" action={DOCUMENT_VIEW} onSelect={this.handleAction} />
                     </Segment>
                     <Item.Header>
                         {info.title}

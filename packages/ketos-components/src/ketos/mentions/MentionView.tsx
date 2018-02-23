@@ -3,6 +3,7 @@ import { Item, Segment } from 'semantic-ui-react'
 import { ActionDropdown } from 'invest-components'
 import DocumentSnippet from '../document/DocumentSnippet'
 import { Mention, BasicDocumentNode } from '../../types'
+import { MENTION_VIEW, ENTITY_VIEW, RELATION_SEARCH, DOCUMENT_SEARCH, DOCUMENT_VIEW } from '../../Actions'
 
 export type MentionResult = Mention & {
     document: BasicDocumentNode & {
@@ -20,22 +21,22 @@ class MentionView extends React.Component<Props> {
     handleActions = (act: (payload?: {}) => void, action: string) => {
         const datasetId = this.props.datasetId
         const m = this.props.mention
-        if (action === 'mention.view') {
+        if (action === MENTION_VIEW) {
             act({
                 datasetId,
                 mentionId: m.id
             })
-        } else if (action === 'entity.view' && m.entityId) {
+        } else if (action === ENTITY_VIEW && m.entityId) {
             act({
                 datasetId,
                 entityId: this.props.mention.entityId
             })
-        } else if (action === 'document.view' && m.document) {
+        } else if (action === DOCUMENT_SEARCH && m.document) {
             act({
                 datasetId,
                 documentId: m.document.id
             })
-        } else if (action === 'relation.search') {
+        } else if (action === RELATION_SEARCH) {
 
             act({
                 datasetId: this.props.datasetId,
@@ -49,12 +50,12 @@ class MentionView extends React.Component<Props> {
         const { mention } = this.props
         const { type, subType, value, entityId, document } = mention
 
-        const actions = ['mention.view']
+        const actions = [MENTION_VIEW]
         if (document != null) {
-            actions.push('document.view')
+            actions.push(DOCUMENT_VIEW)
         }
         if (entityId != null) {
-            actions.push('entity.view')
+            actions.push(ENTITY_VIEW)
         }
 
         return (

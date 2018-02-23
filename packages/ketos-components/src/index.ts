@@ -25,6 +25,8 @@ export { default as RelatedMentionsTable } from './ketos/mentions/RelatedMention
 
 export { default as PropertiesTable } from './ketos/properties/PropertiesTable'
 
+export * from './Actions'
 export * from './types'
 export * from './Payload'
+
 export * from './utils/MapUtils'

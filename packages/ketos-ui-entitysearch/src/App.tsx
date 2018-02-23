@@ -8,13 +8,8 @@ import { SearchButton } from 'invest-components'
 
 import DataContainer from './DataContainer'
 import Results from './Results'
+import { MENTION_SEARCH, MentionSearchPayload } from 'ketos-components'
 
-type MentionSearchPayload = {
-  datasetId?: string,
-  type?: string
-  subType?: string
-  value?: string
-}
 
 type OwnProps = {}
 
@@ -141,7 +136,7 @@ class App extends React.Component<Props, State> {
   }
 
   private onAction = (action?: string, payload?: {}) => {
-    if (action === 'mention.search') {
+    if (action === MENTION_SEARCH) {
       const msp = payload as MentionSearchPayload
       this.setState({
         datasetId: msp.datasetId,

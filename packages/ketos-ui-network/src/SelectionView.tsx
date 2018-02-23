@@ -3,7 +3,7 @@ import { Table } from 'semantic-ui-react'
 import { ActionDropdown } from 'invest-components'
 import {
     BasicCorpusNode, BasicDocumentNode, BasicEntityNode,
-    BasicMentionNode, BasicRelationNode
+    BasicMentionNode, BasicRelationNode, DOCUMENT_VIEW, RELATION_VIEW, ENTITY_VIEW, MENTION_VIEW, CORPUS_VIEW
 } from 'ketos-components'
 
 type Props = {
@@ -80,10 +80,10 @@ export default class SelectionView extends React.Component<Props> {
 
     private getActionFromType() {
         switch (this.props.type) {
-            case 'Document': return 'document.view'
-            case 'Relation': return 'relation.view'
-            case 'Entity': return 'entity.view'
-            case 'Mention': return 'mention.view'
+            case 'Document': return DOCUMENT_VIEW
+            case 'Relation': return RELATION_VIEW
+            case 'Entity': return ENTITY_VIEW
+            case 'Mention': return MENTION_VIEW
             default:
                 return null
         }
@@ -97,27 +97,27 @@ export default class SelectionView extends React.Component<Props> {
         const datasetId = this.props.datasetId
         const id = this.props.data.id
 
-        if (action === 'document.view') {
+        if (action === DOCUMENT_VIEW) {
             act({
                 datasetId,
                 documentId: id
             })
-        } else if (action === 'mention.view') {
+        } else if (action === MENTION_VIEW) {
             act({
                 datasetId,
                 mentionId: id
             })
-        } else if (action === 'entity.view') {
+        } else if (action === ENTITY_VIEW) {
             act({
                 datasetId,
                 entityId: id
             })
-        } else if (action === 'relation.view') {
+        } else if (action === RELATION_VIEW) {
             act({
                 datasetId,
                 relationId: id
             })
-        } else if (action === 'corpus.view') {
+        } else if (action === CORPUS_VIEW) {
             act({
                 datasetId,
                 corpusId: id

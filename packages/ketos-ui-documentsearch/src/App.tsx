@@ -3,14 +3,9 @@ import { PluginProps } from 'invest-plugin'
 
 const isEqual = require('lodash.isequal')
 
-import { DocumentSearchResults } from 'ketos-components'
+import { DocumentSearchResults, DocumentSearchPayload } from 'ketos-components'
 import { SearchQuery, DatasetSelector } from 'invest-components'
 import { Container, Divider } from 'semantic-ui-react'
-
-interface SearchPayload {
-  query?: { [id: string]: string },
-  datasetId?: string
-}
 
 type OwnProps = {}
 
@@ -58,7 +53,7 @@ class App extends React.Component<Props, State> {
 
   componentWillReceiveProps(nextProps: Props) {
     if (this.props.action !== nextProps.action || !isEqual(this.props.payload, nextProps.payload)) {
-      const payload = nextProps.payload as SearchPayload
+      const payload = nextProps.payload as DocumentSearchPayload
       this.setState({
         datasetId: payload ? payload.datasetId : this.state.datasetId,
         // TODO: Currently only look for the content field, but in future we could have additional options

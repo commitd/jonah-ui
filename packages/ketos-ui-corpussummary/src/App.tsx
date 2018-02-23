@@ -4,10 +4,7 @@ import View from './ViewContainer'
 import { DatasetSelector } from 'invest-components'
 import { Container } from 'semantic-ui-react'
 const isEqual = require('lodash.isequal')
-
-interface ViewPayload {
-  datasetId?: string
-}
+import { CorpusViewPayload } from 'ketos-components'
 
 type OwnProps = {}
 
@@ -26,7 +23,7 @@ class App extends React.Component<Props, State> {
   componentWillReceiveProps(nextProps: Props) {
     // Process action / payload if its changed
     if (this.props.action !== nextProps.action || !isEqual(this.props.payload, nextProps.payload)) {
-      const payload = nextProps.payload as ViewPayload
+      const payload = nextProps.payload as CorpusViewPayload
       this.setState({
         datasetId: payload ? payload.datasetId : undefined,
       })

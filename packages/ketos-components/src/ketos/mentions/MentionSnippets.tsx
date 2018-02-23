@@ -2,7 +2,8 @@ import * as React from 'react'
 import { Feed, Segment } from 'semantic-ui-react'
 import MentionSnippet from './MentionSnippet'
 import { ActionDropdown } from 'invest-components'
-import { Mention } from '../../types';
+import { Mention } from '../../types'
+import { DOCUMENT_VIEW } from '../../Actions';
 
 export type Props = {
     datasetId: string
@@ -20,7 +21,7 @@ class MentionsSnippet extends React.Component<Props> {
 
             <Feed>
                 <Segment basic={true} floated="right">
-                    <ActionDropdown text="View" action="document.view" onSelect={this.handleDocumentAction} />
+                    <ActionDropdown text="View" action={DOCUMENT_VIEW} onSelect={this.handleDocumentAction} />
                 </Segment>
                 {
                     mentions

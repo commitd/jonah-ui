@@ -2,6 +2,7 @@ import * as React from 'react'
 import { Table } from 'semantic-ui-react'
 import { ActionDropdown } from 'invest-components'
 import { BasicEntityNode } from '../../types'
+import { ENTITY_VIEW, ENTITY_SEARCH, MENTION_SEARCH } from '../../Actions'
 
 export interface Props {
     datasetId: string,
@@ -43,8 +44,8 @@ export default class EntityTable extends React.Component<Props> {
                                     <Table.Cell>
                                         <ActionDropdown
                                             text="View"
-                                            actions={['entity.view', 'entity.search',
-                                                'mention.search']}
+                                            actions={[ENTITY_VIEW, ENTITY_SEARCH,
+                                                MENTION_SEARCH]}
                                             onSelect={this.handleAction(m)}
                                         />
                                     </Table.Cell>
@@ -58,18 +59,18 @@ export default class EntityTable extends React.Component<Props> {
     }
 
     private handleAction = (m: BasicEntityNode) => (act: (payload?: {}) => void, action: string) => {
-        if (action === 'entity.view') {
+        if (action === ENTITY_VIEW) {
             act({
                 datasetId: this.props.datasetId,
                 entityId: m.id
             })
-        } else if (action === 'mention.search') {
+        } else if (action === MENTION_SEARCH) {
             act({
                 datasetId: this.props.datasetId,
                 type: m.type,
                 value: m.value
             })
-        } else if (action === 'entity.search') {
+        } else if (action === ENTITY_SEARCH) {
             act({
                 datasetId: this.props.datasetId,
                 type: m.type,

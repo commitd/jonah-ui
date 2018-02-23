@@ -7,11 +7,7 @@ import View from './ViewContainer'
 import { Container } from 'semantic-ui-react'
 
 import { DatasetSelector } from 'invest-components'
-
-type Payload = {
-  datasetId?: string
-  // TODO: support jumping straight to a key: string
-}
+import { CorpusViewPayload } from 'ketos-componetns'
 
 type OwnProps = {}
 
@@ -29,7 +25,7 @@ class App extends React.Component<Props, State> {
 
   componentWillReceiveProps(nextProps: Props) {
     if (this.props.action !== nextProps.action || !isEqual(this.props.payload, nextProps.payload)) {
-      const payload = nextProps.payload as Payload
+      const payload = nextProps.payload as CorpusViewPayload
       this.setState({
         datasetId: payload ? payload.datasetId : this.state.datasetId,
       })

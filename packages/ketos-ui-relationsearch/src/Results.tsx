@@ -2,6 +2,7 @@ import * as React from 'react'
 import { Table } from 'semantic-ui-react'
 import { Response } from './DataContainer'
 import { Pagination, ActionDropdown } from 'invest-components'
+import { MENTION_VIEW, ENTITY_VIEW, DOCUMENT_VIEW, RELATION_VIEW } from 'ketos-components'
 
 type Props = {
     data?: Response
@@ -49,22 +50,22 @@ class Results extends React.Component<Props> {
                                     <Table.Cell>
                                         <ActionDropdown
                                             text="Source"
-                                            actions={['mention.view', 'entity.view']}
+                                            actions={[MENTION_VIEW, ENTITY_VIEW]}
                                             onSelect={this.handleMentionSelect(r.source.id, r.source.entityId)}
                                         />
                                         <ActionDropdown
                                             text="Relation"
-                                            actions={['relation.view']}
+                                            actions={[RELATION_VIEW]}
                                             onSelect={this.handleRelationSelect(r.id)}
                                         />
                                         <ActionDropdown
                                             text="Target"
-                                            actions={['mention.view', 'entity.view']}
+                                            actions={[MENTION_VIEW, ENTITY_VIEW]}
                                             onSelect={this.handleMentionSelect(r.target.id, r.target.entityId)}
                                         />
                                         <ActionDropdown
                                             text="Document"
-                                            actions={['document.view']}
+                                            actions={[DOCUMENT_VIEW]}
                                             onSelect={this.handleDocumentSelect(r.docId)}
                                         />
                                     </Table.Cell>
@@ -92,12 +93,12 @@ class Results extends React.Component<Props> {
                 return
             }
 
-            if (action === 'mention.view') {
+            if (action === MENTION_VIEW) {
                 act({
                     datasetId,
                     mentionId
                 })
-            } else if (action === 'entity.view') {
+            } else if (action === ENTITY_VIEW) {
                 act({
                     datasetId,
                     entityId
@@ -114,7 +115,7 @@ class Results extends React.Component<Props> {
                 return
             }
 
-            if (action === 'relation.view') {
+            if (action === RELATION_VIEW) {
                 act({
                     datasetId,
                     relationId
@@ -131,7 +132,7 @@ class Results extends React.Component<Props> {
                 return
             }
 
-            if (action === 'document.view') {
+            if (action === DOCUMENT_VIEW) {
                 act({
                     datasetId,
                     documentId

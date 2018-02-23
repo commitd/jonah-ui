@@ -1,16 +1,11 @@
 import * as React from 'react'
 import { PluginProps } from 'invest-plugin'
 
-import { DocumentReaderContainer } from 'ketos-components'
+import { DocumentReaderContainer, DocumentViewPayload } from 'ketos-components'
 import { Container, Message } from 'semantic-ui-react'
 const isEqual = require('lodash.isequal')
 
 type OwnProps = {}
-
-interface ViewPayload {
-  documentId: string,
-  datasetId: string
-}
 
 type Props = OwnProps & PluginProps
 
@@ -28,7 +23,7 @@ class App extends React.Component<Props, State> {
 
   componentWillReceiveProps(nextProps: Props) {
     if (this.props.action !== nextProps.action || !isEqual(this.props.payload, nextProps.payload)) {
-      const payload = nextProps.payload as ViewPayload
+      const payload = nextProps.payload as DocumentViewPayload
       this.setState({
         datasetId: payload ? payload.datasetId : undefined,
         documentId: payload ? payload.documentId : undefined,

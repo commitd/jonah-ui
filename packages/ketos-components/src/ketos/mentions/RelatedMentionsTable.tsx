@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { Table } from 'semantic-ui-react'
 import { ActionDropdown } from 'invest-components'
+import { RELATION_VIEW, MENTION_VIEW } from '../../Actions'
 
 export type OwnProps = {
     datasetId: string
@@ -72,7 +73,7 @@ class RelatedMentionsTable extends React.Component<Props> {
                                     <Table.Cell>
                                         <ActionDropdown
                                             text="View"
-                                            actions={['relation.view', 'mention.view']}
+                                            actions={[RELATION_VIEW, MENTION_VIEW]}
                                             onSelect={this.handleRelationAction(m.id, r.id)}
                                         />
                                     </Table.Cell>
@@ -90,7 +91,7 @@ class RelatedMentionsTable extends React.Component<Props> {
                                     <Table.Cell>
                                         <ActionDropdown
                                             text="View"
-                                            actions={['relation.view', 'mention.view']}
+                                            actions={[RELATION_VIEW, MENTION_VIEW]}
                                             onSelect={this.handleRelationAction(m.id, r.id)}
                                         />
                                     </Table.Cell>
@@ -105,12 +106,12 @@ class RelatedMentionsTable extends React.Component<Props> {
 
     private handleRelationAction = (mentionId: string, relationId: string) =>
         (act: (payload: {}) => void, action: string) => {
-            if (action === 'mention.view') {
+            if (action === MENTION_VIEW) {
                 act({
                     datasetId: this.props.datasetId,
                     mentionId: mentionId
                 })
-            } else if (action === 'relation.view') {
+            } else if (action === RELATION_VIEW) {
                 act({
                     datasetId: this.props.datasetId,
                     relationId: relationId

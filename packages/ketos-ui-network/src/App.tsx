@@ -3,6 +3,10 @@ const isEqual = require('lodash.isequal')
 import { PluginProps } from 'invest-plugin'
 import { MessageBox } from 'invest-components'
 import NetworkExpander from './NetworkModel'
+import {
+  RELATION_VIEW, ENTITY_VIEW, MENTION_VIEW, DocumentViewPayload,
+  MentionViewPayload, EntityViewPayload, RelationViewPayload, DOCUMENT_VIEW
+} from 'ketos-components'
 
 type OwnProps = {}
 
@@ -14,26 +18,6 @@ type State = {
   relationId?: string,
   documentId?: string,
   mentionId?: string
-}
-
-type RelationViewPayload = {
-  datasetId: string
-  relationId: string
-}
-
-type EntityViewPayload = {
-  datasetId: string
-  entityId: string
-}
-
-type MentionViewPayload = {
-  datasetId: string
-  mentionId: string
-}
-
-type DocumentViewPayload = {
-  datasetId: string
-  documentId: string
 }
 
 class App extends React.Component<Props, State> {
@@ -76,7 +60,7 @@ class App extends React.Component<Props, State> {
 
   private onAction = (action?: string, payload?: {}) => {
 
-    if (action === 'relation.view') {
+    if (action === RELATION_VIEW) {
       const p = payload as RelationViewPayload
       this.setState({
         datasetId: p.datasetId,
@@ -85,7 +69,7 @@ class App extends React.Component<Props, State> {
         relationId: p.relationId,
         documentId: undefined,
       })
-    } else if (action === 'entity.view') {
+    } else if (action === ENTITY_VIEW) {
       const p = payload as EntityViewPayload
       this.setState({
         datasetId: p.datasetId,
@@ -94,7 +78,7 @@ class App extends React.Component<Props, State> {
         relationId: undefined,
         documentId: undefined,
       })
-    } else if (action === 'mention.view') {
+    } else if (action === MENTION_VIEW) {
       const p = payload as MentionViewPayload
       this.setState({
         datasetId: p.datasetId,
@@ -103,7 +87,7 @@ class App extends React.Component<Props, State> {
         relationId: undefined,
         documentId: undefined,
       })
-    } else if (action === 'document.view') {
+    } else if (action === DOCUMENT_VIEW) {
       const p = payload as DocumentViewPayload
       this.setState({
         datasetId: p.datasetId,

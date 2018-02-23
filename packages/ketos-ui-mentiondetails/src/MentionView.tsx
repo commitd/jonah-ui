@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Header, Grid, Segment } from 'semantic-ui-react'
-import { MentionSnippets, PropertiesTable, RelatedMentionsTable } from 'ketos-components'
+import { MentionSnippets, PropertiesTable, RelatedMentionsTable, ENTITY_VIEW } from 'ketos-components'
 import { ActionDropdown } from 'invest-components'
 import { Response } from './DataContainer'
 
@@ -28,7 +28,7 @@ class EntityView extends React.Component<Props> {
             <Grid>
                 <Grid.Column width={12}>
                     <Segment basic={true} floated="right">
-                        <ActionDropdown text="Action" action="entity.view" onSelect={this.handleAction} />
+                        <ActionDropdown text="Action" action={ENTITY_VIEW} onSelect={this.handleAction} />
                     </Segment>
                     <Header as="h1">{mention.value}</Header>
                     <Header as="h2">{mention.type}</Header>
@@ -57,7 +57,7 @@ class EntityView extends React.Component<Props> {
 
         const c = this.props.data.corpus
         const m = c.mention
-        if (action === 'entity.view' && m.entityId) {
+        if (action === ENTITY_VIEW && m.entityId) {
             act({
                 datasetId: c.id,
                 entityId: m.entityId

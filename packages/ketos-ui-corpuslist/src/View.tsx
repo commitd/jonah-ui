@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { Table } from 'semantic-ui-react'
 import { ActionDropdown } from 'invest-components'
+import { CORPUS_VIEW } from 'ketos-components'
 
 type OwnProps = {
     datasets: {
@@ -55,7 +56,7 @@ class View extends React.Component<Props> {
                         <Table.Cell textAlign="right">{d.entities != null ? d.entities : 'NA'}</Table.Cell>
                         <Table.Cell textAlign="right">{d.relations != null ? d.relations : 'NA'}</Table.Cell>
                         <Table.Cell textAlign="right">
-                            <ActionDropdown text="View" action="corpus.view" onSelect={this.handleAction(d.id)} />
+                            <ActionDropdown text="View" action={CORPUS_VIEW} onSelect={this.handleAction(d.id)} />
                         </Table.Cell>
                     </Table.Row>)}
                 </Table.Body>

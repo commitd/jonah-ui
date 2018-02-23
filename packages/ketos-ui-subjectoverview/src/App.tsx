@@ -5,11 +5,9 @@ import { SearchQuery, DatasetSelector } from 'invest-components'
 import { Container, Divider } from 'semantic-ui-react'
 import DataContainer from './DataContainer'
 import Results from './components/Results'
+import { DocumentSearchPayload } from 'invest-components'
 
-interface SearchPayload {
-  query?: { [id: string]: string },
-  datasetId?: string
-}
+
 
 type OwnProps = {}
 
@@ -47,7 +45,7 @@ class App extends React.Component<Props, State> {
 
   componentWillReceiveProps(nextProps: Props) {
     if (this.props.action !== nextProps.action || !isEqual(this.props.payload, nextProps.payload)) {
-      const payload = nextProps.payload as SearchPayload
+      const payload = nextProps.payload as DocumentSearchPayload
       this.setState({
         datasetId: payload ? payload.datasetId : this.state.datasetId,
         // TODO: Currently only look for the content field, but in future we could have additional options
