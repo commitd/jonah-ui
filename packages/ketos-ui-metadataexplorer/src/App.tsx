@@ -1,7 +1,7 @@
 import * as React from 'react'
 const isEqual = require('lodash.isequal')
 
-import { ChildProps } from 'invest-plugin'
+import { PluginProps } from 'invest-plugin'
 
 import View from './ViewContainer'
 import { Container } from 'semantic-ui-react'
@@ -15,7 +15,7 @@ type Payload = {
 
 type OwnProps = {}
 
-type Props = OwnProps & ChildProps
+type Props = OwnProps & PluginProps
 
 type State = {
   datasetId?: string

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { ChildProps } from 'invest-plugin'
+import { PluginProps } from 'invest-plugin'
 import { graphql, QueryProps, compose, MutationFunc } from 'react-apollo'
 import gql from 'graphql-tag'
 import View from './View'
@@ -34,7 +34,7 @@ type OwnProps = {
     size: number
 }
 
-type Props = OwnProps & GqlProps & ChildProps
+type Props = OwnProps & GqlProps & PluginProps
 
 class Container extends React.Component<Props>  {
 
@@ -89,6 +89,6 @@ query GetFeedback($offset: Int!, $size: Int!) {
 
 export default
     compose(
-        graphql<Response, OwnProps & ChildProps, Props>(DELETE_FEEDBACK_MUTATION),
-        graphql<Response, OwnProps & ChildProps, Props>(GET_FEEDBACK_QUERY)
+        graphql<Response, OwnProps & PluginProps, Props>(DELETE_FEEDBACK_MUTATION),
+        graphql<Response, OwnProps & PluginProps, Props>(GET_FEEDBACK_QUERY)
     )(Container)

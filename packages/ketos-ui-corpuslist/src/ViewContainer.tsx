@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { ChildProps } from 'invest-plugin'
+import { PluginProps } from 'invest-plugin'
 import { graphql, QueryProps } from 'react-apollo'
 import gql from 'graphql-tag'
 
@@ -24,7 +24,7 @@ interface GqlProps {
 
 type OwnProps = {}
 
-type Props = OwnProps & GqlProps & ChildProps
+type Props = OwnProps & GqlProps & PluginProps
 
 const container = (props: Props) => {
     const { data } = props
@@ -52,4 +52,4 @@ query Corpora {
 }
 `
 
-export default graphql<Response, OwnProps & ChildProps, Props>(CORPORA_QUERY)(container)
+export default graphql<Response, OwnProps & PluginProps, Props>(CORPORA_QUERY)(container)

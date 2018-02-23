@@ -2,7 +2,7 @@ import * as React from 'react'
 import * as PropTypes from 'prop-types'
 import { Container, Divider } from 'semantic-ui-react'
 import { SimpleGraph } from 'invest-components'
-import { Context as PluginContext } from 'invest-plugin'
+import { PluginContext } from 'invest-plugin'
 import { Response } from './DataContainer'
 import { RelationTable, DocumentSnippet } from 'ketos-components'
 

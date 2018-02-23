@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { ChildProps } from 'invest-plugin'
+import { PluginProps } from 'invest-plugin'
 
 const isEqual = require('lodash.isequal')
 
@@ -14,7 +14,7 @@ interface SearchPayload {
 
 type OwnProps = {}
 
-type Props = OwnProps & ChildProps
+type Props = OwnProps & PluginProps
 
 type State = {
   datasetId?: string,

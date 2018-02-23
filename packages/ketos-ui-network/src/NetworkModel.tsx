@@ -1,7 +1,7 @@
 import * as React from 'react'
 import * as PropTypes from 'prop-types'
 const isEqual = require('lodash.isequal')
-import { Context as PluginContext } from 'invest-plugin'
+import { PluginContext } from 'invest-plugin'
 import {
     expandRelation, expandEntity, expandMention, expandDocument,
 } from './Queries'

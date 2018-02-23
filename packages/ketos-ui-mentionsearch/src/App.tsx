@@ -1,7 +1,7 @@
 import * as React from 'react'
 const isEqual = require('lodash.isequal')
 
-import { ChildProps } from 'invest-plugin'
+import { PluginProps } from 'invest-plugin'
 import { Container, Form, InputOnChangeData } from 'semantic-ui-react'
 import { DatasetSelector } from 'invest-components'
 import { SearchButton } from 'ketos-components'
@@ -17,7 +17,7 @@ type MentionSearchPayload = {
 
 type OwnProps = {}
 
-type Props = OwnProps & ChildProps
+type Props = OwnProps & PluginProps
 
 type State = {
   datasetId?: string,

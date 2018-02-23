@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { ChildProps } from 'invest-plugin'
+import { PluginProps } from 'invest-plugin'
 import { graphql, QueryProps } from 'react-apollo'
 import gql from 'graphql-tag'
 
@@ -28,7 +28,7 @@ type OwnProps = {
     datasetId: string
 }
 
-type Props = OwnProps & GqlProps & ChildProps
+type Props = OwnProps & GqlProps & PluginProps
 
 const container = (props: Props) => {
     const { data, datasetId } = props
@@ -57,4 +57,4 @@ query getMetadataKeys($datasetId: String!) {
   }
 `
 
-export default graphql<Response, OwnProps & ChildProps, Props>(METADATA_QUERY)(container)
+export default graphql<Response, OwnProps & PluginProps, Props>(METADATA_QUERY)(container)

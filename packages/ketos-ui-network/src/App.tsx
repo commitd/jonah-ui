@@ -1,12 +1,12 @@
 import * as React from 'react'
 const isEqual = require('lodash.isequal')
-import { ChildProps } from 'invest-plugin'
+import { PluginProps } from 'invest-plugin'
 import { MessageBox } from 'ketos-components'
 import NetworkExpander from './NetworkModel'
 
 type OwnProps = {}
 
-type Props = OwnProps & ChildProps
+type Props = OwnProps & PluginProps
 
 type State = {
   datasetId?: string,

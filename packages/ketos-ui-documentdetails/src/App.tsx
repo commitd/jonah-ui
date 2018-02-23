@@ -2,14 +2,14 @@ import * as React from 'react'
 const isEqual = require('lodash.isequal')
 
 import { PrerequisiteContainer, DocumentViewPayload } from 'ketos-components'
-import { ChildProps } from 'invest-plugin'
+import { PluginProps } from 'invest-plugin'
 
 import DataContainer from './DataContainer'
 import View from './View'
 
 type OwnProps = {}
 
-type Props = OwnProps & ChildProps
+type Props = OwnProps & PluginProps
 
 type State = {
   datasetId?: string

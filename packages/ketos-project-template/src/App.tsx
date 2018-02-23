@@ -1,11 +1,11 @@
 import * as React from 'react'
 const isEqual = require('lodash.isequal')
 
-import { ChildProps } from 'invest-plugin'
+import { PluginProps } from 'invest-plugin'
 
 type OwnProps = {}
 
-type Props = OwnProps & ChildProps
+type Props = OwnProps & PluginProps
 
 class App extends React.Component<Props> {
 

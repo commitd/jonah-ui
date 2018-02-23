@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { ChildProps } from 'invest-plugin'
+import { PluginProps } from 'invest-plugin'
 import View from './ViewContainer'
 import { DatasetSelector } from 'invest-components'
 import { Container } from 'semantic-ui-react'
@@ -11,7 +11,7 @@ interface ViewPayload {
 
 type OwnProps = {}
 
-type Props = OwnProps & ChildProps
+type Props = OwnProps & PluginProps
 
 type State = {
   datasetId?: string,

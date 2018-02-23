@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { ChildProps } from 'invest-plugin'
+import { PluginProps } from 'invest-plugin'
 import { graphql, MutationFunc, compose, QueryProps } from 'react-apollo'
 import gql from 'graphql-tag'
 import { Loader } from 'semantic-ui-react'
@@ -32,7 +32,7 @@ interface GqlProps {
 
 type OwnProps = {}
 
-type Props = OwnProps & GqlProps & ChildProps
+type Props = OwnProps & GqlProps & PluginProps
 
 type State = {
     type: string,
@@ -114,6 +114,6 @@ query GetPlugins {
 `
 
 export default compose(
-    graphql<Response, OwnProps & ChildProps, Props>(ADD_FEEDBACK_MUTATION),
-    graphql<Response, OwnProps & ChildProps, Props>(GET_PLUGINS_QUERY)
+    graphql<Response, OwnProps & PluginProps, Props>(ADD_FEEDBACK_MUTATION),
+    graphql<Response, OwnProps & PluginProps, Props>(GET_PLUGINS_QUERY)
 )(Container)
