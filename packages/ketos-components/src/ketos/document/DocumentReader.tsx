@@ -5,6 +5,7 @@ import { Card } from 'invest-components'
 import DocumentContent from './DocumentContent'
 import DocumentInfo from './DocumentInfo'
 import { BasicDocumentNode, BasicDocumentInfo, Metadata, Mention } from '../../types'
+import SelectedMentions from '../mentions/SelectedMentions'
 
 export type Document = BasicDocumentNode & {
     length: number
@@ -39,7 +40,9 @@ class DocumentReader extends React.Component<Props, State> {
 
     render() {
         const { datasetId, document } = this.props
-        // const { selectedMentions } = this.state
+        const { selectedMentions } = this.state
+
+        const mentions = document.mentions
 
         return (
             <Grid>
@@ -49,6 +52,7 @@ class DocumentReader extends React.Component<Props, State> {
                         title={document.info.title}
                         mentions={document.mentions}
                         onMentionSelect={this.handleSelectedMentions}
+                        selectedMentions={selectedMentions}
                     />
                 </Grid.Column>
                 <Grid.Column width={6}>
@@ -59,6 +63,15 @@ class DocumentReader extends React.Component<Props, State> {
                             info={document.info}
                         />
                     </Card>
+                    {mentions && <Card title="Selected mentions">
+                        {selectedMentions && selectedMentions.length > 0
+                            && <SelectedMentions
+                                datasetId={datasetId}
+                                selectedMentions={selectedMentions}
+                                mentions={document.mentions}
+                            />}
+                        {!selectedMentions && <p>Click on the underlined mention in the text to select</p>}
+                    </Card>}
 
                 </Grid.Column>
             </Grid>

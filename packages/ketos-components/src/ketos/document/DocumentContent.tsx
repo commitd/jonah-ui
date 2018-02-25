@@ -1,13 +1,13 @@
 import * as React from 'react'
 import { Segment } from 'semantic-ui-react'
-import { MentionSpan } from '../../types';
+import { MentionSpan } from '../../types'
 
 export interface OwnProps {
     title: string
     content: string
     mentions?: MentionSpan[]
+    selectedMentions?: string[]
     onMentionSelect?(mentions: string[]): void
-
 }
 
 export type Props = OwnProps
@@ -44,19 +44,40 @@ class MentionText extends React.Component<{
     begin: number
     end: number
     mentions: string[]
+    selectedMentions?: string[]
     onClick(mentions: string[]): void
 }> {
+
     render() {
         const { begin, end, content, onClick, mentions } = this.props
+
+        const selected = this.isSelected()
+
+
+        const fontStyle = selected ? 'italic' : undefined
         return (
             <span
                 onClick={() => onClick(mentions)}
-                style={{ textDecoration: 'underline' }}
+                style={{ textDecoration: 'underline', fontStyle: fontStyle }}
             >
-                {content.substring(begin, end)}
+                <PlainText content={content} begin={begin} end={end} />
+
             </span >
         )
     }
+
+    private isSelected = () => {
+        const selected = this.props.selectedMentions
+        const mentions = this.props.mentions
+
+        if (selected == null || mentions == null || mentions.length === 0 || selected.length === 0) {
+            return false
+        }
+
+        const found = selected.find(s => mentions.includes(s))
+        return found !== undefined
+    }
+
 }
 
 class DocumentReader extends React.Component<Props> {
@@ -72,7 +93,7 @@ class DocumentReader extends React.Component<Props> {
     render() {
         const { title, content, mentions } = this.props
 
-        if (mentions == null) {
+        if (mentions == null || mentions.length === 0) {
             return this.renderMentionless(title, content)
         } else {
             return this.renderMentions(title, content, mentions)
@@ -111,8 +132,9 @@ class DocumentReader extends React.Component<Props> {
             // Are we in an mention offset? 
             if (offset) {
                 // If we overlap then extend the offset to cover our mention
-                if (offset.end >= m.begin && offset.end <= m.end) {
-                    offset.end = m.end
+                if (!(offset.end < m.begin || offset.begin > m.end)) {
+                    // Because we are sorted the begin if already ok
+                    offset.end = Math.max(m.end, offset.end)
                     offset.mentions.push(m.id)
                 } else {
                     // The old one doesn't over overlap us, close it
@@ -130,8 +152,6 @@ class DocumentReader extends React.Component<Props> {
                 offsets.push(offset)
             }
         })
-
-        console.log(offsets)
 
         const lines: React.ReactElement<{}>[] = []
 
@@ -156,6 +176,7 @@ class DocumentReader extends React.Component<Props> {
                         end={o.end}
                         mentions={o.mentions}
                         onClick={this.handleSelectMentions}
+                        selectedMentions={this.props.selectedMentions}
                     />)
             }
 
