@@ -1,13 +1,11 @@
 import * as React from 'react'
 import { PluginProps } from 'invest-plugin'
 const isEqual = require('lodash.isequal')
-import { SearchQuery, DatasetSelector } from 'invest-components'
+import { DatasetSelector } from 'invest-components'
 import { Container, Divider } from 'semantic-ui-react'
 import DataContainer from './DataContainer'
 import Results from './components/Results'
-import { DocumentSearchPayload } from 'invest-components'
-
-
+import { DocumentSearchPayload, DocumentSearch, DocumentSearchForm } from 'ketos-components'
 
 type OwnProps = {}
 
@@ -15,32 +13,13 @@ type Props = OwnProps & PluginProps
 
 type State = {
   datasetId?: string,
-  query: string,
-  submittedSearchQuery?: string
+  query?: DocumentSearch
+  submittedQuery?: DocumentSearch
 }
 
 class App extends React.Component<Props, State> {
 
   state: State = {
-    query: '',
-  }
-
-  handleDatasetSelected = (datasetId: string) => {
-    this.setState({
-      datasetId,
-    })
-  }
-
-  handleQueryChange = (query: string) => {
-    this.setState({
-      query
-    })
-  }
-
-  handleSearch = () => {
-    this.setState((state: State) => ({
-      submittedSearchQuery: this.state.query
-    }))
   }
 
   componentWillReceiveProps(nextProps: Props) {
@@ -48,14 +27,13 @@ class App extends React.Component<Props, State> {
       const payload = nextProps.payload as DocumentSearchPayload
       this.setState({
         datasetId: payload ? payload.datasetId : this.state.datasetId,
-        // TODO: Currently only look for the content field, but in future we could have additional options
-        query: payload && payload.query && payload.query.content ? payload.query.content : this.state.query,
+        query: payload ? { documentFilter: payload.documentFilter } : {}
       })
     }
   }
 
   render() {
-    const { datasetId, query, submittedSearchQuery } = this.state
+    const { datasetId, query, submittedQuery } = this.state
 
     return (
       <Container fluid={false} >
@@ -64,17 +42,31 @@ class App extends React.Component<Props, State> {
           selectedDataset={datasetId}
           onDatasetSelected={this.handleDatasetSelected}
         />
-        <SearchQuery query={query} onQueryChange={this.handleQueryChange} onSearch={this.handleSearch} />
+        <DocumentSearchForm onSearch={this.handleSearch} search={query} />
         <Divider hidden={true} />
-        {datasetId && submittedSearchQuery &&
+        {datasetId && submittedQuery && submittedQuery.documentFilter &&
           <DataContainer
-            variables={{ datasetId, query: submittedSearchQuery }}
+            variables={{
+              datasetId,
+              documentFilter: submittedQuery.documentFilter,
+            }}
           >
             <Results />
           </DataContainer>
         }
       </Container>
     )
+  }
+
+  private handleDatasetSelected = (datasetId: string) => {
+    this.setState({
+      datasetId,
+    })
+  }
+  private handleSearch = (search: DocumentSearch) => {
+    this.setState((state: State) => ({
+      submittedQuery: search
+    }))
   }
 }
 

@@ -2,8 +2,9 @@ import * as React from 'react'
 import { PluginProps } from 'invest-plugin'
 import DataContainer from './DataContainer'
 import Results from './Results'
-import { Container, Form, InputOnChangeData } from 'semantic-ui-react'
+import { Container, InputOnChangeData } from 'semantic-ui-react'
 import { DatasetSelector } from 'invest-components'
+import { DocumentSearch, DocumentSearchForm } from 'ketos-components'
 
 type OwnProps = {}
 
@@ -15,8 +16,10 @@ type State = {
   offset: number,
   limit: number
 
-  submittedQuery?: string
+  submittedQuery?: DocumentSearch
 }
+
+// TODO: Handle action 
 
 class App extends React.Component<Props, State> {
 
@@ -39,14 +42,16 @@ class App extends React.Component<Props, State> {
     })
   }
 
-  handleSubmit = () => {
+  handleSearch = (search: DocumentSearch) => {
     this.setState((state) => ({
-      submittedQuery: state.query
+      submittedQuery: search
     }))
   }
 
   render() {
     const { datasetId, submittedQuery, offset, limit } = this.state
+
+    console.log(submittedQuery)
 
     return (
       <Container>
@@ -57,13 +62,17 @@ class App extends React.Component<Props, State> {
           onDatasetSelected={this.handleDatasetSelected}
         />
 
-        <Form onSubmit={this.handleSubmit} >
-          <Form.Input name="query" placeholder="Document search query" onChange={this.handleFormChange} />
-        </Form>
-
+        <DocumentSearchForm onSearch={this.handleSearch} />
         {
           datasetId != null && submittedQuery != null && <DataContainer
-            variables={{ datasetId, query: submittedQuery, offset, limit }}
+            variables={{
+              datasetId,
+              documentFilter: submittedQuery.documentFilter,
+              entityFilters: submittedQuery.entityFilters || [],
+              mentionFilters: submittedQuery.mentionFilters || [],
+              relationFilters: submittedQuery.relationFilters || [],
+              offset, limit
+            }}
           >
             <Results />
           </DataContainer>

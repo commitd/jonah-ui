@@ -3,8 +3,8 @@ import { PluginProps } from 'invest-plugin'
 
 const isEqual = require('lodash.isequal')
 
-import { DocumentSearchResults, DocumentSearchPayload } from 'ketos-components'
-import { SearchQuery, DatasetSelector } from 'invest-components'
+import { DocumentSearchResults, DocumentSearchPayload, DocumentSearch, DocumentSearchForm } from 'ketos-components'
+import { DatasetSelector } from 'invest-components'
 import { Container, Divider } from 'semantic-ui-react'
 
 type OwnProps = {}
@@ -13,42 +13,16 @@ type Props = OwnProps & PluginProps
 
 type State = {
   datasetId?: string,
-  query: string,
-  currentSearchQuery?: string
+  query: DocumentSearch,
+  submittedSearchQuery?: DocumentSearch
   offset: number
 }
 
 class App extends React.Component<Props, State> {
 
   state: State = {
-    query: '',
+    query: {},
     offset: 0
-  }
-
-  handleDatasetSelected = (datasetId: string) => {
-    this.setState({
-      datasetId,
-      offset: 0
-    })
-  }
-
-  handleQueryChange = (query: string) => {
-    this.setState({
-      query
-    })
-  }
-
-  handleSearch = () => {
-    this.setState((state: State) => ({
-      currentSearchQuery: this.state.query,
-      offset: 0
-    }))
-  }
-
-  handleOffsetChange = (offset: number) => {
-    this.setState({
-      offset: offset
-    })
   }
 
   componentWillReceiveProps(nextProps: Props) {
@@ -56,14 +30,13 @@ class App extends React.Component<Props, State> {
       const payload = nextProps.payload as DocumentSearchPayload
       this.setState({
         datasetId: payload ? payload.datasetId : this.state.datasetId,
-        // TODO: Currently only look for the content field, but in future we could have additional options
-        query: payload && payload.query && payload.query.content ? payload.query.content : this.state.query,
+        query: payload ? { documentFilter: payload.documentFilter || {} } : {},
       })
     }
   }
 
   render() {
-    const { datasetId, query, currentSearchQuery, offset } = this.state
+    const { datasetId, query, submittedSearchQuery, offset } = this.state
 
     return (
       <Container fluid={false} >
@@ -72,18 +45,41 @@ class App extends React.Component<Props, State> {
           selectedDataset={datasetId}
           onDatasetSelected={this.handleDatasetSelected}
         />
-        <SearchQuery query={query} onQueryChange={this.handleQueryChange} onSearch={this.handleSearch} />
+        <DocumentSearchForm search={query} onSearch={this.handleSearch} />
         <Divider hidden={true} />
-        {datasetId && currentSearchQuery &&
+        {datasetId && submittedSearchQuery && submittedSearchQuery.documentFilter &&
           <DocumentSearchResults
             datasetId={datasetId}
-            query={currentSearchQuery}
+            documentFilter={submittedSearchQuery.documentFilter}
+            entityFilters={submittedSearchQuery.entityFilters}
+            relationFilters={submittedSearchQuery.relationFilters}
+            mentionFilters={submittedSearchQuery.mentionFilters}
             size={5}
             offset={offset}
             onOffsetChange={this.handleOffsetChange}
           />}
       </Container>
     )
+  }
+
+  private handleDatasetSelected = (datasetId: string) => {
+    this.setState({
+      datasetId,
+      offset: 0
+    })
+  }
+
+  private handleSearch = (search: DocumentSearch) => {
+    this.setState((state: State) => ({
+      submittedSearchQuery: search,
+      offset: 0
+    }))
+  }
+
+  private handleOffsetChange = (offset: number) => {
+    this.setState({
+      offset: offset
+    })
   }
 }
 

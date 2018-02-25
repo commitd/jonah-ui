@@ -1,10 +1,11 @@
 import gql from 'graphql-tag'
 import { createDataContainer } from 'invest-components'
 import { TermBin, TimeBin } from 'invest-types'
+import { DocumentFilter } from 'ketos-components'
 
 type Variables = {
   datasetId: string
-  query: string
+  documentFilter: DocumentFilter
 }
 
 type Location = {
@@ -40,11 +41,9 @@ export type Response = {
 }
 
 const QUERY = gql`
-query Do($query:String!, $datasetId: String!) {
+query Do($documentFilter:DocumentFilterInput!, $datasetId: String!) {
     corpus(id:$datasetId) {
-      documentTimeline(query:{
-       content:$query 
-      }) {
+      documentTimeline(query:$documentFilter) {
         bins {
           ts
           count
@@ -52,53 +51,35 @@ query Do($query:String!, $datasetId: String!) {
         interval
       }
       
-      entityTimeline: timelineByTypeField(query:{
-       content:$query 
-      },
-        type:ENTITY) {
+      entityTimeline: timelineByTypeField(query:$documentFilter, type:ENTITY) {
         bins {
           ts
           count
         }
       }
       
-      entityTypes: countByTypesField(query:{
-       content:$query 
-      },
-        type:ENTITY,
-      field:"type") {
+      entityTypes: countByTypesField(query:$documentFilter, type:ENTITY, field:"type") {
         bins {
           term
           count
         }
       }
       
-      entityValues: countByTypesField(query:{
-       content:$query 
-      },
-        type:ENTITY,
-      field:"value"
-      , size: 50) {
+      entityValues: countByTypesField(query:$documentFilter, type:ENTITY, field:"value", size: 26) {
         bins {
           term
           count
         }
       }
 
-      documentLocations(query:{
-        content:$query 
-       }, size: 500) {
+      documentLocations(query:$documentFilter, size: 500) {
         lat
         lon
          name
          geohash(precision:5)
        }
       
-      relationTypes: countByTypesField(query:{
-       content:$query 
-      },
-        type:RELATION,
-      field:"type") {
+      relationTypes: countByTypesField(query:$documentFilter, type:RELATION, field:"type") {
         bins {
           term
           count

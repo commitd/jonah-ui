@@ -52,6 +52,7 @@ export default class EntityFilterForm extends React.Component<Props, State> {
                     !propsDefineAdvanced &&
                     <Button
                         floated="right"
+                        as={'a'}
                         labelPosition="left"
                         icon={advanced ? 'chevron up' : 'chevron down'}
                         content={advanced ? 'Hide advanced' : 'Show Advanced'}

@@ -28,23 +28,24 @@ export type EntityViewPayload = {
 
 // Search
 
-export type MentionSearchPayload = MentionFilter & {
+export type MentionSearchPayload = {
     datasetId: string
-    type?: string
-    subType?: string
-    value?: string
+    mentionFilter?: MentionFilter
 }
 
-export type DocumentSearchPayload = DocumentFilter & {
+export type DocumentSearchPayload = {
     datasetId: string
+    documentFilter?: DocumentFilter
 }
 
-export type RelationSearchPayload = RelationFilter & {
-    datasetId: string
+export type RelationSearchPayload = {
+    datasetId: string,
+    relationFilter?: RelationFilter
 }
 
-export type EntitySearchPayload = EntityFilter & {
-    datasetId: string
+export type EntitySearchPayload = {
+    datasetId: string,
+    entityFilter?: EntityFilter
 }
 
 // Edit

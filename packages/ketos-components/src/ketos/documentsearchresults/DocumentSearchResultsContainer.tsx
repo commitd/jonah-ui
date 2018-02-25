@@ -1,11 +1,15 @@
 import * as React from 'react'
 import { graphql, QueryProps } from 'react-apollo'
 import gql from 'graphql-tag'
+import { DocumentFilter, RelationFilter, EntityFilter, MentionFilter } from 'ketos-components'
 import DocumentSearchResults from './DocumentSearchResults'
 
 export interface OwnProps {
     datasetId: string,
-    query: string,
+    documentFilter: DocumentFilter,
+    entityFilters?: EntityFilter[]
+    relationFilters?: RelationFilter[]
+    mentionFilters?: MentionFilter[]
     offset: number,
     size: number,
     onOffsetChange(offset: number): void
@@ -63,9 +67,12 @@ const container = (props: Props) => {
 }
 
 const DOCUMENT_SEARCH_QUERY = gql`
-query search($datasetId: String!, $query: String!, $offset: Int, $size: Int) {
+query search($datasetId: String!, $documentFilter: DocumentFilterInput!, 
+    $mentionFilters:[MentionFilterInput], $entityFilters:[EntityFilterInput], $relationFilters:[RelationFilterInput],
+    $offset: Int, $size: Int) {
   corpus(id: $datasetId) {
-    searchDocuments(query: { content: $query }) {
+    searchDocuments(query: $documentFilter,
+        mentions:$mentionFilters, entities:$entityFilters, relations:$relationFilters) {
         hits(offset: $offset, size: $size) {
             total
             results {
@@ -87,13 +94,4 @@ query search($datasetId: String!, $query: String!, $offset: Int, $size: Int) {
 }
 `
 
-export default graphql<Response, OwnProps, Props>(DOCUMENT_SEARCH_QUERY, {
-    options: (props: Props) => ({
-        variables: {
-            datasetId: props.datasetId,
-            query: props.query,
-            offset: props.offset,
-            size: props.size
-        }
-    })
-})(container)
+export default graphql<Response, OwnProps, Props>(DOCUMENT_SEARCH_QUERY)(container)

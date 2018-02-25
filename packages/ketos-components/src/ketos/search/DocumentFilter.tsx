@@ -31,7 +31,7 @@ export default class DocumentFilterForm extends React.Component<Props, State> {
         const advanced = propsDefineAdvanced ? this.props.advanced : this.state.showAdvanced
 
         return (
-            <Form>
+            <div>
                 <Form.Input
                     fluid={true}
                     placeholder="Query content"
@@ -43,13 +43,14 @@ export default class DocumentFilterForm extends React.Component<Props, State> {
                 {!propsDefineAdvanced &&
                     <Button
                         floated="right"
+                        as={'a'}
                         labelPosition="left"
                         icon={advanced ? 'chevron up' : 'chevron down'}
                         content={advanced ? 'Hide advanced' : 'Show Advanced'}
                         onClick={this.toggleAdvanced}
                     />
                 }
-            </Form>
+            </div>
         )
     }
 

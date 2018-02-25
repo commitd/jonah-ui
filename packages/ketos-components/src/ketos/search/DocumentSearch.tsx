@@ -2,6 +2,7 @@ import * as React from 'react'
 import { DocumentSearch, DocumentFilter } from '../../types'
 import DocumentFilterForm from './DocumentFilter'
 import { SearchButton } from 'invest-components'
+import { Form } from 'semantic-ui-react'
 
 export type Props = {
     search?: DocumentSearch,
@@ -28,10 +29,10 @@ export default class DocumentSearchForm extends React.Component<Props, State> {
     render() {
         const search = this.state
         return (
-            <div>
+            <Form onSubmit={this.handleSubmit}>
                 <DocumentFilterForm filter={search.documentFilter || {}} onChange={this.handleDocumentFilter} />
                 <SearchButton onSubmit={this.handleSubmit} />
-            </div>
+            </Form>
         )
     }
 

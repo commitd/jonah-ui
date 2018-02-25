@@ -1,10 +1,14 @@
 import gql from 'graphql-tag'
 
 import { createDataContainer } from 'invest-components'
+import { DocumentFilter, EntityFilter, RelationFilter, MentionFilter } from 'ketos-components'
 
 type Variables = {
     datasetId: string
-    query: string
+    documentFilter?: DocumentFilter
+    entityFilters?: EntityFilter[]
+    relationFilters?: RelationFilter[]
+    mentionFilters?: MentionFilter[]
     offset: number
     limit: number
 }
@@ -27,11 +31,15 @@ export type Response = {
         }
     }
 }
-
+//  
+// 
 const QUERY = gql`
-query searchForLocation($datasetId: String!, $query: String!, $offset: Int, $limit: Int) {
+query searchForLocation($datasetId: String!, $documentFilter:DocumentFilterInput!, 
+    $mentionFilters:[MentionFilterInput], $entityFilters:[EntityFilterInput], $relationFilters:[RelationFilterInput],
+    $offset: Int, $limit: Int) {
     corpus(id: $datasetId) {
-      searchDocuments(query: {content:$query}, ) {
+      searchDocuments(query: $documentFilter
+        mentions:$mentionFilters, entities:$entityFilters, relations:$relationFilters) {
         hits(size:$limit, offset:$offset) {
           results {
             id
