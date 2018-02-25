@@ -1,15 +1,10 @@
 import gql from 'graphql-tag'
-
+import { RelationFilter } from 'ketos-components'
 import { createDataContainer } from 'invest-components'
 
 type Variables = {
   datasetId: string
-  sourceType?: string,
-  sourceValue?: string,
-  targetType?: string,
-  targetValue?: string,
-  relationshipType?: string,
-  relationshipSubType?: string
+  relationFilter: RelationFilter,
   size: number,
   offset: number
 }
@@ -40,29 +35,13 @@ export type Response = {
 
 const QUERY = gql`
 query findRelation($datasetId: String!,
-     $relationshipType:String,
-      $relationshipSubType:String, 
-      $sourceValue: String, 
-      $sourceType: String, 
-      $targetType:String, 
-      $targetValue: String,
+     $relationFilter: RelationFilterInput!,
       $offset: Int!, 
       $size: Int!) {
     corpus(id: $datasetId) {
       id
-    relations(
-      probe:{
-        type:$relationshipType,
-        subType:$relationshipSubType,
-        target: {
-          type:$targetType,
-          value: $targetValue
-        },        
-        source: {
-          type:$sourceType,
-          value: $sourceValue
-        }
-      },
+    relations: searchRelations(
+      query:$relationFilter,
       offset: $offset,
       limit: $size
     ) {

@@ -1,12 +1,11 @@
 import gql from 'graphql-tag'
+import { MentionFilter } from 'ketos-components'
 
 import { createDataContainer } from 'invest-components'
 
 type Variables = {
     datasetId: string
-    value?: string,
-    type?: string,
-    subType?: string,
+    mentionFilter: MentionFilter
     offset?: number,
     size?: number
 }
@@ -34,10 +33,10 @@ export type Response = {
 }
 
 const QUERY = gql`
-query GetMention($datasetId: String!, $value: String, $type: String, $subType: String, $offset: Int, $size: Int) {
+query GetMention($datasetId: String!, $mentionFilter:MentionFilterInput!, $offset: Int, $size: Int) {
     corpus(id: $datasetId) {
       id,
-      mentions(probe:{type: $type, value:$value, subType: $subType}, offset: $offset, limit: $size) {
+      mentions: searchMentions(query:$mentionFilter, offset: $offset, limit: $size) {
         id
         type 
         subType

@@ -1,12 +1,10 @@
 import gql from 'graphql-tag'
 import { createDataContainer } from 'invest-components'
-import { BasicEntityNode, BasicDocumentNode } from 'ketos-components'
+import { BasicEntityNode, BasicDocumentNode, EntityFilter } from 'ketos-components'
 
 type Variables = {
     datasetId: string
-    value?: string,
-    type?: string,
-    subType?: string,
+    entityFilter: EntityFilter
     offset?: number,
     size?: number
 }
@@ -23,10 +21,10 @@ export type Response = {
 }
 
 const QUERY = gql`
-query GetEntity($datasetId: String!, $value: String, $type: String, $subType: String, $offset: Int, $size: Int) {
+query GetEntity($datasetId: String!, $entityFilter: EntityFilter!, $offset: Int, $size: Int) {
     corpus(id: $datasetId) {
       id,
-      entities(probe:{type: $type, value:$value,  subType: $subType}, offset: $offset, limit: $size) {
+      entities: searchEntities(filter:$entityFilter, offset: $offset, limit: $size) {
         id
         type 
         subType

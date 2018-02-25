@@ -8,7 +8,7 @@ import { SearchButton } from 'invest-components'
 
 import DataContainer from './DataContainer'
 import Results from './Results'
-import { MENTION_SEARCH, MentionSearchPayload } from 'ketos-components'
+import { MENTION_SEARCH, MentionSearchPayload, MentionFilter, MentionSearchForm, MentionSearch } from 'ketos-components'
 
 type OwnProps = {}
 
@@ -16,12 +16,10 @@ type Props = OwnProps & PluginProps
 
 type State = {
   datasetId?: string,
-  type: string,
-  value: string
-  subType: string
-  submittedType?: string,
-  submittedValue?: string,
-  submittedSubType?: string,
+
+  query: MentionSearch,
+  submittedQuery?: MentionSearch
+
   offset: number,
   size: number
 }
@@ -29,12 +27,9 @@ type State = {
 class App extends React.Component<Props, State> {
 
   state: State = {
-    type: '',
-    value: '',
-    subType: '',
-    submittedType: undefined,
-    submittedValue: undefined,
-    submittedSubType: undefined,
+    query: {
+      mentionFilter: {}
+    },
     offset: 0,
     size: 10
   }
@@ -45,39 +40,8 @@ class App extends React.Component<Props, State> {
     }
   }
 
-  handleDatasetSelected = (datasetId: string) => {
-    this.setState({
-      datasetId: datasetId,
-      offset: 0
-    })
-  }
-
-  handleFormChange = (event: React.SyntheticEvent<HTMLInputElement>, data: InputOnChangeData) => {
-    this.setState({
-      [data.name]: data.value
-    })
-  }
-
-  handleOffsetChange = (offset: number) => {
-    this.setState({
-      offset
-    })
-  }
-
-  handleSubmit = () => {
-    this.setState(state => ({
-      submittedType: state.type !== '' ? state.type : undefined,
-      submittedValue: state.value !== '' ? state.value : undefined,
-      submittedSubType: state.subType !== '' ? state.subType : undefined,
-
-      offset: 0
-    }))
-  }
-
   render() {
-    const { datasetId,
-      submittedType, submittedValue, submittedSubType,
-      type, value, subType,
+    const { datasetId, query, submittedQuery,
       offset, size } = this.state
 
     return (
@@ -87,33 +51,12 @@ class App extends React.Component<Props, State> {
           onDatasetSelected={this.handleDatasetSelected}
           provider="MentionProvider"
         />
-        <Form>
-          <Form.Group widths="equal">
-            <Form.Input
-              name="value"
-              label="Value"
-              value={value}
-              placeholder="Value"
-              onChange={this.handleFormChange}
-            />
-            <Form.Input name="type" label="Type" placeholder="Type" value={type} onChange={this.handleFormChange} />
-            <Form.Input
-              name="subType"
-              label="SubType"
-              placeholder="Sub-type"
-              value={subType}
-              onChange={this.handleFormChange}
-            />
-            <SearchButton onSubmit={this.handleSubmit} disabled={this.isDisabled()} />
-          </Form.Group>
-        </Form>
-        {datasetId != null && (submittedType != null || submittedValue != null) &&
+        <MentionSearchForm onSearch={this.handleSearch} search={query} />
+        {datasetId != null && submittedQuery &&
           <DataContainer
             variables={{
               datasetId,
-              type: submittedType,
-              subType: submittedSubType,
-              value: submittedValue,
+              mentionFilter: submittedQuery.mentionFilter,
               offset: offset,
               size
             }}
@@ -126,11 +69,24 @@ class App extends React.Component<Props, State> {
     )
   }
 
-  private isDisabled = () => {
-    const { datasetId,
-      type, value,
-    } = this.state
-    return datasetId == null || (type === '' && value === '')
+  private handleSearch = (search: MentionSearch) => {
+    this.setState(state => ({
+      submittedQuery: search,
+      offset: 0
+    }))
+  }
+
+  private handleDatasetSelected = (datasetId: string) => {
+    this.setState({
+      datasetId: datasetId,
+      offset: 0
+    })
+  }
+
+  private handleOffsetChange = (offset: number) => {
+    this.setState({
+      offset
+    })
   }
 
   private onAction = (action?: string, payload?: {}) => {
@@ -138,8 +94,8 @@ class App extends React.Component<Props, State> {
       const msp = payload as MentionSearchPayload
       this.setState({
         datasetId: msp.datasetId,
-        type: msp.type || '',
-        value: msp.value || '',
+        submittedQuery: undefined,
+        query: msp.mentionFilter ? { mentionFilter: msp.mentionFilter } : { mentionFilter: {} },
         offset: 0
       })
     }
