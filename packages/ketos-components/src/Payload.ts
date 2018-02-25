@@ -1,3 +1,5 @@
+import { EntityFilter, MentionFilter, DocumentFilter, RelationFilter } from './types'
+
 // View
 
 export type CorpusViewPayload = {
@@ -26,33 +28,23 @@ export type EntityViewPayload = {
 
 // Search
 
-export type MentionSearchPayload = {
+export type MentionSearchPayload = MentionFilter & {
     datasetId: string
     type?: string
     subType?: string
     value?: string
 }
 
-export type DocumentSearchPayload = {
+export type DocumentSearchPayload = DocumentFilter & {
     datasetId: string
-    query?: { [id: string]: string }
 }
 
-export type RelationSearchPayload = {
+export type RelationSearchPayload = RelationFilter & {
     datasetId: string
-    type?: string
-    subType?: string
-    value?: string
-    source?: MentionSearchPayload
-    target?: MentionSearchPayload
-
 }
 
-export type EntitySearchtPayload = {
+export type EntitySearchPayload = EntityFilter & {
     datasetId: string
-    type?: string
-    subType?: string
-    value?: string
 }
 
 // Edit
@@ -69,7 +61,7 @@ export type DocumentEditPayload = {
 
 export type RelationEditPayload = {
     datasetId: string
-    relationid: string
+    relationId: string
 }
 
 export type EntityEditPayload = {

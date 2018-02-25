@@ -1,3 +1,4 @@
+import { GeoBox } from 'invest-types'
 
 // Basic building blocks
 
@@ -94,4 +95,93 @@ export type Metadata = {
 export type Property = {
     key: string
     value: {}
+}
+
+export type PropertiesMap = {
+    [key: string]: {}
+}
+
+// Search
+
+export type DocumentFilter = {
+    id?: string
+    properties?: PropertiesMap
+    metadata?: PropertiesMap
+    content?: string
+
+    info?: {
+        type?: string
+        source?: string
+        language?: string
+        classification?: string
+        caveats?: string
+        releasability: string
+        publishedId: string
+
+        startTimestamp?: number
+        endTimestamp?: number
+    }
+}
+
+export type MentionFilter = {
+    id?: string
+    docId?: string
+    type?: string
+    subType?: string
+    value?: string
+    properties?: PropertiesMap
+
+    startTimestamp?: number,
+    endTimestamp?: number,
+    within?: GeoBox
+
+    entityId?: string
+}
+
+export type EntityFilter = {
+    id?: string
+    docId?: string
+    type?: string
+    subType?: string
+    value?: string
+    properties?: PropertiesMap
+
+    mentionId?: string
+
+    startTimestamp?: number,
+    endTimestamp?: number,
+    within?: GeoBox
+}
+
+export type RelationFilter = {
+    id?: string
+    docId?: string
+    type?: string
+    subType?: string
+    value?: string
+    properties?: PropertiesMap
+    source?: MentionFilter
+    target?: MentionFilter
+}
+
+export type DocumentSearch = {
+    documentFilter?: DocumentFilter
+    relationFilters?: RelationFilter[]
+    mentionFilters?: MentionFilter[]
+    entityFilters?: EntityFilter[]
+
+}
+
+export type EntitySearch = {
+    entityFilter: EntityFilter
+}
+
+export type MentionSearch = {
+    mentionFilter: MentionFilter
+
+}
+
+export type RelationSearch = {
+    relationFilter: RelationFilter
+
 }

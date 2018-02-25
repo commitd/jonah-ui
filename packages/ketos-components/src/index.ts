@@ -31,3 +31,12 @@ export * from './Payload'
 export * from './Settings'
 
 export * from './utils/MapUtils'
+
+export { default as DocumentSearchForm } from './ketos/search/DocumentSearch'
+export { default as DocumentFilterForm } from './ketos/search/DocumentFilter'
+export { default as RelationSearchForm } from './ketos/search/RelationSearch'
+export { default as RelationFilterForm } from './ketos/search/RelationFilter'
+export { default as MentionSearchForm } from './ketos/search/MentionSearch'
+export { default as MentionFilterForm } from './ketos/search/MentionFilter'
+export { default as EntitySearchForm } from './ketos/search/EntitySearch'
+export { default as EntityFilterForm } from './ketos/search/EntityFilter'
