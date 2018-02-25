@@ -1,8 +1,7 @@
 import * as React from 'react'
 import { PluginProps } from 'invest-plugin'
-
-import { DocumentReaderContainer, DocumentViewPayload } from 'ketos-components'
-import { Container, Message } from 'semantic-ui-react'
+import { PrerequisiteContainer } from 'invest-components'
+import { DocumentReaderContainer, DocumentViewPayload, DOCUMENT_SEARCH } from 'ketos-components'
 const isEqual = require('lodash.isequal')
 
 type OwnProps = {}
@@ -33,25 +32,20 @@ class App extends React.Component<Props, State> {
 
   render() {
     const { datasetId, documentId } = this.state
-    const hasDocument = datasetId != null && documentId != null
 
     return (
-      <Container fluid={false} >
-        {!hasDocument &&
-          <Message>
-            <Message.Header>
-              No document selected
-          </Message.Header>
-            <p>
-              This plugin requires a document to be provided in order to function.
-            </p>
-          </Message>
-        }
-        {hasDocument && <DocumentReaderContainer
+      <PrerequisiteContainer
+        missingTitle="Document required"
+        missingDescription="This view needs to be provided with a document, you can use another plugin to provide that."
+        fulfillingAction={DOCUMENT_SEARCH}
+        check={() => datasetId != null && documentId != null}
+      >
+        <DocumentReaderContainer
           datasetId={datasetId || ''}
           documentId={documentId || ''}
-        />}
-      </Container>
+        />
+        }
+      </PrerequisiteContainer >
     )
   }
 }
