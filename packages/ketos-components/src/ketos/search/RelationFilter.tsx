@@ -29,7 +29,7 @@ export default class RelationFilterForm extends React.Component<Props, State> {
         const advanced = propsDefineAdvanced ? this.props.advanced : this.state.showAdvanced
 
         return (
-            <Form>
+            <div>
                 <Grid>
                     <Grid.Row>
                         <Grid.Column fluid={true}>
@@ -84,7 +84,7 @@ export default class RelationFilterForm extends React.Component<Props, State> {
                     />
                 }
 
-            </Form >
+            </div >
         )
     }
 

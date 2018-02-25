@@ -26,10 +26,10 @@ export default class MentionSearchForm extends React.Component<Props, State> {
     render() {
         const search = this.state
         return (
-            <div>
+            <Form onSubmit={this.handleSubmit}>
                 <MentionFilterForm filter={search.mentionFilter || {}} onChange={this.handleFilterChange} />
                 <SearchButton onSubmit={this.handleSubmit} />
-            </div>
+            </Form>
         )
     }
 

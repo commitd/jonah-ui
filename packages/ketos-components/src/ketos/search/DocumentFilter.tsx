@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Form, Input, Button, InputOnChangeData, Segment, Header } from 'semantic-ui-react'
+import { Form, Button, InputOnChangeData, Segment, Header } from 'semantic-ui-react'
 import { DocumentFilter } from '../../types'
 
 export type Props = {

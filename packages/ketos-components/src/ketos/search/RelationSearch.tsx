@@ -2,6 +2,7 @@ import * as React from 'react'
 import { RelationFilter, RelationSearch } from '../../types'
 import RelationFilterForm from './RelationFilter'
 import { SearchButton } from 'invest-components'
+import { Form } from '../../../../../../../vessel-js/node_modules/semantic-ui-react'
 
 export type Props = {
     search?: RelationSearch,
@@ -26,10 +27,10 @@ export default class RelationSearchForm extends React.Component<Props, State> {
     render() {
         const search = this.state
         return (
-            <div>
+            <Form onSubmit={this.handleSubmit}>
                 <RelationFilterForm filter={search.relationFilter || {}} onChange={this.handleFilterChange} />
                 <SearchButton onSubmit={this.handleSubmit} />
-            </div>
+            </Form>
         )
     }
 

@@ -2,6 +2,7 @@ import * as React from 'react'
 import { EntityFilter, EntitySearch } from '../../types'
 import EntityFilterForm from './EntityFilter'
 import { SearchButton } from 'invest-components'
+import { Form } from 'semantic-ui-react'
 
 export type Props = {
     search?: EntitySearch,
@@ -26,10 +27,10 @@ export default class EntitySearchForm extends React.Component<Props, State> {
     render() {
         const search = this.state
         return (
-            <div>
+            <Form onSubmit={this.handleSubmit}>
                 <EntityFilterForm filter={search.entityFilter || {}} onChange={this.handleFilterChange} />
                 <SearchButton onSubmit={this.handleSubmit} />
-            </div>
+            </Form>
         )
     }
 

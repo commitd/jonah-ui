@@ -30,7 +30,7 @@ export default class MentionFilterForm extends React.Component<Props, State> {
         const advanced = propsDefineAdvanced ? this.props.advanced : this.state.showAdvanced
 
         return (
-            <Form>
+            <div>
                 <Form.Group widths="equal">
                     <Form.Input
                         fluid={true}
@@ -59,7 +59,7 @@ export default class MentionFilterForm extends React.Component<Props, State> {
                         onClick={this.toggleAdvanced}
                     />
                 }
-            </Form >
+            </div>
         )
     }
 
