@@ -6,7 +6,7 @@ import { PluginProps } from 'invest-plugin'
 
 import DataContainer from './DataContainer'
 import EntityView from './EntityView'
-import { ENTITY_VIEW, EntityViewPayload } from 'ketos-components'
+import { ENTITY_VIEW, EntityViewPayload, ENTITY_SEARCH } from 'ketos-components'
 
 type OwnProps = {}
 
@@ -31,13 +31,14 @@ class App extends React.Component<Props, State> {
   }
 
   render() {
-    const { entityId } = this.state
+    const { datasetId, entityId } = this.state
 
     return (
       <PrerequisiteContainer
-        title="No entity"
-        description="This view requires an entity to display"
-        check={() => entityId != null}
+        missingTitle="Entity required"
+        missingDescription="This view needs an entity to display, you can use another plugin to provide that"
+        check={() => datasetId != null && entityId != null}
+        fulfillingAction={ENTITY_SEARCH}
       >
         <DataContainer variables={{ datasetId: this.state.datasetId || '', entityId: this.state.entityId || '' }}>
           <EntityView />

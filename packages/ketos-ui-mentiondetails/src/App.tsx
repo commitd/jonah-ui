@@ -6,7 +6,7 @@ import { PluginProps } from 'invest-plugin'
 
 import DataContainer from './DataContainer'
 import EntityView from './MentionView'
-import { MENTION_VIEW, MentionViewPayload } from 'ketos-components'
+import { MENTION_VIEW, MentionViewPayload, MENTION_SEARCH } from 'ketos-components'
 
 type OwnProps = {}
 
@@ -20,8 +20,8 @@ type State = {
 class App extends React.Component<Props, State> {
 
   state: State = {
-    mentionId: 'd01a2154eb0f988227279858639715d1b8a7a859e3f54b42454fde8b30cf435d',
-    datasetId: 're3d'
+    mentionId: undefined,
+    datasetId: undefined
   }
 
   componentWillReceiveProps(nextProps: Props) {
@@ -31,13 +31,14 @@ class App extends React.Component<Props, State> {
   }
 
   render() {
-    const { mentionId } = this.state
+    const { datasetId, mentionId } = this.state
 
     return (
       <PrerequisiteContainer
-        title="No mention"
-        description="This view requires an mention to display"
-        check={() => mentionId != null}
+        missingTitle="Mention required"
+        missingDescription="This view needs an mention to display, you can use another plugin to provide that"
+        check={() => datasetId != null && mentionId != null}
+        fulfillingAction={MENTION_SEARCH}
       >
         <DataContainer variables={{ datasetId: this.state.datasetId || '', mentionId: this.state.mentionId || '' }}>
           <EntityView />

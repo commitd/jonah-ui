@@ -1,11 +1,11 @@
 import * as React from 'react'
 const isEqual = require('lodash.isequal')
 import { PluginProps } from 'invest-plugin'
-import { MessageBox } from 'invest-components'
+import { MessageBox, PrerequisiteContainer } from 'invest-components'
 import NetworkExpander from './NetworkModel'
 import {
   RELATION_VIEW, ENTITY_VIEW, MENTION_VIEW, DocumentViewPayload,
-  MentionViewPayload, EntityViewPayload, RelationViewPayload, DOCUMENT_VIEW
+  MentionViewPayload, EntityViewPayload, RelationViewPayload, DOCUMENT_VIEW, ENTITY_SEARCH
 } from 'ketos-components'
 
 type OwnProps = {}
@@ -46,7 +46,17 @@ class App extends React.Component<Props, State> {
     }
 
     return (
-      <div>
+      <PrerequisiteContainer
+        fluid={true}
+        missingTitle="Mention required"
+        missingDescription={
+          'This view needs an mention, entity, document or relation to display. ' +
+          'An entity is a good start point to explore its graph.'
+        }
+        check={() => datasetId != null
+          && (entityId != null || mentionId != null || relationId != null || documentId != null)}
+        fulfillingAction={ENTITY_SEARCH}
+      >
         <NetworkExpander
           datasetId={datasetId}
           entityId={entityId}
@@ -54,7 +64,7 @@ class App extends React.Component<Props, State> {
           relationId={relationId}
           documentId={documentId}
         />
-      </div>
+      </PrerequisiteContainer>
     )
   }
 

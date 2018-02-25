@@ -3,8 +3,8 @@ const isEqual = require('lodash.isequal')
 import { PluginProps } from 'invest-plugin'
 import DataContainer from './DataContainer'
 import RelationView from './RelationView'
-import { MessageBox } from 'invest-components'
-import { RELATION_VIEW, RelationViewPayload } from 'ketos-components';
+import { MessageBox, PrerequisiteContainer } from 'invest-components'
+import { RELATION_VIEW, RelationViewPayload, RELATION_SEARCH } from 'ketos-components'
 type OwnProps = {}
 
 type Props = OwnProps & PluginProps
@@ -30,20 +30,17 @@ class App extends React.Component<Props, State> {
 
   render() {
     const { relationId, datasetId } = this.state
-
-    if (datasetId == null || relationId == null) {
-      return (
-        <MessageBox
-          title="No entity or dataset"
-          description="Please use another plugin to select an entity of dataset"
-        />
-      )
-    }
-
     return (
-      <DataContainer variables={{ datasetId: datasetId, relationId: relationId }} >
-        <RelationView />
-      </DataContainer >
+      <PrerequisiteContainer
+        missingTitle="Mention required"
+        missingDescription="This view needs a relation to display, you can use another plugin to provide that"
+        check={() => datasetId != null && relationId != null}
+        fulfillingAction={RELATION_SEARCH}
+      >
+        <DataContainer variables={{ datasetId: datasetId || '', relationId: relationId || '' }} >
+          <RelationView />
+        </DataContainer >
+      </PrerequisiteContainer>
 
     )
   }

@@ -8,7 +8,7 @@
         {
             "title": "Explore subject",
             "description": "View document subject by extraction",
-            "action": "document.search"
+            "action": "document.view"
         }
     ]
 }
