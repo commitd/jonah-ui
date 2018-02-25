@@ -1,6 +1,6 @@
 // View
 
-export type CorpusViewPayload {
+export type CorpusViewPayload = {
     datasetId?: string
 }
 
