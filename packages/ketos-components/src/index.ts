@@ -9,7 +9,7 @@ export { default as DocumentMeta } from './ketos/document/DocumentMeta'
 
 export { default as MetadataCountTable } from './ketos/metadata/MetadataCountTable'
 
-export { default as SimpleMap } from './map/Map'
+export { default as SimpleMap } from './map/SettingsMap'
 
 export { default as EntityView } from './ketos/entities/EntityView'
 export { default as EntityTable } from './ketos/entities/EntityTable'
@@ -28,5 +28,6 @@ export { default as PropertiesTable } from './ketos/properties/PropertiesTable'
 export * from './Actions'
 export * from './types'
 export * from './Payload'
+export * from './Settings'
 
 export * from './utils/MapUtils'
