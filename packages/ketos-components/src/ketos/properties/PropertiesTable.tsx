@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Table } from 'semantic-ui-react'
 import { Ellipsis } from 'invest-components'
-import { Property } from '../../types';
+import { Property } from '../../types'
 
 export type Props = {
     properties: Property[]

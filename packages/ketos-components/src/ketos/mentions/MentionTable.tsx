@@ -14,8 +14,6 @@ export type Props = OwnProps
 
 class MentionTable extends React.Component<Props> {
 
-
-
     render() {
         const { mentions, selectedMentions } = this.props
 
