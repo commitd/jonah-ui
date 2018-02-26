@@ -1,10 +1,11 @@
 import * as React from 'react'
 import { Table } from 'semantic-ui-react'
 import { Ellipsis } from 'invest-components'
-import { Property } from 'invest-types'
+import { PropertiesMap } from 'invest-types'
 
 export type Props = {
-    properties: Property[]
+    properties: PropertiesMap
+
 }
 
 class PropertiesTable extends React.Component<Props> {
@@ -27,7 +28,8 @@ class PropertiesTable extends React.Component<Props> {
                 </Table.Header>
                 <Table.Body>
                     {
-                        properties
+                        Object.keys(properties)
+                            .map(k => ({ key: k, value: properties[k] }))
                             .filter(p => p.value !== null && p.key !== null)
                             // discard this internal Blaeen thing
                             .filter(p => p.key !== 'isNormalised')

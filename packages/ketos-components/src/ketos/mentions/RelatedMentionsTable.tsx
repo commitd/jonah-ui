@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { Table } from 'semantic-ui-react'
 import { ActionDropdown } from 'invest-components'
+import { PropertiesMap } from 'invest-types'
 import { RELATION_VIEW, MENTION_VIEW } from '../../Actions'
 
 export type OwnProps = {
@@ -11,10 +12,7 @@ export type OwnProps = {
         end: number,
         type: string,
         value: string
-        properties: {
-            key: string,
-            value: {}
-        }[]
+        properties: PropertiesMap
         targetOf: {
             id: string
             type: string

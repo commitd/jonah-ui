@@ -1,4 +1,5 @@
 import gql from 'graphql-tag'
+import { PropertiesMap } from 'invest-types'
 import { createDataContainer } from 'invest-components'
 
 type Variables = {
@@ -14,10 +15,7 @@ export type Response = {
       type: string,
       subType?: string,
       value: string,
-      properties: {
-        key: string,
-        value: {}
-      }[]
+      properties: PropertiesMap
       mentions: {
         id: string
         begin: number,
@@ -42,10 +40,7 @@ query GetEntityById($datasetId: String!, $entityId: ID) {
         type
         subType
         value
-        properties {
-          key
-          value
-        }
+        properties
         mentions {
           id
           begin

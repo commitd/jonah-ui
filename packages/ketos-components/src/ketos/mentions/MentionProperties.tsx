@@ -1,13 +1,13 @@
 import * as React from 'react'
 import { Table } from 'semantic-ui-react'
 import { Ellipsis } from 'invest-components'
-import { Property } from 'invest-types'
+import { PropertiesMap } from 'invest-types'
 
 export type Props = {
     mentions: {
         id: string,
         value: string,
-        properties: Property[]
+        properties: PropertiesMap
     }[]
 }
 
@@ -16,7 +16,7 @@ class MentionProperties extends React.Component<Props> {
     render() {
         const { mentions } = this.props
 
-        const totalProperties = mentions.reduceRight((a, b) => a + (b.properties || []).length, 0)
+        const totalProperties = mentions.reduceRight((a, b) => a + (Object.keys(b.properties || {}).length), 0)
 
         if (totalProperties === 0) {
             return <p>No properties</p>
@@ -39,11 +39,11 @@ class MentionProperties extends React.Component<Props> {
                             .map(m => {
                                 const properties = m.properties
                                 const numProperties = m.properties.length
-                                return properties.map((p, i) => {
-                                    return <Table.Row key={`${m.id}-${p.key}`}>
+                                return Object.keys(properties).map((k, i) => {
+                                    return <Table.Row key={`${m.id}-${k}`}>
                                         {i === 0 && <Table.Cell rowSpan={numProperties}>{m.value}</Table.Cell>}
-                                        <Table.Cell>{p.key}</Table.Cell>
-                                        <Table.Cell><Ellipsis text={JSON.stringify(p.value)} /> </Table.Cell>
+                                        <Table.Cell>{k}</Table.Cell>
+                                        <Table.Cell><Ellipsis text={JSON.stringify(properties[k])} /> </Table.Cell>
                                     </Table.Row>
                                 })
 
