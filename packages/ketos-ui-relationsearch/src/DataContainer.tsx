@@ -12,24 +12,29 @@ type Variables = {
 export type Response = {
   corpus?: {
     id: string
-    relations: {
-      id: string,
-      type: string,
-      subType?: string,
-      docId: string
-      source: {
-        id: string,
-        type: string,
-        value: string,
-        entityId: string
+    searchRelations: {
+      hits: {
+        results: {
+          id: string,
+          type: string,
+          subType?: string,
+          value: string,
+          docId: string
+          source: {
+            id: string,
+            type: string,
+            value: string,
+            entityId: string
+          }
+          target: {
+            id: string,
+            type: string,
+            value: string,
+            entityId: string
+          }
+        }[]
       }
-      target: {
-        id: string,
-        type: string,
-        value: string,
-        entityId: string
-      }
-    }[]
+    }
   }
 }
 
@@ -40,26 +45,29 @@ query findRelation($datasetId: String!,
       $size: Int!) {
     corpus(id: $datasetId) {
       id
-    relations: searchRelations(
-      query:$relationFilter,
-      offset: $offset,
-      limit: $size
+    searchRelations(
+      query:$relationFilter      
     ) {
-      id
-      type
-      subType
-      docId
-      source {
-        id
-        type
-        value
-        entityId
-      }
-      target {
-        id
-        type
-        value   
-        entityId
+      hits(offset: $offset, size: $size) { 
+        results {
+          id
+          type
+          subType
+          value
+          docId
+          source {
+            id
+            type
+            value
+            entityId
+          }
+          target {
+            id
+            type
+            value   
+            entityId
+          }
+        }
       }
     }
   }

@@ -12,28 +12,36 @@ type Variables = {
 export type Response = {
     corpus: {
         id: string,
-        entities: (BasicEntityNode & {
-            document: BasicDocumentNode & {
-                summary: string
+        searchEntities: {
+            hits: {
+                results: (BasicEntityNode & {
+                    document: BasicDocumentNode & {
+                        summary: string
+                    }
+                })[]
             }
-        })[]
+        }
     }
 }
 
 const QUERY = gql`
-query GetEntity($datasetId: String!, $entityFilter: EntityFilter!, $offset: Int, $size: Int) {
+query GetEntity($datasetId: String!, $entityFilter: EntityFilterInput!, $offset: Int, $size: Int) {
     corpus(id: $datasetId) {
       id,
-      entities: searchEntities(filter:$entityFilter, offset: $offset, limit: $size) {
-        id
-        type 
-        subType
-        value
-        document {
-            id
-            summary
-            info {
-                title
+      searchEntities(query:$entityFilter) {
+          hits(offset: $offset, size: $size) {
+              results {
+                id
+                type 
+                subType
+                value
+                document {
+                    id
+                    summary
+                    info {
+                        title
+                    }
+                }
             }
         }
       }

@@ -13,22 +13,26 @@ type Variables = {
 export type Response = {
     corpus: {
         id: string,
-        mentions: {
-            id: string
-            type: string
-            subType?: string
-            value: string
-            entityId: string
-            begin: number
-            end: number
-            document: {
-                id: string
-                content: string
-                info: {
-                    title: string
-                }
+        searchMentions: {
+            hits: {
+                results: {
+                    id: string
+                    type: string
+                    subType?: string
+                    value: string
+                    entityId: string
+                    begin: number
+                    end: number
+                    document: {
+                        id: string
+                        content: string
+                        info: {
+                            title: string
+                        }
+                    }
+                }[]
             }
-        }[]
+        }
     }
 }
 
@@ -36,19 +40,23 @@ const QUERY = gql`
 query GetMention($datasetId: String!, $mentionFilter:MentionFilterInput!, $offset: Int, $size: Int) {
     corpus(id: $datasetId) {
       id,
-      mentions: searchMentions(query:$mentionFilter, offset: $offset, limit: $size) {
-        id
-        type 
-        subType
-        value
-        entityId
-        begin
-        end
-        document {
-            id
-            content
-            info {
-                title
+      searchMentions(query:$mentionFilter) {
+        hits(offset: $offset, size: $size) {
+            results {
+                id
+                type 
+                subType
+                value
+                entityId
+                begin
+                end
+                document {
+                    id
+                    content
+                    info {
+                        title
+                    }
+                }
             }
         }
       }

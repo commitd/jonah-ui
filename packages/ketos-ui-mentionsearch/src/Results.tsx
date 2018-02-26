@@ -16,11 +16,14 @@ class Results extends React.Component<Props> {
 
         const { data, offset, size } = this.props
 
-        if (!data || !data.corpus || !data.corpus.mentions || data.corpus.mentions.length === 0) {
+        if (!data || !data.corpus || !data.corpus.searchMentions
+            || !data.corpus.searchMentions.hits || !data.corpus.searchMentions.hits.results
+            || data.corpus.searchMentions.hits.results.length === 0) {
             return <p>No results found</p>
         }
 
-        const mentions = data.corpus.mentions
+        const mentions = data.corpus.searchMentions.hits.results
+        const count = data.corpus.searchMentions.hits.results.length
 
         return (
             <Segment basic={true}>
@@ -39,7 +42,7 @@ class Results extends React.Component<Props> {
                 <Pagination
                     offset={offset}
                     size={size}
-                    resultsOnPage={data.corpus.mentions.length}
+                    resultsOnPage={count}
                     onOffsetChange={this.props.onOffsetChange}
                 />
             </Segment>
