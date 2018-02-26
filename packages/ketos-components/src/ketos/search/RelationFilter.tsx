@@ -32,7 +32,7 @@ export default class RelationFilterForm extends React.Component<Props, State> {
             <div>
                 <Grid>
                     <Grid.Row>
-                        <Grid.Column fluid={true}>
+                        <Grid.Column >
                             <Form.Group widths="equal">
                                 <Form.Input
                                     fluid={true}
@@ -48,13 +48,17 @@ export default class RelationFilterForm extends React.Component<Props, State> {
                                     value={filter.value || ''}
                                     onChange={this.handleChange}
                                 />
-                                {advanced && this.renderAdvanced(filter, advanced)}
                             </Form.Group>
                         </Grid.Column>
                     </Grid.Row>
+                    {advanced && <Grid.Row>
+                        <Grid.Column fluid={true}>
+                            {this.renderAdvanced(filter, advanced)}
+                        </Grid.Column>
+                    </Grid.Row>}
                     <Grid.Row columns={2}>
                         <Grid.Column>
-                            <Header subheader={true}>Source</Header>
+                            <Header sub={true}>Source mention</Header>
                             <MentionFilterForm
                                 advanced={advanced}
                                 filter={filter.source || {}}
@@ -62,7 +66,7 @@ export default class RelationFilterForm extends React.Component<Props, State> {
                             />
                         </Grid.Column>
                         <Grid.Column>
-                            <Header subheader={true}>Target</Header>
+                            <Header sub={true}>Target mention</Header>
                             <MentionFilterForm
                                 advanced={advanced}
                                 filter={filter.target || {}}
