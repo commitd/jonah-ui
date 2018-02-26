@@ -44,7 +44,6 @@ class App extends React.Component<Props, State> {
           datasetId={datasetId || ''}
           documentId={documentId || ''}
         />
-        }
       </PrerequisiteContainer >
     )
   }

@@ -2,13 +2,12 @@ import * as React from 'react'
 const isEqual = require('lodash.isequal')
 
 import { PluginProps } from 'invest-plugin'
-import { Container, Form, InputOnChangeData } from 'semantic-ui-react'
+import { Container } from 'semantic-ui-react'
 import { DatasetSelector } from 'invest-components'
-import { SearchButton } from 'invest-components'
 
 import DataContainer from './DataContainer'
 import Results from './Results'
-import { MENTION_SEARCH, MentionSearchPayload, MentionFilter, MentionSearchForm, MentionSearch } from 'ketos-components'
+import { MENTION_SEARCH, MentionSearchPayload, MentionSearchForm, MentionSearch } from 'ketos-components'
 
 type OwnProps = {}
 
