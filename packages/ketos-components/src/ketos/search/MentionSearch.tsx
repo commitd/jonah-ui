@@ -2,7 +2,7 @@ import * as React from 'react'
 import { MentionFilter, MentionSearch } from '../../types'
 import MentionFilterForm from './EntityFilter'
 import { SearchButton } from 'invest-components'
-import { Form } from '../../../../../../../vessel-js/node_modules/semantic-ui-react'
+import { Form } from 'semantic-ui-react'
 
 export type Props = {
     search?: MentionSearch,

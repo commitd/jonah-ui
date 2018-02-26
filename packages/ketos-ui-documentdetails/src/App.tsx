@@ -19,8 +19,8 @@ type State = {
 class App extends React.Component<Props, State> {
 
   state: State = {
-    documentId: '6c590659d85a29ec16e004a025b9e4a08ac9428249425091085b1500e0ddd3eb',
-    datasetId: 're3d'
+    documentId: undefined,
+    datasetId: undefined
   }
 
   componentWillReceiveProps(nextProps: Props) {
@@ -34,9 +34,10 @@ class App extends React.Component<Props, State> {
 
     return (
       <PrerequisiteContainer
-        title="No document"
-        description="This view requires an document view"
+        missingTitle="No document"
+        missingDescription="This view requires an document view"
         check={() => documentId != null}
+        fulfillingAction="document.search"
       >
         <DataContainer variables={{ datasetId: this.state.datasetId || '', documentId: this.state.documentId || '' }}>
           <View />

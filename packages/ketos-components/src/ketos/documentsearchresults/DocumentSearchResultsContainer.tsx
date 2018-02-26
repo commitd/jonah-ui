@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { graphql, QueryProps } from 'react-apollo'
 import gql from 'graphql-tag'
-import { DocumentFilter, RelationFilter, EntityFilter, MentionFilter } from 'ketos-components'
 import DocumentSearchResults from './DocumentSearchResults'
+import { DocumentFilter, EntityFilter, RelationFilter, MentionFilter } from '../../types'
 
 export interface OwnProps {
     datasetId: string,

@@ -2,7 +2,7 @@ import * as React from 'react'
 import { RelationFilter, RelationSearch } from '../../types'
 import RelationFilterForm from './RelationFilter'
 import { SearchButton } from 'invest-components'
-import { Form } from '../../../../../../../vessel-js/node_modules/semantic-ui-react'
+import { Form } from 'semantic-ui-react'
 
 export type Props = {
     search?: RelationSearch,

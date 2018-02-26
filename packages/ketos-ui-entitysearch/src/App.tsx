@@ -2,9 +2,8 @@ import * as React from 'react'
 const isEqual = require('lodash.isequal')
 
 import { PluginProps } from 'invest-plugin'
-import { Container, Form, InputOnChangeData } from 'semantic-ui-react'
+import { Container } from 'semantic-ui-react'
 import { DatasetSelector } from 'invest-components'
-import { SearchButton } from 'invest-components'
 
 import DataContainer from './DataContainer'
 import Results from './Results'
@@ -53,6 +52,7 @@ class App extends React.Component<Props, State> {
           onDatasetSelected={this.handleDatasetSelected}
           provider="EntityProvider"
         />
+        <EntitySearchForm onSearch={this.handleSearch} search={query} />
         {datasetId != null && submittedQuery &&
           <DataContainer
             variables={{
