@@ -7,7 +7,7 @@ import View from './ViewContainer'
 import { Container } from 'semantic-ui-react'
 
 import { DatasetSelector } from 'invest-components'
-import { CorpusViewPayload } from 'ketos-componetns'
+import { CorpusViewPayload } from 'ketos-components'
 
 type OwnProps = {}
 

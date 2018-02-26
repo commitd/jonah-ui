@@ -3,7 +3,7 @@ const isEqual = require('lodash.isequal')
 import { PluginProps } from 'invest-plugin'
 import DataContainer from './DataContainer'
 import RelationView from './RelationView'
-import { MessageBox, PrerequisiteContainer } from 'invest-components'
+import { PrerequisiteContainer } from 'invest-components'
 import { RELATION_VIEW, RelationViewPayload, RELATION_SEARCH } from 'ketos-components'
 type OwnProps = {}
 
