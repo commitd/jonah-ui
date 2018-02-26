@@ -53,10 +53,7 @@ query get($datasetId: String!, $documentId: String!) {
             classification
             documentDate: date
         } 
-        metadata {
-            key
-            value
-        }
+        metadata 
         mentions {
             id
             entityId

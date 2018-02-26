@@ -44,10 +44,7 @@ query get($datasetId: String!, $documentId: String!) {
           releasability
           publishedIds
         } 
-        metadata {
-            key
-            value
-        }
+        metadata 
         entities {
           id
           type

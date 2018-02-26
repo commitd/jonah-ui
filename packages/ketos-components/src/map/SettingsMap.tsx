@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { SettingsMap } from 'invest-types'
+import { PropertiesMap } from 'invest-types'
 import { ApplicationSettings } from 'invest-components'
 import SimpleMap from './SimpleMap'
 import { KETOS_MAP_URL, KETOS_MAP_ATTRIBUTION, Defaults } from '../Settings'
@@ -18,7 +18,7 @@ const defaultSettings = {
 }
 
 class MapFromApplicationSettings extends React.Component<Props & {
-    settings: SettingsMap
+    settings: PropertiesMap
 }> {
     render() {
         const { settings } = this.props

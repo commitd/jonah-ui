@@ -1,4 +1,4 @@
-import { GeoBox } from 'invest-types'
+import { GeoBox, PropertiesMap } from 'invest-types'
 
 // Basic building blocks
 
@@ -90,15 +90,6 @@ export type TargetedRelation = BasicRelationNode & {
 export type Metadata = {
     key: string
     value: string
-}
-
-export type Property = {
-    key: string
-    value: {}
-}
-
-export type PropertiesMap = {
-    [key: string]: {}
 }
 
 // Search
