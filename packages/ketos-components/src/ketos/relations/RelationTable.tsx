@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Table } from 'semantic-ui-react'
+import { Segment, Table } from 'semantic-ui-react'
 import { ActionDropdown } from 'invest-components'
 import { RelationWithMentionsNode } from '../../types'
 import { MENTION_VIEW, ENTITY_VIEW, RELATION_VIEW, DOCUMENT_VIEW } from '../../Actions'
@@ -12,7 +12,7 @@ export interface OwnProps {
 
 export type Props = OwnProps
 
-class RelationTable extends React.Component<Props> {
+export default class RelationTable extends React.Component<Props> {
 
     render() {
         const { relations } = this.props
@@ -35,29 +35,34 @@ class RelationTable extends React.Component<Props> {
                     {
                         relations.map(r => {
                             return <Table.Row key={r.id}>
-                                <Table.Cell>
+                                <Table.Cell width={4}>
                                     {r.source.value} [{r.source.type}]
-                            </Table.Cell>
 
-                                <Table.Cell>{r.type}
+                                </Table.Cell>
+
+                                <Table.Cell width={4}>{r.type}
                                     {r.subType != null && r.subType !== ''
-                                        ? ': ' + r.subType : ''}</Table.Cell>
-                                <Table.Cell>{r.target.value} [{r.target.type}]</Table.Cell>
-                                <Table.Cell>
+                                        ? '[ ' + r.subType + ']' : ''}
+                                    {r.value != null ? ': ' + r.value : ''}
+                                </Table.Cell>
+                                <Table.Cell width={4}>{r.target.value} [{r.target.type}]
+
+                                </Table.Cell>
+                                <Table.Cell width={4}>
                                     <ActionDropdown
                                         text="Source"
                                         actions={r.target.entityId != null ? MENTION_ENTITY_ACTIONS : MENTION_ACTIONS}
                                         onSelect={this.handleMentionSelect(r.source.id, r.source.entityId)}
                                     />
                                     <ActionDropdown
-                                        text="Relation"
-                                        actions={[RELATION_VIEW]}
-                                        onSelect={this.handleRelationSelect(r.id)}
-                                    />
-                                    <ActionDropdown
                                         text="Target"
                                         actions={r.target.entityId != null ? MENTION_ENTITY_ACTIONS : MENTION_ACTIONS}
                                         onSelect={this.handleMentionSelect(r.target.id, r.target.entityId)}
+                                    />
+                                    <ActionDropdown
+                                        text="Relation"
+                                        actions={[RELATION_VIEW]}
+                                        onSelect={this.handleRelationSelect(r.id)}
                                     />
                                     {r.docId && <ActionDropdown
                                         text="Document"
@@ -111,5 +116,3 @@ class RelationTable extends React.Component<Props> {
             }
         }
 }
-
-export default RelationTable
