@@ -96,7 +96,7 @@ export default class RelationFilterForm extends React.Component<Props, State> {
 
     private handleChange = (e: React.SyntheticEvent<{}>, data: InputOnChangeData, ) => {
         this.props.onChange(Object.assign({}, this.props.filter, {
-            [data.name]: data.value
+            [data.name]: data.value !== '' ? data.value : undefined
         }))
     }
 

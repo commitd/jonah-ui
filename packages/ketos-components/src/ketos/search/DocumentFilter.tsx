@@ -58,14 +58,14 @@ export default class DocumentFilterForm extends React.Component<Props, State> {
 
     private handleChange = (e: React.SyntheticEvent<{}>, data: InputOnChangeData, ) => {
         this.props.onChange(Object.assign({}, this.props.filter, {
-            [data.name]: data.value
+            [data.name]: data.value !== '' ? data.value : undefined
         }))
     }
 
     private handleChildChange = (child: string) => (e: React.SyntheticEvent<{}>, data: InputOnChangeData) => {
         this.props.onChange(Object.assign({}, this.props.filter, {
             [child]: Object.assign({}, this.props.filter[child], {
-                [data.name]: data.value
+                [data.name]: data.value !== '' ? data.value : undefined
             })
         }))
     }
