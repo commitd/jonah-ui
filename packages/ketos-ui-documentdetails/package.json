@@ -1,6 +1,6 @@
 {
   "name": "ketos-ui-documentdetails",
-  "version": "0.2.0",
+  "version": "0.3.0-SNAPSHOT",
   "private": true,
   "license": "Apache-2.0",
   "dependencies": {
@@ -8,7 +8,7 @@
     "invest-components": "*",
     "invest-plugin": "*",
     "invest-types": "*",
-    "ketos-components": "^0.2.0",
+    "ketos-components": "^0.3.0-SNAPSHOT",
     "prop-types": "^15.6.0",
     "react": "^16.0.0",
     "react-apollo": "^2",
