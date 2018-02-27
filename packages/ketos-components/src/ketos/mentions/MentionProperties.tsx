@@ -2,6 +2,7 @@ import * as React from 'react'
 import { Table } from 'semantic-ui-react'
 import { Ellipsis } from 'invest-components'
 import { PropertiesMap } from 'invest-types'
+import { Paginated } from 'invest-components'
 
 export type Props = {
     mentions: {
@@ -56,4 +57,15 @@ class MentionProperties extends React.Component<Props> {
     }
 }
 
-export default MentionProperties
+export default class PaginatedMentionProperties extends React.Component<Props> {
+    render() {
+        // NOTE this is paginated per mention not per relation
+        return (
+            <Paginated items={this.props.mentions} itemsKey="mentions">
+                <MentionProperties
+                    {...this.props}
+                />
+            </Paginated>
+        )
+    }
+}

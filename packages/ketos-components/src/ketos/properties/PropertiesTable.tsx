@@ -1,18 +1,23 @@
 import * as React from 'react'
 import { Table } from 'semantic-ui-react'
 import { Ellipsis } from 'invest-components'
-import { PropertiesMap } from 'invest-types'
+import { PropertiesMap, Property } from 'invest-types'
+import { Paginated } from 'invest-components'
 
 export type Props = {
     properties: PropertiesMap
 
 }
 
-class PropertiesTable extends React.Component<Props> {
+export type InnerProps = {
+    items: Property[]
+}
+
+class PropertiesTable extends React.Component<InnerProps> {
 
     render() {
-        const { properties } = this.props
-        const totalProperties = properties.length
+        const { items } = this.props
+        const totalProperties = items.length
 
         if (totalProperties === 0) {
             return <p>No properties</p>
@@ -28,11 +33,7 @@ class PropertiesTable extends React.Component<Props> {
                 </Table.Header>
                 <Table.Body>
                     {
-                        Object.keys(properties)
-                            .map(k => ({ key: k, value: properties[k] }))
-                            .filter(p => p.value !== null && p.key !== null)
-                            // discard this internal Blaeen thing
-                            .filter(p => p.key !== 'isNormalised')
+                        items
                             .map((p, i) => {
                                 return <Table.Row key={`${p.key}-${i}`}>
                                     <Table.Cell>{p.key}</Table.Cell>
@@ -46,4 +47,30 @@ class PropertiesTable extends React.Component<Props> {
     }
 }
 
-export default PropertiesTable
+export default class PaginatedPropertiesTable extends React.Component<Props> {
+    render() {
+        const { properties } = this.props
+
+        // Convert to a item
+        let items: Property[]
+
+        if (properties != null) {
+            items = Object.keys(properties)
+                .map(k => ({ key: k, value: properties[k] }))
+                .filter(p => p.value !== null && p.key !== null)
+                // discard this internal Blaeen thing
+                .filter(p => p.key !== 'isNormalised')
+        } else {
+            items = []
+        }
+
+        return (
+            <Paginated items={items}>
+                <PropertiesTable
+                    {...this.props}
+                    items={[]}
+                />
+            </Paginated>
+        )
+    }
+}

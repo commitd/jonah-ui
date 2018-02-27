@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Table } from 'semantic-ui-react'
+import { Paginated } from 'invest-components'
 
 export type OwnProps = {
     counts: {
@@ -12,7 +13,7 @@ export type OwnProps = {
 
 export type Props = OwnProps
 
-class MetadataCountTable extends React.Component<Props> {
+export class MetadataCountTable extends React.Component<Props> {
 
     handleSelect = (key: string) => () => {
         if (this.props.onSelect) {
@@ -50,4 +51,14 @@ class MetadataCountTable extends React.Component<Props> {
     }
 }
 
-export default MetadataCountTable
+export default class PaginatedMetadataCountTable extends React.Component<Props> {
+    render() {
+        return (
+            <Paginated items={this.props.counts} itemsKey="counts">
+                <MetadataCountTable
+                    {...this.props}
+                />
+            </Paginated>
+        )
+    }
+}

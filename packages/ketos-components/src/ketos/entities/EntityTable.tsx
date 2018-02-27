@@ -3,6 +3,7 @@ import { Table } from 'semantic-ui-react'
 import { ActionDropdown } from 'invest-components'
 import { BasicEntityNode } from '../../types'
 import { ENTITY_VIEW, ENTITY_SEARCH, MENTION_SEARCH } from '../../Actions'
+import { Paginated } from 'invest-components'
 
 export interface Props {
     datasetId: string,
@@ -10,7 +11,7 @@ export interface Props {
     selectedIds?: string[]
 }
 
-export default class EntityTable extends React.Component<Props> {
+class EntityTable extends React.Component<Props> {
 
     render() {
         const { entities, selectedIds } = this.props
@@ -77,5 +78,17 @@ export default class EntityTable extends React.Component<Props> {
                 value: m.value
             })
         }
+    }
+}
+
+export default class PaginatedPropertiesTable extends React.Component<Props> {
+    render() {
+        return (
+            <Paginated items={this.props.entities} itemsKey="entities">
+                <EntityTable
+                    {...this.props}
+                />
+            </Paginated>
+        )
     }
 }

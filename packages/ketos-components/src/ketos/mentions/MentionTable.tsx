@@ -3,6 +3,7 @@ import { Table } from 'semantic-ui-react'
 import { ActionDropdown } from 'invest-components'
 import { Mention } from '../../types'
 import { MENTION_SEARCH, MENTION_VIEW, ENTITY_VIEW, RELATION_SEARCH } from '../../Actions'
+import { Paginated } from 'invest-components'
 
 export interface OwnProps {
     datasetId: string,
@@ -89,4 +90,14 @@ class MentionTable extends React.Component<Props> {
     }
 }
 
-export default MentionTable
+export default class PaginatedMentionTable extends React.Component<Props> {
+    render() {
+        return (
+            <Paginated items={this.props.mentions} itemsKey="mentions">
+                <MentionTable
+                    {...this.props}
+                />
+            </Paginated>
+        )
+    }
+}

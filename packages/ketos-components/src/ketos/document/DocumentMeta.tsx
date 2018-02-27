@@ -1,13 +1,13 @@
 import * as React from 'react'
 import { Table, List } from 'semantic-ui-react'
-import { Ellipsis } from 'invest-components'
-import { Metadata } from '../../types';
+import { Ellipsis, Paginated } from 'invest-components'
+import { Metadata } from '../../types'
 
 export interface Props {
     metadata: Metadata[]
 }
 
-export default class DocumentMeta extends React.Component<Props> {
+class DocumentMeta extends React.Component<Props> {
 
     renderSafeValue(v: {}): React.ReactElement<{}> {
         if (v == null) {
@@ -45,6 +45,16 @@ export default class DocumentMeta extends React.Component<Props> {
                         )}
                 </Table.Body>
             </Table>
+        )
+    }
+}
+
+export default class PaginatedDocumentMeta extends React.Component<Props> {
+    render() {
+        return (
+            <Paginated items={this.props.metadata} itemsKey="metadata">
+                <DocumentMeta metadata={[]} />
+            </Paginated>
         )
     }
 }

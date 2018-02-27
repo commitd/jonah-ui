@@ -3,6 +3,7 @@ import { Table } from 'semantic-ui-react'
 import { ActionDropdown } from 'invest-components'
 import { RelationWithMentionsNode } from '../../types'
 import { MENTION_VIEW, ENTITY_VIEW, RELATION_VIEW, DOCUMENT_VIEW } from '../../Actions'
+import { Paginated } from 'invest-components'
 
 export interface OwnProps {
     datasetId: string,
@@ -12,7 +13,7 @@ export interface OwnProps {
 
 export type Props = OwnProps
 
-export default class RelationTable extends React.Component<Props> {
+export class RelationTable extends React.Component<Props> {
 
     render() {
         const { relations } = this.props
@@ -115,4 +116,16 @@ export default class RelationTable extends React.Component<Props> {
                 })
             }
         }
+}
+
+export default class PaginatedRelationTable extends React.Component<Props> {
+    render() {
+        return (
+            <Paginated items={this.props.relations} itemsKey="relations">
+                <RelationTable
+                    {...this.props}
+                />
+            </Paginated>
+        )
+    }
 }
