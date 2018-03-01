@@ -3,7 +3,7 @@ import { Item, Segment } from 'semantic-ui-react'
 import { ActionDropdown } from 'invest-components'
 import DocumentSnippet from '../document/DocumentSnippet'
 import { Mention, BasicDocumentNode } from '../../types'
-import { MENTION_VIEW, ENTITY_VIEW, RELATION_SEARCH, DOCUMENT_SEARCH, DOCUMENT_VIEW } from '../../Actions'
+import { MENTION_VIEW, ENTITY_VIEW, RELATION_SEARCH, DOCUMENT_SEARCH, DOCUMENT_VIEW, MENTION_EDIT } from '../../Actions'
 
 export type MentionResult = Mention & {
     document: BasicDocumentNode & {
@@ -21,7 +21,7 @@ class MentionView extends React.Component<Props> {
     handleActions = (act: (payload?: {}) => void, action: string) => {
         const datasetId = this.props.datasetId
         const m = this.props.mention
-        if (action === MENTION_VIEW) {
+        if (action === MENTION_VIEW || action === MENTION_DELETE || action === MENTION_EDIT) {
             act({
                 datasetId,
                 mentionId: m.id
@@ -50,7 +50,7 @@ class MentionView extends React.Component<Props> {
         const { mention } = this.props
         const { type, subType, value, entityId, document } = mention
 
-        const actions = [MENTION_VIEW]
+        const actions = [MENTION_VIEW, MENTION_EDIT, MENTION_DELETE]
         if (document != null) {
             actions.push(DOCUMENT_VIEW)
         }

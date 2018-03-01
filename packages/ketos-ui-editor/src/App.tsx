@@ -33,11 +33,11 @@ class App extends React.Component<Props, State> {
 
   state: State = {
     edit: false,
-    datasetId: 'news_mongo',
+    // datasetId: 'news_mongo',
     // documentId: '487a8a3e721a6a2842b2973f7a7405a8f4c7151d75aa91c52994185883b18708'
     // mentionId: '3fae1503a0cc31420c502293a0bf36aec060ce828cae7a47a7d0f09c11cab8db'
     // entityId: '08c909745ed1971618a4fb71ac8f5e16e780b33b9e93f760c90fbf205ce71ea3'
-    relationId: '3bcddfa313f4794ba8136b8131adc15d453679cbbda54a8cc01c0005d3879968'
+    // relationId: '3bcddfa313f4794ba8136b8131adc15d453679cbbda54a8cc01c0005d3879968'
   }
 
   componentWillReceiveProps(nextProps: Props) {

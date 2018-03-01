@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Table } from 'semantic-ui-react'
 import { ActionDropdown } from 'invest-components'
 import { RelationWithMentionsNode } from '../../types'
-import { MENTION_VIEW, ENTITY_VIEW, RELATION_VIEW, DOCUMENT_VIEW } from '../../Actions'
+import { MENTION_VIEW, ENTITY_VIEW, RELATION_VIEW, RELATION_EDIT, RELATION_DELETE, DOCUMENT_VIEW } from '../../Actions'
 import { Paginated } from 'invest-components'
 
 export interface OwnProps {
@@ -62,7 +62,7 @@ export class RelationTable extends React.Component<Props> {
                                     />
                                     <ActionDropdown
                                         text="Relation"
-                                        actions={[RELATION_VIEW]}
+                                        actions={[RELATION_VIEW, RELATION_EDIT, RELATION_DELETE]}
                                         onSelect={this.handleRelationSelect(r.id)}
                                     />
                                     {r.docId && <ActionDropdown
@@ -98,7 +98,7 @@ export class RelationTable extends React.Component<Props> {
     private handleRelationSelect = (relationId: string) =>
         (act: (payload?: {}) => void, action: string) => {
 
-            if (action === RELATION_VIEW) {
+            if (action === RELATION_VIEW || action === RELATION_DELETE || action === RELATION_EDIT) {
                 act({
                     datasetId: this.props.datasetId,
                     relationId

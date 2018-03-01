@@ -1,7 +1,7 @@
 {
     "id": "ketos-ui-editors",
     "name": "Edit",
-    "description": "Edit ",
+    "description": "Edit mention, entities, relations and documents",
     "icon": "edit",
     "roles": [],
     "actions": [
