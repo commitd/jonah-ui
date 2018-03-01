@@ -1,5 +1,5 @@
 import * as React from 'react'
-import EditorSidePanel from './SidePanel'
+import EditorSidePanel from './EditorSidePanel'
 import { ChildProps } from 'react-apollo'
 import { Grid } from 'semantic-ui-react'
 

@@ -7,23 +7,27 @@ export type Variables = {
     mentionId: string
 }
 
+export type Mention = {
+    id: string
+    docId: string
+    entityId: string
+    type: string
+    subType?: string
+    value: string
+    begin: number
+    end: number
+    properties: PropertiesMap
+}
+
 export type Response = {
     corpus: {
         id: string
-        mention: {
-            id: string
-            docId: string
-            entityId: string
-            type: string
-            subType?: string
-            value: string
-            properties: PropertiesMap
-        }
+        mention: Mention
     }
 }
 
 const QUERY = gql`
-query get($datasetId: String!, $mentionId: String!) {
+query get($datasetId: String!, $mentionId: ID!) {
   corpus(id: $datasetId) {
     id
     mention(id: $mentionId) {
@@ -33,6 +37,8 @@ query get($datasetId: String!, $mentionId: String!) {
         type
         subType
         value
+        begin
+        end
         properties
     }
   }

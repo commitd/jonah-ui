@@ -1,7 +1,7 @@
 import * as React from 'react'
 import DataContainer, { Variables, Response, Document } from './DocumentEditorDataContainer'
-import DocumentEditorForm from './DocumentEditorForm'
-import EditorView from './EditorView'
+import EditorForm from './DocumentEditorForm'
+import EditorView from './common/EditorView'
 import { graphql, compose, MutationFunc } from 'react-apollo'
 import gql from 'graphql-tag'
 
@@ -34,7 +34,7 @@ class Container extends React.Component<Variables & OwnProps> {
                     onDelete={this.handleDelete}
                     dataToItem={(data?: Partial<Response>) => data && data.corpus && data.corpus.document}
                 >
-                    <DocumentEditorForm />
+                    <EditorForm />
                 </EditorView>
             </DataContainer>
         )

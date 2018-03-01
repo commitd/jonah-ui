@@ -7,16 +7,21 @@ export type Variables = {
     relationId: string
 }
 
+export type Relation = {
+    id: string
+    docId: string
+    type: string
+    subType?: string
+    value: string
+    begin: number
+    end: number
+    properties: PropertiesMap
+}
+
 export type Response = {
     corpus: {
         id: string
-        relation: {
-            id: string
-            docId: string
-            type: string
-            subType?: string
-            value: string
-            properties: PropertiesMap
+        relation: Relation & {
             source: {
                 id: string
                 entityId: string
@@ -37,13 +42,15 @@ const QUERY = gql`
 query get($datasetId: String!, $relationId: String!) {
   corpus(id: $datasetId) {
     id
-    document(id: $relationId) {
+    relation(id: $relationId) {
         id
         docId
         type
         subType
         value
         properties
+        begin
+        end        
         source {
             id
             entityId

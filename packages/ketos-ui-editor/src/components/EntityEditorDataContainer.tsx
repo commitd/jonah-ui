@@ -7,22 +7,24 @@ export type Variables = {
     entityId: string
 }
 
+export type Entity = {
+    id: string
+    docId: string
+    type: string
+    subType?: string
+    value: string
+    properties: PropertiesMap
+}
+
 export type Response = {
     corpus: {
         id: string
-        entity: {
-            id: string
-            docId: string
-            type: string
-            subType?: string
-            value: string
-            properties: PropertiesMap
-        }
+        entity: Entity
     }
 }
 
 const QUERY = gql`
-query get($datasetId: String!, $entityId: String!) {
+query get($datasetId: String!, $entityId: ID!) {
   corpus(id: $datasetId) {
     id
     entity(id: $entityId) {
