@@ -69,3 +69,25 @@ export type EntityEditPayload = {
     datasetId: string
     entityId: string
 }
+
+// Delete
+
+export type MentionDeletePayload = {
+    datasetId: string
+    mentionId: string
+}
+
+export type DocumentDeletePayload = {
+    datasetId: string
+    documentId: string
+}
+
+export type RelationDeletePayload = {
+    datasetId: string
+    relationId: string
+}
+
+export type EntityDeletePayload = {
+    datasetId: string
+    entityId: string
+}

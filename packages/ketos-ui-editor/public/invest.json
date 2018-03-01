@@ -1,0 +1,49 @@
+{
+    "id": "ketos-ui-editors",
+    "name": "Edit",
+    "description": "Edit ",
+    "icon": "edit",
+    "roles": [],
+    "actions": [
+        {
+            "title": "Edit",
+            "description": "Edit document",
+            "action": "document.edit"
+        },
+        {
+            "title": "Edit",
+            "description": "Edit relation",
+            "action": "relation.edit"
+        },
+        {
+            "title": "Edit",
+            "description": "Edit entity",
+            "action": "entity.edit"
+        },
+        {
+            "title": "Edit",
+            "description": "Edit mention",
+            "action": "mention.edit"
+        },
+        {
+            "title": "Delete",
+            "description": "Delete document",
+            "action": "document.delete"
+        },
+        {
+            "title": "Delete",
+            "description": "Delete relation",
+            "action": "relation.delete"
+        },
+        {
+            "title": "Delete",
+            "description": "Delete entity",
+            "action": "entity.delete"
+        },
+        {
+            "title": "Delete",
+            "description": "Delete mention",
+            "action": "mention.delete"
+        }
+    ]
+}
