@@ -13,8 +13,8 @@ export type EditorFormProps<R, T> = {
 export type Props<R, T> = ChildProps<{
     children: React.ReactElement<EditorFormProps<R, T>>
     edit: boolean,
-    onDelete(item: T): void,
-    onSave(item: T): void,
+    onDelete(item: T): Promise<boolean>,
+    onSave(item: T): Promise<boolean>,
     dataToItem(data?: Partial<R>): T | undefined
 }, R>
 
@@ -104,13 +104,14 @@ export default class EditorView<R, T> extends React.Component<Props<R, T>, State
 
     private handleSave = () => {
         if (this.state.item) {
-            this.props.onSave(this.state.item)
+            this.props.onSave(this.state.item).then(b => {
+                // update from server
+                if (this.props.data) {
+                    this.props.data.refetch()
+                }
+            })
         }
 
-        // update from server
-        if (this.props.data) {
-            this.props.data.refetch()
-        }
     }
 
     private handleDelete = () => {

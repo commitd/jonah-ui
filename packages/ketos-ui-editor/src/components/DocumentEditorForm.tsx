@@ -64,7 +64,6 @@ export default class DocumentEditorForm extends React.Component<Props> {
     }
 
     private handlePropertiesChanged = (properties: PropertiesMap) => {
-        console.log(properties)
         if (this.props.item && this.props.onChange) {
             this.props.onChange(
                 update(this.props.item || {}, { $merge: { properties: properties } })
@@ -73,7 +72,6 @@ export default class DocumentEditorForm extends React.Component<Props> {
     }
 
     private handleMetadataChanged = (metadata: Metadata[]) => {
-        console.log(metadata)
         if (this.props.item && this.props.onChange) {
             this.props.onChange(
                 update(this.props.item || {}, { $merge: { metadata: metadata } })

@@ -92,7 +92,6 @@ export default class PropertiesEditor extends React.Component<Props> {
                 readOnly={!edit
                 }
                 width={8}
-                warning={true}
             />
         )
     }
