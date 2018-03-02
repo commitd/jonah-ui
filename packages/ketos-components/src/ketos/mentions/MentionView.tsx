@@ -3,7 +3,10 @@ import { Item, Segment } from 'semantic-ui-react'
 import { ActionDropdown } from 'invest-components'
 import DocumentSnippet from '../document/DocumentSnippet'
 import { Mention, BasicDocumentNode } from '../../types'
-import { MENTION_VIEW, ENTITY_VIEW, RELATION_SEARCH, DOCUMENT_SEARCH, DOCUMENT_VIEW, MENTION_EDIT } from '../../Actions'
+import {
+    MENTION_VIEW, ENTITY_VIEW, RELATION_SEARCH,
+    DOCUMENT_SEARCH, DOCUMENT_VIEW, MENTION_EDIT, MENTION_DELETE
+} from '../../Actions'
 
 export type MentionResult = Mention & {
     document: BasicDocumentNode & {
