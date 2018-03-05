@@ -3,7 +3,7 @@ import { Grid, Table } from 'semantic-ui-react'
 import { BarChart, TimelineChart, Card, termBinsToXY, timeBinsToXY } from 'invest-components'
 import { SimpleMap } from 'ketos-components'
 import { Marker, Tooltip } from 'react-leaflet'
-import { Response } from '../DataContainer'
+import { Response } from './FilteredDataContainer'
 
 export type Props = {
     data?: Response
@@ -17,18 +17,11 @@ export default class Results extends React.Component<Props> {
             return <div />
         }
 
-        const { documentTimeline,
-            entityTimeline, entityTypes, entityValues, relationTypes, documentLocations } = data.corpus
+        const { entityTimeline, entityTypes, entityValues, relationTypes, documentLocations } = data.corpus
 
         return (
             <Grid>
-                <Grid.Row columns={1}>
-                    {documentTimeline && documentTimeline.bins.length > 1 && <Grid.Column>
-                        <Card title="Document timeline">
-                            <TimelineChart data={timeBinsToXY(documentTimeline.bins)} />
-                        </Card>
-                    </Grid.Column>}
-                </Grid.Row>
+
                 <Grid.Row columns={1}>
                     {entityTimeline && <Grid.Column>
                         <Card title="Entities timeline">
@@ -90,4 +83,5 @@ export default class Results extends React.Component<Props> {
             </Grid >
         )
     }
+
 }

@@ -4,7 +4,7 @@ const isEqual = require('lodash.isequal')
 import { DatasetSelector } from 'invest-components'
 import { Container, Divider } from 'semantic-ui-react'
 import DataContainer from './DataContainer'
-import Results from './components/Results'
+import Results from './components/DocumentResults'
 import { DocumentSearchPayload, DocumentSearch, DocumentSearchForm } from 'ketos-components'
 
 type OwnProps = {}
@@ -51,7 +51,7 @@ class App extends React.Component<Props, State> {
               documentFilter: submittedQuery.documentFilter,
             }}
           >
-            <Results />
+            <Results datasetId={datasetId} query={submittedQuery} />
           </DataContainer>
         }
       </Container>
@@ -63,11 +63,13 @@ class App extends React.Component<Props, State> {
       datasetId,
     })
   }
+
   private handleSearch = (search: DocumentSearch) => {
     this.setState((state: State) => ({
       submittedQuery: search
     }))
   }
+
 }
 
 export default App
