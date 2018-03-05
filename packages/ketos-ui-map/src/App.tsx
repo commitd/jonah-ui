@@ -2,7 +2,7 @@ import * as React from 'react'
 import { PluginProps } from 'invest-plugin'
 import DataContainer from './DataContainer'
 import Results from './Results'
-import { Container, InputOnChangeData } from 'semantic-ui-react'
+import { Container, InputOnChangeData, Divider } from 'semantic-ui-react'
 import { DatasetSelector } from 'invest-components'
 import { DocumentSearch, DocumentSearchForm } from 'ketos-components'
 
@@ -32,7 +32,8 @@ class App extends React.Component<Props, State> {
 
   handleDatasetSelected = (datasetId: string) => {
     this.setState({
-      datasetId: datasetId
+      datasetId: datasetId,
+      offset: 0
     })
   }
 
@@ -44,7 +45,8 @@ class App extends React.Component<Props, State> {
 
   handleSearch = (search: DocumentSearch) => {
     this.setState((state) => ({
-      submittedQuery: search
+      submittedQuery: search,
+      offset: 0
     }))
   }
 
@@ -63,6 +65,7 @@ class App extends React.Component<Props, State> {
         />
 
         <DocumentSearchForm onSearch={this.handleSearch} />
+        <Divider hidden={true} />
         {
           datasetId != null && submittedQuery != null && <DataContainer
             variables={{
@@ -74,12 +77,18 @@ class App extends React.Component<Props, State> {
               offset, limit
             }}
           >
-            <Results />
+            <Results onOffsetChanged={this.handleOffsetChanged} />
           </DataContainer>
         }
 
       </Container >
     )
+  }
+
+  private handleOffsetChanged = (offset: number) => {
+    this.setState({
+      offset
+    })
   }
 }
 

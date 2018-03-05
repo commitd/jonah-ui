@@ -13,48 +13,79 @@ type Variables = {
     limit: number
 }
 
+export type LocatedDocument = {
+
+    id: string
+    length: number
+    info: {
+        title: string
+        language: string
+        source: string
+        type: string
+        classification: string
+        timestamp: string
+    }
+    summary: string
+    entities: LocationEntity[]
+}
+
+export type LocationEntity = {
+    id: string
+    value: string
+    properties: {
+        geoJson?: {}
+    }
+}
+
 export type Response = {
     corpus: {
+        id: string
         searchDocuments: {
             hits: {
-                results: {
-                    id: string
-                    summary: string
-                    locations: {
-                        name: string
-                        lat: number
-                        lon: number
-                        geohash: string
-                    }[]
-                }[]
+                size: number
+                offset: number
+                total?: number
+                results: LocatedDocument[]
             }
         }
     }
 }
-//  
-// 
+
 const QUERY = gql`
-query searchForLocation($datasetId: String!, $documentFilter:DocumentFilterInput!, 
-    $mentionFilters:[MentionFilterInput], $entityFilters:[EntityFilterInput], $relationFilters:[RelationFilterInput],
+query searchForLocation($datasetId: String!, $documentFilter:DocumentFilterInput!,
     $offset: Int, $limit: Int) {
     corpus(id: $datasetId) {
-      searchDocuments(query: $documentFilter
-        mentions:$mentionFilters, entities:$entityFilters, relations:$relationFilters) {
+      id
+      searchDocuments(query: $documentFilter, entities:[{
+        type: "Location"
+      }]) {
         hits(size:$limit, offset:$offset) {
+          size
+          offset
+          total
           results {
             id
+            length
             summary
-            locations {
-              name
-              lat
-              lon
-              geohash(precision:5)
+            info {
+                title
+                language
+                source
+                type
+                classification
+                timestamp
+            }
+            entities(probe: {type: "Location"}, limit:100) {
+               id
+               type
+               value
+               properties
             }
           }
         }
       }
     }
-  }  
+  }   
 `
 
 const dataContainer = createDataContainer<Variables, Response>(QUERY)
