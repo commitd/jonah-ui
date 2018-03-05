@@ -53,7 +53,6 @@ class MentionText extends React.Component<{
 
         const selected = this.isSelected()
 
-
         const fontStyle = selected ? 'italic' : undefined
         return (
             <span
