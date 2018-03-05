@@ -12,7 +12,7 @@ export type Props = {
     onOffsetChange(offset: number): void,
 }
 
-class DocumentSearchResults extends React.Component<Props> {
+export default class DocumentSearchResults extends React.Component<Props> {
     render() {
         const { datasetId, offset, size, total, onOffsetChange, results } = this.props
 
@@ -53,5 +53,3 @@ class DocumentSearchResults extends React.Component<Props> {
         )
     }
 }
-
-export default DocumentSearchResults

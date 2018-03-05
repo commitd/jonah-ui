@@ -1,4 +1,5 @@
 export { default as DocumentSearchResults } from './ketos/documentsearchresults/DocumentSearchResultsContainer'
+export { default as DocumentSearchResultsView } from './ketos/documentsearchresults/DocumentSearchResults'
 
 export { default as DocumentContent } from './ketos/document/DocumentContent'
 export { default as DocumentInfo } from './ketos/document/DocumentInfo'
