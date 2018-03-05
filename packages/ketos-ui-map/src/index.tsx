@@ -14,6 +14,8 @@ import { setupLeaflet } from 'ketos-components'
 
 setupLeaflet()
 
+import 'leaflet-draw/dist/leaflet.draw.css'
+
 const handlerLogger = loggerFactory.getLogger('Handler')
 
 const handler: Handler<PluginLifecycle> = {

@@ -1,17 +1,28 @@
 import * as React from 'react'
 import { SimpleMap, DocumentSearchResultsView } from 'ketos-components'
 import { Response, LocationEntity, LocatedDocument } from './DataContainer'
-import { GeoJSON } from 'react-leaflet'
-// import { Segment, Card } from 'semantic-ui-react'
+import { GeoJSON, /* FeatureGroup */ } from 'react-leaflet'
 import { GeoJsonObject } from 'geojson'
-import { Layer } from 'leaflet'
+import { Layer, /* Rectangle, Map */ } from 'leaflet'
+// import { EditControl, EditControlEvent, DrawableShape } from 'react-leaflet-draw'
+import { GeoBox } from 'invest-types'
+
+// TODO: The commented out code is for a within query
+// it works... but the databases server jsut don't support this type of thing
 
 type Props = {
     data?: Response,
-    onOffsetChanged(offset: number): void
+    onOffsetChanged(offset: number): void,
+    onBoundsChanged(bounds: GeoBox): void
 }
 
-class Results extends React.Component<Props> {
+type State = {
+    selectedLayer?: Layer
+}
+
+class Results extends React.Component<Props, State> {
+
+    state: State = {}
 
     render() {
         const { data } = this.props
@@ -21,7 +32,6 @@ class Results extends React.Component<Props> {
         }
 
         const results = data.corpus.searchDocuments.hits.results
-        console.log(results)
 
         // Group markers by geohashes
 
@@ -45,6 +55,28 @@ class Results extends React.Component<Props> {
         return (
             <div>
                 <SimpleMap>
+                    {/* <FeatureGroup>
+                        <EditControl
+                            position="topright"
+                            onEdited={this.handleEditPath}
+                            onCreated={this.handleCreatePath}
+                            onDeleted={this.handleDeletePath}
+                            draw={{
+                                rectangle: true,
+                                polygon: false,
+                                polyline: false,
+                                circle: false,
+                                marker: false,
+                                circlemarker: false
+                            }}
+                            edit={{
+                                edit: false,
+                                remove: true,
+                                poly: false,
+                                allowIntersection: false
+                            }}
+                        />
+                    </FeatureGroup> */}
                     {features}
                 </SimpleMap>
                 <DocumentSearchResultsView
@@ -63,6 +95,37 @@ class Results extends React.Component<Props> {
         (feature: {}, layer: Layer) => {
             layer.bindPopup(e.value)
         }
+
+    // private handleCreatePath = (e: EditControlEvent<DrawableShape>) => {
+    //     if (e.layerType === 'rectangle') {
+    //         const r = e.layer as Rectangle
+    //         const rb = r.getBounds()
+    //         const bounds = {
+    //             n: rb.getNorth(),
+    //             s: rb.getSouth(),
+    //             w: rb.getWest(),
+    //             e: rb.getEast()
+    //         }
+
+    //         this.setState((state) => {
+
+    //             // Remove the old selection from the map
+    //             const map = e.target as Map
+    //             if (state.selectedLayer) {
+    //                 map.removeLayer(state.selectedLayer)
+    //             }
+
+    //             return {
+    //                 selectedLayer: r
+    //             }
+    //         })
+
+    //         // TODO: CLick to remove
+
+    //         this.props.onBoundsChanged(bounds)
+    //     }
+    // }
+
 }
 
 export default Results

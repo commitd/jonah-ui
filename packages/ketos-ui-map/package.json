@@ -12,11 +12,13 @@
     "ketos-components": "^0.3.0-SNAPSHOT",
     "latlon-geohash": "^1.1.0",
     "leaflet": "^1.2.0",
+    "leaflet-draw": "^1.0.2",
     "prop-types": "^15.6.1",
     "react": "^16.0.0",
     "react-apollo": "^2",
     "react-dom": "^16.0.0",
     "react-leaflet": "^1.8.2",
+    "react-leaflet-draw": "^0.18.0",
     "react-scripts-ts": "2.13.0"
   },
   "scripts": {

@@ -2,6 +2,7 @@ import gql from 'graphql-tag'
 
 import { createDataContainer } from 'invest-components'
 import { DocumentFilter, EntityFilter, RelationFilter, MentionFilter } from 'ketos-components'
+import { GeoBox } from 'invest-types'
 
 type Variables = {
     datasetId: string
@@ -10,7 +11,8 @@ type Variables = {
     relationFilters?: RelationFilter[]
     mentionFilters?: MentionFilter[]
     offset: number
-    limit: number
+    limit: number,
+    bounds?: GeoBox
 }
 
 export type LocatedDocument = {
@@ -52,12 +54,13 @@ export type Response = {
 }
 
 const QUERY = gql`
-query searchForLocation($datasetId: String!, $documentFilter:DocumentFilterInput!,
+query searchForLocation($datasetId: String!, $documentFilter:DocumentFilterInput!,$bounds:GeoBoxInput,
     $offset: Int, $limit: Int) {
     corpus(id: $datasetId) {
       id
       searchDocuments(query: $documentFilter, entities:[{
-        type: "Location"
+        type: "Location",
+        within: $bounds
       }]) {
         hits(size:$limit, offset:$offset) {
           size

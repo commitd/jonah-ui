@@ -5,6 +5,7 @@ import Results from './Results'
 import { Container, InputOnChangeData, Divider } from 'semantic-ui-react'
 import { DatasetSelector } from 'invest-components'
 import { DocumentSearch, DocumentSearchForm } from 'ketos-components'
+import { GeoBox } from 'invest-types'
 
 type OwnProps = {}
 
@@ -15,6 +16,7 @@ type State = {
   query?: string,
   offset: number,
   limit: number
+  bounds?: GeoBox
 
   submittedQuery?: DocumentSearch
 }
@@ -51,9 +53,7 @@ class App extends React.Component<Props, State> {
   }
 
   render() {
-    const { datasetId, submittedQuery, offset, limit } = this.state
-
-    console.log(submittedQuery)
+    const { datasetId, submittedQuery, offset, limit, bounds } = this.state
 
     return (
       <Container>
@@ -74,10 +74,11 @@ class App extends React.Component<Props, State> {
               entityFilters: submittedQuery.entityFilters || [],
               mentionFilters: submittedQuery.mentionFilters || [],
               relationFilters: submittedQuery.relationFilters || [],
+              bounds,
               offset, limit
             }}
           >
-            <Results onOffsetChanged={this.handleOffsetChanged} />
+            <Results onOffsetChanged={this.handleOffsetChanged} onBoundsChanged={this.handleBoundsChanged} />
           </DataContainer>
         }
 
@@ -88,6 +89,12 @@ class App extends React.Component<Props, State> {
   private handleOffsetChanged = (offset: number) => {
     this.setState({
       offset
+    })
+  }
+
+  private handleBoundsChanged = (bounds?: GeoBox) => {
+    this.setState({
+      bounds
     })
   }
 }
