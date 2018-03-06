@@ -21,7 +21,7 @@ type State = {
 
 function countToXY(values: MetadataValue[], maxValues: number): { x: string, y: number }[] {
 
-    const sorted = [...values].sort((a, b) => a.count - b.count)
+    const sorted = [...values].sort((a, b) => b.count - a.count)
     const topN = sorted.slice(0, maxValues)
 
     return topN.map(v => ({
