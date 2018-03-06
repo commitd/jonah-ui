@@ -75,7 +75,7 @@ class Container extends React.Component<Variables & OwnProps> {
 }
 
 const SAVE_MUTATION = gql`
-mutation delete($datasetId: String!, $entity: BaleenEntityInput!) {
+mutation save($datasetId: String!, $entity: BaleenEntityInput!) {
     saveEntity(datasetId: $datasetId, entity: $entity) {
         dataset
     }
@@ -84,7 +84,7 @@ mutation delete($datasetId: String!, $entity: BaleenEntityInput!) {
 
 const DELETE_MUTATION = gql`
 mutation delete($datasetId: String!, $documentId: String!, $entityId: String!) {
-    deleteDocument(datasetId: $entityId, reference: {
+    deleteEntity(datasetId: $entityId, reference: {
         documentId: $documentId,
         entityId: $documentId,
     }) {

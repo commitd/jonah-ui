@@ -33,9 +33,9 @@ class App extends React.Component<Props, State> {
 
   state: State = {
     edit: false,
-    // datasetId: 'news_mongo',
+    datasetId: 'enron_es',
     // documentId: '487a8a3e721a6a2842b2973f7a7405a8f4c7151d75aa91c52994185883b18708'
-    // mentionId: '3fae1503a0cc31420c502293a0bf36aec060ce828cae7a47a7d0f09c11cab8db'
+    mentionId: '1f8ee6a0169425116c41fb1674e9b686825cafc3261e5f5a7db048daa55bc374'
     // entityId: '08c909745ed1971618a4fb71ac8f5e16e780b33b9e93f760c90fbf205ce71ea3'
     // relationId: '3bcddfa313f4794ba8136b8131adc15d453679cbbda54a8cc01c0005d3879968'
   }
@@ -89,15 +89,19 @@ class App extends React.Component<Props, State> {
 
     if (action === MENTION_EDIT || action === MENTION_DELETE) {
       const p = payload as MentionEditPayload | MentionDeletePayload
+      state.datasetId = p.datasetId
       state.mentionId = p.mentionId
     } else if (action === RELATION_EDIT || action === RELATION_DELETE) {
       const p = payload as RelationEditPayload | RelationDeletePayload
+      state.datasetId = p.datasetId
       state.relationId = p.relationId
     } else if (action === ENTITY_EDIT || action === ENTITY_DELETE) {
       const p = payload as EntityEditPayload | EntityDeletePayload
+      state.datasetId = p.datasetId
       state.entityId = p.entityId
     } else if (action === DOCUMENT_EDIT || action === DOCUMENT_DELETE) {
       const p = payload as DocumentEditPayload | DocumentDeletePayload
+      state.datasetId = p.datasetId
       state.documentId = p.documentId
     }
 

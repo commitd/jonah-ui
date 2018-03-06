@@ -48,6 +48,9 @@ class Container extends React.Component<Variables & OwnProps> {
                 // Clean up the document so tis got just want is requrid in it
                 mention: {
                     id: item.id || '',
+                    begin: item.begin || 0,
+                    end: item.end || 0,
+                    entityId: item.entityId || '',
                     type: item.type || '',
                     subType: item.subType || '',
                     value: item.value || '',
@@ -75,8 +78,8 @@ class Container extends React.Component<Variables & OwnProps> {
 }
 
 const SAVE_MUTATION = gql`
-mutation delete($datasetId: String!, $mention: BaleenMentionInput!) {
-    saveEntity(datasetId: $datasetId, mention: $mention) {
+mutation save($datasetId: String!, $mention: BaleenMentionInput!) {
+    saveMention(datasetId: $datasetId, mention: $mention) {
         dataset
     }
   }
@@ -84,7 +87,7 @@ mutation delete($datasetId: String!, $mention: BaleenMentionInput!) {
 
 const DELETE_MUTATION = gql`
 mutation delete($datasetId: String!, $documentId: String!, $mentionId: String!) {
-    deleteDocument(datasetId: $datasetId, reference: {
+    deleteMention(datasetId: $datasetId, reference: {
         documentId: $documentId,
         mentionId: $mentionId,
     }) {

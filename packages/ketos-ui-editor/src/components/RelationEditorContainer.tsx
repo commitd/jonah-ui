@@ -48,6 +48,8 @@ class Container extends React.Component<Variables & OwnProps> {
                 // Clean up the document so tis got just want is requrid in it
                 relation: {
                     id: item.id || '',
+                    begin: item.begin || 0,
+                    end: item.end || 0,
                     type: item.type || '',
                     subType: item.subType || '',
                     value: item.value || '',
@@ -75,8 +77,8 @@ class Container extends React.Component<Variables & OwnProps> {
 }
 
 const SAVE_MUTATION = gql`
-mutation delete($datasetId: String!, $relation: BaleenRelationInput!) {
-    saveEntity(datasetId: $datasetId, relation: $relation) {
+mutation save($datasetId: String!, $relation: BaleenRelationInput!) {
+    saveRelation(datasetId: $datasetId, relation: $relation) {
         dataset
     }
   }
@@ -84,7 +86,7 @@ mutation delete($datasetId: String!, $relation: BaleenRelationInput!) {
 
 const DELETE_MUTATION = gql`
 mutation delete($datasetId: String!, $documentId: String!, $relationId: String!) {
-    deleteDocument(datasetId: $datasetId, reference: {
+    deleteRelation(datasetId: $datasetId, reference: {
         documentId: $documentId,
         relationId: $relationId,
     }) {

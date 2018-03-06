@@ -72,7 +72,7 @@ class Container extends React.Component<Variables & OwnProps> {
 }
 
 const SAVE_MUTATION = gql`
-mutation delete($datasetId: String!, $document: BaleenDocumentInput!) {
+mutation savee($datasetId: String!, $document: BaleenDocumentInput!) {
     saveDocument(datasetId: $datasetId, document: $document) {
         dataset
     }
