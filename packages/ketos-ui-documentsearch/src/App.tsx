@@ -70,6 +70,7 @@ class App extends React.Component<Props, State> {
   }
 
   private handleSearch = (search: DocumentSearch) => {
+    console.log(search)
     this.setState((state: State) => ({
       submittedSearchQuery: search,
       offset: 0
