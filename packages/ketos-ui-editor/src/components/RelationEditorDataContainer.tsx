@@ -1,6 +1,7 @@
 import gql from 'graphql-tag'
 import { createDataContainer } from 'invest-components'
 import { PropertiesMap } from 'invest-types'
+import { Mention } from './MentionEditorDataContainer'
 
 export type Variables = {
     datasetId: string,
@@ -16,25 +17,14 @@ export type Relation = {
     begin: number
     end: number
     properties: PropertiesMap
+    source: Mention
+    target: Mention
 }
 
 export type Response = {
     corpus: {
         id: string
-        relation: Relation & {
-            source: {
-                id: string
-                entityId: string
-                type: string
-                value: string
-            }
-            target: {
-                id: string
-                entityId: string
-                type: string
-                value: string
-            }
-        }
+        relation: Relation
     }
 }
 
@@ -53,15 +43,25 @@ query get($datasetId: String!, $relationId: String!) {
         end        
         source {
             id
+            docId
             entityId
             type
+            subType
             value
+            begin
+            end
+            properties
         }
         target {
             id
+            docId
             entityId
             type
+            subType
             value
+            begin
+            end
+            properties
         }
     }
   }

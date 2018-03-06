@@ -15,7 +15,7 @@ export default class PropertiesEditor extends React.Component<Props> {
         const { properties, edit } = this.props
         const readOnly = !edit
 
-        const keys = properties == null ? [] : Object.keys(properties)
+        const keys = properties == null ? [] : Object.keys(properties).sort()
 
         // NOTE: Key ordering is probably a messy in javascript
 
@@ -38,11 +38,11 @@ export default class PropertiesEditor extends React.Component<Props> {
 
     private renderProperty = (index: number, key: string, value: {}, edit: boolean) => {
         return (
-            <Form.Group key={`${index}_${key}`} inline={true} >
+            <Form.Group key={`${index}`} inline={true} >
                 <Form.Input
                     label="Key"
                     value={key || ''}
-                    onChange={(e, data) => this.handleKeyChanged(data.value)}
+                    onChange={(e, data) => this.handleKeyChanged(key, data.value)}
                     readOnly={!edit}
                     width={6}
                 />
@@ -108,15 +108,16 @@ export default class PropertiesEditor extends React.Component<Props> {
         )
     }
 
-    private handleKeyChanged = (key: string) => {
-        const v = this.props.properties ? this.props.properties[key] : ''
+    private handleKeyChanged = (oldKey: string, key: string) => {
+        const v = this.props.properties ? this.props.properties[oldKey] : ''
+        const removed = update(this.props.properties || {}, { $unset: [oldKey] })
+        const added = update(removed, { $merge: { [key]: v } })
         this.props.onChange(
-            update(this.props.properties || {}, { $merge: { [key]: v } })
+            added
         )
     }
 
     private handleValueChanged = (key: string, newValue: {}, type: string) => {
-        console.log(newValue)
         let value: {}
         switch (type) {
             case 'json':

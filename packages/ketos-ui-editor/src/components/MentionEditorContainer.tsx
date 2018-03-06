@@ -4,6 +4,7 @@ import EditorForm from './MentionEditorForm'
 import EditorView from './common/EditorView'
 import { graphql, compose, MutationFunc } from 'react-apollo'
 import gql from 'graphql-tag'
+import { cleanMention } from './Utils'
 
 type DeleteMutationResult = {
     deleteMention: {
@@ -46,17 +47,7 @@ class Container extends React.Component<Variables & OwnProps> {
 
                 datasetId: allDatasets ? undefined : this.props.datasetId,
                 // Clean up the document so tis got just want is requrid in it
-                mention: {
-                    id: item.id || '',
-                    begin: item.begin || 0,
-                    end: item.end || 0,
-                    entityId: item.entityId || '',
-                    type: item.type || '',
-                    subType: item.subType || '',
-                    value: item.value || '',
-                    docId: item.docId,
-                    properties: (item.properties || {})
-                }
+                mention: cleanMention(item)
             }
         }).then(d => {
             return d.data && d.data.saveMention && d.data.saveMention.length > 0

@@ -4,6 +4,7 @@ import EditorForm from './RelationEditorForm'
 import EditorView from './common/EditorView'
 import { graphql, compose, MutationFunc } from 'react-apollo'
 import gql from 'graphql-tag'
+import { cleanMention } from './Utils'
 
 type DeleteMutationResult = {
     deleteRelation: {
@@ -54,7 +55,9 @@ class Container extends React.Component<Variables & OwnProps> {
                     subType: item.subType || '',
                     value: item.value || '',
                     docId: item.docId,
-                    properties: (item.properties || {})
+                    properties: (item.properties || {}),
+                    source: cleanMention(item.source),
+                    target: cleanMention(item.target)
                 }
             }
         }).then(d => {

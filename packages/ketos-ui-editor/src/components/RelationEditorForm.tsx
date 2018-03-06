@@ -4,6 +4,7 @@ import { Relation, Response } from './RelationEditorDataContainer'
 import PropertiesEditor from './common/PropertiesEditor'
 import { PropertiesMap } from 'invest-types'
 import update from 'immutability-helper'
+import { Ellipsis } from 'invest-components'
 
 export type Props = {
     item?: Relation
@@ -50,13 +51,13 @@ export default class RelationEditorForm extends React.Component<Props> {
                     <Table.Body>
                         <Table.Row>
                             <Table.Cell>Mention id</Table.Cell>
-                            <Table.Cell>{relation.source.id}</Table.Cell>
-                            <Table.Cell>{relation.target.id}</Table.Cell>
+                            <Table.Cell><Ellipsis text={relation.source.id} /></Table.Cell>
+                            <Table.Cell><Ellipsis text={relation.target.id} /></Table.Cell>
                         </Table.Row>
                         <Table.Row>
                             <Table.Cell>Entity id</Table.Cell>
-                            <Table.Cell>{relation.source.entityId}</Table.Cell>
-                            <Table.Cell>{relation.target.entityId}</Table.Cell>
+                            <Table.Cell><Ellipsis text={relation.source.entityId} /></Table.Cell>
+                            <Table.Cell><Ellipsis text={relation.target.entityId} /></Table.Cell>
                         </Table.Row>
                         <Table.Row>
                             <Table.Cell>Type</Table.Cell>

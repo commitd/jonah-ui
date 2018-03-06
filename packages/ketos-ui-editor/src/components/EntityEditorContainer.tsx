@@ -84,9 +84,9 @@ mutation save($datasetId: String!, $entity: BaleenEntityInput!) {
 
 const DELETE_MUTATION = gql`
 mutation delete($datasetId: String!, $documentId: String!, $entityId: String!) {
-    deleteEntity(datasetId: $entityId, reference: {
+    deleteEntity(datasetId: $datasetId, reference: {
         documentId: $documentId,
-        entityId: $documentId,
+        entityId: $entityId,
     }) {
         dataset
     }
