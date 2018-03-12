@@ -15,7 +15,7 @@ type State = {
   datasetId?: string,
   query?: string,
   offset: number,
-  limit: number
+  size: number
   bounds?: GeoBox
 
   submittedQuery?: DocumentSearch
@@ -29,7 +29,7 @@ class App extends React.Component<Props, State> {
     datasetId: undefined,
     query: undefined,
     offset: 0,
-    limit: 10
+    size: 10
   }
 
   handleDatasetSelected = (datasetId: string) => {
@@ -53,7 +53,7 @@ class App extends React.Component<Props, State> {
   }
 
   render() {
-    const { datasetId, submittedQuery, offset, limit, bounds } = this.state
+    const { datasetId, submittedQuery, offset, size, bounds } = this.state
 
     return (
       <Container>
@@ -75,7 +75,7 @@ class App extends React.Component<Props, State> {
               mentionFilters: submittedQuery.mentionFilters || [],
               relationFilters: submittedQuery.relationFilters || [],
               bounds,
-              offset, limit
+              offset, size
             }}
           >
             <Results onOffsetChanged={this.handleOffsetChanged} onBoundsChanged={this.handleBoundsChanged} />

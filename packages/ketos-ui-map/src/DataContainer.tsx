@@ -11,7 +11,7 @@ type Variables = {
     relationFilters?: RelationFilter[]
     mentionFilters?: MentionFilter[]
     offset: number
-    limit: number,
+    size: number,
     bounds?: GeoBox
 }
 
@@ -55,14 +55,14 @@ export type Response = {
 
 const QUERY = gql`
 query searchForLocation($datasetId: String!, $documentFilter:DocumentFilterInput!,$bounds:GeoBoxInput,
-    $offset: Int, $limit: Int) {
+    $offset: Int, $size: Int) {
     corpus(id: $datasetId) {
       id
       searchDocuments(query: $documentFilter, entities:[{
         type: "Location",
         within: $bounds
       }]) {
-        hits(size:$limit, offset:$offset) {
+        hits(size:$size, offset:$offset) {
           size
           offset
           total
@@ -78,7 +78,7 @@ query searchForLocation($datasetId: String!, $documentFilter:DocumentFilterInput
                 classification
                 timestamp
             }
-            entities(probe: {type: "Location"}, limit:100) {
+            entities(probe: {type: "Location"}, size:100) {
                id
                type
                value
