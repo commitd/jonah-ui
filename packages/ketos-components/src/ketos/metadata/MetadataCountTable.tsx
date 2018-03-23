@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { Table } from 'semantic-ui-react'
 import { Paginated } from 'invest-components'
+import { numberOrder } from '../../utils/CompareUtils';
 
 export type OwnProps = {
     counts: {
@@ -28,6 +29,8 @@ export class MetadataCountTable extends React.Component<Props> {
             return <p>No metadata count</p>
         }
 
+        const sorted = [...counts].sort((a, b) => numberOrder(a.count, b.count))
+
         return (
             <Table>
                 <Table.Header>
@@ -37,7 +40,7 @@ export class MetadataCountTable extends React.Component<Props> {
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>
-                    {counts.map(d => <Table.Row
+                    {sorted.map(d => <Table.Row
                         key={d.key}
                         onClick={this.handleSelect(d.key)}
                         active={selected === d.key}

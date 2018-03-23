@@ -3,6 +3,7 @@ import { Table } from 'semantic-ui-react'
 import { Ellipsis } from 'invest-components'
 import { PropertiesMap, Property } from 'invest-types'
 import { Paginated } from 'invest-components'
+import { stringOrder } from '../../utils/CompareUtils'
 
 export type Props = {
     properties: PropertiesMap
@@ -51,7 +52,7 @@ export default class PaginatedPropertiesTable extends React.Component<Props> {
     render() {
         const { properties } = this.props
 
-        // Convert to a item
+        // Convert to a list, sort and filter
         let items: Property[]
 
         if (properties != null) {
@@ -60,6 +61,9 @@ export default class PaginatedPropertiesTable extends React.Component<Props> {
                 .filter(p => p.value !== null && p.key !== null)
                 // discard this internal Blaeen thing
                 .filter(p => p.key !== 'isNormalised')
+
+            items.sort((a, b) => stringOrder(a.key, b.key))
+
         } else {
             items = []
         }

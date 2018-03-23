@@ -2,6 +2,7 @@ import * as React from 'react'
 import { Table, List } from 'semantic-ui-react'
 import { Ellipsis, Paginated } from 'invest-components'
 import { Metadata } from '../../types'
+import { stringOrder } from '../../utils/CompareUtils'
 
 export interface Props {
     metadata: Metadata[]
@@ -28,6 +29,8 @@ class DocumentMeta extends React.Component<Props> {
             return <p>No metadata</p>
         }
 
+        const sorted = [...metadata].sort((a, b) => stringOrder(a.key, b.value))
+
         return (
             <Table celled={true} size="small">
                 <Table.Header>
@@ -38,7 +41,7 @@ class DocumentMeta extends React.Component<Props> {
                 </Table.Header>
                 <Table.Body>
                     {
-                        metadata.map((m, i) => <Table.Row key={m.key + '_' + i}>
+                        sorted.map((m, i) => <Table.Row key={m.key + '_' + i}>
                             <Table.Cell>{m.key}</Table.Cell>
                             <Table.Cell>{this.renderSafeValue(m.value)}</Table.Cell>
                         </Table.Row>
