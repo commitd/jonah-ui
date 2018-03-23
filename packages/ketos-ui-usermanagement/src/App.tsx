@@ -2,6 +2,8 @@ import * as React from 'react'
 const isEqual = require('lodash.isequal')
 
 import { PluginProps } from 'invest-plugin'
+import UserDataContainer from './UserDataContainer'
+import UsersView from './UsersView'
 
 type OwnProps = {}
 
@@ -17,7 +19,7 @@ class App extends React.Component<Props> {
 
   render() {
     return (
-      <p>Hello world</p>
+      <UserDataContainer variables={{}}><UsersView /></UserDataContainer>
     )
   }
 
