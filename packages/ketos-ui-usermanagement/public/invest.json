@@ -1,0 +1,10 @@
+{
+    "id": "ketos-ui-usermanagement",
+    "name": "User Management",
+    "description": "User Management",
+    "icon": "users",
+    "roles": [
+        "ADMIN"
+    ],
+    "actions": []
+}
