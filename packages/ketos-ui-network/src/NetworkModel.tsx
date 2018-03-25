@@ -139,6 +139,16 @@ export default class NetworkExpander extends React.Component<Props, State> {
                 r.corpus.entity.mentions.forEach(m => {
                     const node = this.addMention(helper, m)
                     this.addEdge(helper, 'as', 'as', entityNode.id, node.id)
+
+                    m.sourceOf.forEach(e => {
+                        this.addMention(helper, e.target)
+                        this.addRelation(helper, e, m, e.target)
+                    })
+
+                    m.targetOf.forEach(e => {
+                        this.addMention(helper, e.source)
+                        this.addRelation(helper, e, e.source, m)
+                    })
                 })
 
                 helper.refresh()
@@ -194,7 +204,7 @@ export default class NetworkExpander extends React.Component<Props, State> {
             label: dataset.name,
             type: 'Dataset',
             color: '#0000ff',
-            data: document
+            data: dataset
 
         }
         helper.addNode(n)

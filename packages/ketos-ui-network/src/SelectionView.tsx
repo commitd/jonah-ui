@@ -21,8 +21,12 @@ export default class SelectionView extends React.Component<Props> {
         const action = this.getActionFromType()
         return (
             <Table>
+                <Table.Header>
+                    <Table.Row>
+                        <Table.HeaderCell content={type} />
+                    </Table.Row>
+                </Table.Header>
                 <Table.Body>
-                    <Table.Row><Table.Cell content={type} /></Table.Row>
                     {data && this.renderByType()}
                     {data && data.id && action && <Table.Row>
                         <Table.Cell>
@@ -69,6 +73,7 @@ export default class SelectionView extends React.Component<Props> {
             }
             case 'Dataset': {
                 const d = data as BasicCorpusNode
+                console.log(d)
                 return (
                     <Table.Row><Table.Cell content={d.name} /></Table.Row>
                 )

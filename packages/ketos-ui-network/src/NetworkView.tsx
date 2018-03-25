@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { SimpleGraph, GraphHelper } from 'invest-components'
-import { Grid } from 'semantic-ui-react'
+import { Segment } from 'semantic-ui-react'
 import SelectionView from './SelectionView'
 
 /** Required to use Sigma */
@@ -86,31 +86,38 @@ export default class NetworkView extends React.Component<Props, State> {
         }
 
         return (
-            <Grid>
-                <Grid.Row>
-                    <Grid.Column width={12}>
-                        <div style={{ height: '700px' }}>
-                            <SimpleGraph
-                                settings={{
-                                    drawEdges: true,
-                                    drawNodes: true, drawLabels: true,
-                                    enableHovering: true,
-                                    enableEdgeHovering: true, edgeHoverSizeRatio: 5,
-                                    doubleClickEnabled: false
-                                }}
-                                graph={this.state.graph}
-                                onNodeSelect={this.handleNodeSelect}
-                                onEdgeSelect={this.handleEdgeSelect}
-                                onNodeExpand={this.handleNodeExpand}
-                                onSigma={this.props.onSigma}
-                            />
-                        </div>
-                    </Grid.Column>
-                    <Grid.Column width={4}>
-                        {selected && <SelectionView {...selected} />}
-                    </Grid.Column>
-                </Grid.Row>
-            </Grid>
+            <div style={{ height: '100%' }}>
+                <Segment floated="right" basic={true}>
+                    {selected && <SelectionView {...selected} />}
+                </Segment>
+                <SimpleGraph
+                    settings={{
+                        sideMargin: 20,
+                        drawEdges: true,
+                        drawNodes: true,
+                        drawLabels: true,
+                        enableHovering: true,
+                        enableEdgeHovering: true,
+                        edgeHoverSizeRatio: 2,
+                        doubleClickEnabled: false,
+                        minEdgeSize: 0.5,
+                        maxEdgeSize: 4,
+                        minNodeSize: 1,
+                        maxNodeSize: 16,
+                        borderSize: 4,
+
+                        autoRescale: true,
+                        skipErrors: true
+
+                    }}
+                    graph={this.state.graph}
+                    onNodeSelect={this.handleNodeSelect}
+                    onEdgeSelect={this.handleEdgeSelect}
+                    onNodeExpand={this.handleNodeExpand}
+                    onSigma={this.props.onSigma}
+                />
+            </div>
+
         )
     }
 

@@ -46,7 +46,10 @@ export type ExpandEntityResponse = {
         id: string
         entity: BasicEntityNode & {
             document: BasicDocumentNode
-            mentions: BasicMentionNode[]
+            mentions: (BasicMentionNode & {
+                targetOf: SourcedRelation[]
+                sourceOf: TargetedRelation[]
+            })[]
         }
     }
 }
@@ -55,8 +58,12 @@ export type ExpandRelationResponse = {
     corpus: {
         id: string
         relation: BasicRelationNode & {
-            source: BasicMentionNode,
-            target: BasicMentionNode
+            source: BasicMentionNode & {
+                entity: BasicEntityNode
+            },
+            target: BasicMentionNode & {
+                entity: BasicEntityNode
+            }
         }
     }
 }
@@ -82,7 +89,37 @@ query ExpandEntity($datasetId: String!, $entityId: ID) {
         mentions {
           id
           type
-          value          
+          value 
+          sourceOf {
+            id
+            type
+            value 
+            target {
+              id
+              type
+              value
+              entity {
+                  id
+                  type
+                  value
+              }
+            }         
+          }
+          targetOf {
+            id
+            type
+            value 
+            source {
+              id
+              type
+              value
+              entity {
+                  id
+                  type
+                  value
+              }
+            }        
+          }         
         }
         document {
             id
@@ -139,6 +176,11 @@ query ExpandMention($datasetId: String!, $mentionId: ID) {
             id
             type
             value
+            entity {
+                id
+                type
+                value
+            }
           }         
         }
         targetOf {
@@ -149,6 +191,11 @@ query ExpandMention($datasetId: String!, $mentionId: ID) {
             id
             type
             value
+            entity {
+                id
+                type
+                value
+            }
           }        
         }
       }
@@ -166,7 +213,7 @@ query ExpandMention($datasetId: String!, $documentId: String!) {
         info {
             title
         }
-        entities {
+        entities(size:1000) {
           id
           type
           value     

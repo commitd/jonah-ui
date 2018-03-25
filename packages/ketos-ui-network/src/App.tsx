@@ -23,8 +23,8 @@ type State = {
 class App extends React.Component<Props, State> {
 
   state: State = {
-    datasetId: 're3d',
-    entityId: '1a84b291f8220eb83fd79fa24b2b3088799016f3950f64da64fbe87d926d66b0'
+    datasetId: 'news_es',
+    entityId: '05e50a85-3b3e-4e66-bd68-bb09e0ac39e2'
   }
 
   componentWillReceiveProps(nextProps: Props) {
