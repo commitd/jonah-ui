@@ -1,6 +1,6 @@
 {
     "id": "ketos-ui-relationsearch",
-    "name": "Relationship search",
+    "name": "Relation search",
     "description": "Find relations",
     "icon": "search",
     "roles": [],
