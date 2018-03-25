@@ -21,15 +21,16 @@ type OwnProps = {
     edit: boolean
     save: MutationFunc<SaveMutationResult>
     delete: MutationFunc<DeleteMutationResult>
+    variables: Variables
 }
 
-class Container extends React.Component<Variables & OwnProps> {
+class Container extends React.Component<OwnProps> {
 
     render() {
         return (
-            <DataContainer variables={this.props}>
+            <DataContainer variables={this.props.variables}>
                 <EditorView
-                    key={this.props.documentId}
+                    key={this.props.variables.documentId}
                     edit={this.props.edit}
                     onSave={this.handleSave}
                     onDelete={this.handleDelete}
@@ -45,7 +46,7 @@ class Container extends React.Component<Variables & OwnProps> {
         return this.props.save({
             variables: {
 
-                datasetId: allDatasets ? undefined : this.props.datasetId,
+                datasetId: allDatasets ? undefined : this.props.variables.datasetId,
                 // Clean up the document so tis got just want is requrid in it
                 document: {
                     id: item.id || '',
@@ -62,7 +63,7 @@ class Container extends React.Component<Variables & OwnProps> {
     private handleDelete = (item: Document, allDatasets?: boolean): Promise<boolean> => {
         return this.props.delete({
             variables: {
-                datasetId: allDatasets ? undefined : this.props.datasetId,
+                datasetId: allDatasets ? undefined : this.props.variables.datasetId,
                 documentId: item.id
             }
         }).then(d => {
