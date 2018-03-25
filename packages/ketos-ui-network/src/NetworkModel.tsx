@@ -203,8 +203,9 @@ export default class NetworkExpander extends React.Component<Props, State> {
             id,
             label: dataset.name,
             type: 'Dataset',
-            color: '#0000ff',
-            data: dataset
+            color: '#cc11ff',
+            data: dataset,
+            size: 20
 
         }
         helper.addNode(n)
@@ -230,7 +231,7 @@ export default class NetworkExpander extends React.Component<Props, State> {
         return n
     }
 
-    private addEntity = (helper: GraphHelper, entity: BasicEntityNode): SigmaJs.Node => {
+    private addEntity = (helper: GraphHelper, entity: BasicEntityNode, size?: number): SigmaJs.Node => {
         let id = this.getEntityGraphId(entity.id)
         let n = helper.findNode(id)
         if (n != null) {
@@ -242,7 +243,8 @@ export default class NetworkExpander extends React.Component<Props, State> {
             type: 'Entity',
             label: entity.value,
             color: '#00ff00',
-            data: entity
+            data: entity,
+            size: 12
         }
         helper.addNode(n)
         return n
@@ -261,7 +263,8 @@ export default class NetworkExpander extends React.Component<Props, State> {
             type: 'Mention',
             label: mention.value,
             color: '#ff0000',
-            data: mention
+            data: mention,
+            size: 8
 
         }
         helper.addNode(n)
