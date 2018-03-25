@@ -8,7 +8,23 @@ const counts = [
     {
         key: 'format',
         count: 23
+    },
+    {
+        key: 'version',
+        count: 2
     }
 ]
+
+const data = {
+    corpus: {
+        id: 'test',
+        metadata: {
+            keys: {
+                bins: counts
+            }
+        }
+    }
+}
+
 storiesOf('View', module)
-    .add('Simple', () => <View datasetId="example" metadataCounts={counts} />)
+    .add('Simple', () => <View data={data} />)

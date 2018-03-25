@@ -3,11 +3,14 @@ const isEqual = require('lodash.isequal')
 
 import { PluginProps } from 'invest-plugin'
 
-import View from './ViewContainer'
 import { Container } from 'semantic-ui-react'
 
 import { DatasetSelector } from 'invest-components'
 import { CorpusViewPayload } from 'ketos-components'
+
+import DatasetContainer from './DataContainer'
+
+import View from './View'
 
 type OwnProps = {}
 
@@ -48,7 +51,11 @@ class App extends React.Component<Props, State> {
           onDatasetSelected={this.handleDatasetSelected}
           provider="DocumentProvider"
         />
-        {datasetId && <View datasetId={datasetId} />}
+        {datasetId &&
+          <DatasetContainer variables={{ datasetId }} showRefresh={true}>
+            <View />
+          </DatasetContainer>
+        }
       </Container>
     )
   }

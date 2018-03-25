@@ -2,13 +2,10 @@ import * as React from 'react'
 import { Grid } from 'semantic-ui-react'
 import { MetadataCountTable } from 'ketos-components'
 import MetadataValues from './components/MetadataValuesContainer'
+import { Response } from './DataContainer'
 
 type OwnProps = {
-    datasetId: string
-    metadataCounts: {
-        key: string
-        count: number
-    }[]
+    data?: Response
 }
 
 type Props = OwnProps
@@ -30,8 +27,15 @@ class View extends React.Component<Props, State> {
     }
 
     render() {
-        const { datasetId, metadataCounts } = this.props
+        const { data, } = this.props
         const { selectedKey } = this.state
+
+        if (!data || !data.corpus) {
+            return 'No corpus to display'
+        }
+
+        const datasetId = data.corpus.id
+        const metadataCounts = data.corpus.metadata.keys.bins
 
         return (
             <Grid>
