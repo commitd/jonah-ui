@@ -284,7 +284,7 @@ export default class NetworkExpander extends React.Component<Props, State> {
             id: id,
             type: 'Relation',
             label: relation.type,
-            color: '#ff00ff',
+            color: '#6600ff',
             source: this.getMentionGraphId(source.id),
             target: this.getMentionGraphId(target.id),
             data: relation
