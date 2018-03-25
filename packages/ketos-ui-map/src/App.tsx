@@ -5,7 +5,7 @@ import Results from './Results'
 import { Container, InputOnChangeData, Divider } from 'semantic-ui-react'
 import { DatasetSelector } from 'invest-components'
 import { DocumentSearch, DocumentSearchForm } from 'ketos-components'
-import { GeoBox } from 'invest-types'
+import { GeoRadius } from 'invest-types'
 
 type OwnProps = {}
 
@@ -16,7 +16,7 @@ type State = {
   query?: string,
   offset: number,
   size: number
-  bounds?: GeoBox
+  bounds?: GeoRadius
 
   submittedQuery?: DocumentSearch
 }
@@ -92,7 +92,7 @@ class App extends React.Component<Props, State> {
     })
   }
 
-  private handleBoundsChanged = (bounds?: GeoBox) => {
+  private handleBoundsChanged = (bounds?: GeoRadius) => {
     this.setState({
       bounds
     })

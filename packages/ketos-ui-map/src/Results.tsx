@@ -1,19 +1,16 @@
 import * as React from 'react'
 import { SimpleMap, DocumentSearchResultsView } from 'ketos-components'
 import { Response, LocationEntity, LocatedDocument } from './DataContainer'
-import { GeoJSON, /* FeatureGroup */ } from 'react-leaflet'
+import { GeoJSON, FeatureGroup } from 'react-leaflet'
 import { GeoJsonObject } from 'geojson'
-import { Layer, /* Rectangle, Map */ } from 'leaflet'
-// import { EditControl, EditControlEvent, DrawableShape } from 'react-leaflet-draw'
-import { GeoBox } from 'invest-types'
-
-// TODO: The commented out code is for a within query
-// it works... but the databases server jsut don't support this type of thing
+import { Layer, Circle, Map } from 'leaflet'
+import { EditControl, EditControlEvent, DrawableShape } from 'react-leaflet-draw'
+import { GeoRadius } from 'invest-types'
 
 type Props = {
     data?: Response,
     onOffsetChanged(offset: number): void,
-    onBoundsChanged(bounds: GeoBox): void
+    onBoundsChanged(bounds: GeoRadius): void
 }
 
 type State = {
@@ -55,17 +52,17 @@ class Results extends React.Component<Props, State> {
         return (
             <div>
                 <SimpleMap>
-                    {/* <FeatureGroup>
+                    {<FeatureGroup>
                         <EditControl
                             position="topright"
-                            onEdited={this.handleEditPath}
+                            // onEdited={this.handleEditPath}
                             onCreated={this.handleCreatePath}
-                            onDeleted={this.handleDeletePath}
+                            // onDeleted={this.handleDeletePath}
                             draw={{
-                                rectangle: true,
+                                rectangle: false,
                                 polygon: false,
                                 polyline: false,
-                                circle: false,
+                                circle: true,
                                 marker: false,
                                 circlemarker: false
                             }}
@@ -76,7 +73,7 @@ class Results extends React.Component<Props, State> {
                                 allowIntersection: false
                             }}
                         />
-                    </FeatureGroup> */}
+                    </FeatureGroup>}
                     {features}
                 </SimpleMap>
                 <DocumentSearchResultsView
@@ -96,35 +93,35 @@ class Results extends React.Component<Props, State> {
             layer.bindPopup(e.value)
         }
 
-    // private handleCreatePath = (e: EditControlEvent<DrawableShape>) => {
-    //     if (e.layerType === 'rectangle') {
-    //         const r = e.layer as Rectangle
-    //         const rb = r.getBounds()
-    //         const bounds = {
-    //             n: rb.getNorth(),
-    //             s: rb.getSouth(),
-    //             w: rb.getWest(),
-    //             e: rb.getEast()
-    //         }
+    private handleCreatePath = (e: EditControlEvent<DrawableShape>) => {
+        if (e.layerType === 'circle') {
+            const r = e.layer as Circle
+            const latLng = r.getLatLng()
 
-    //         this.setState((state) => {
+            const bounds = {
+                lat: latLng.lat,
+                lon: latLng.lng,
+                radius: r.getRadius()
+            }
 
-    //             // Remove the old selection from the map
-    //             const map = e.target as Map
-    //             if (state.selectedLayer) {
-    //                 map.removeLayer(state.selectedLayer)
-    //             }
+            this.setState((state) => {
 
-    //             return {
-    //                 selectedLayer: r
-    //             }
-    //         })
+                // Remove the old selection from the map
+                const map = e.target as Map
+                if (state.selectedLayer) {
+                    map.removeLayer(state.selectedLayer)
+                }
 
-    //         // TODO: CLick to remove
+                return {
+                    selectedLayer: r
+                }
+            })
 
-    //         this.props.onBoundsChanged(bounds)
-    //     }
-    // }
+            // TODO: CLick to remove
+
+            this.props.onBoundsChanged(bounds)
+        }
+    }
 
 }
 
