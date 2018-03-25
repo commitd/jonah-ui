@@ -2,17 +2,10 @@ import * as React from 'react'
 import { Table } from 'semantic-ui-react'
 import { ActionDropdown } from 'invest-components'
 import { CORPUS_VIEW } from 'ketos-components'
+import { Response } from './DataContainer'
 
 type OwnProps = {
-    datasets: {
-        id: string
-        name: string
-        description: string
-        entities?: number
-        documents?: number
-        relations?: number
-        mentions?: number
-    }[]
+    data?: Response
 }
 
 type Props = OwnProps
@@ -26,9 +19,15 @@ class View extends React.Component<Props> {
     }
 
     render() {
-        const { datasets } = this.props
+        const { data } = this.props
 
-        if (datasets.length === 0) {
+        if (!data) {
+            return 'No datasets'
+        }
+
+        const datasets = data.corpora
+
+        if (datasets == null || datasets.length === 0) {
             return <p>No datasets configured</p>
         }
 

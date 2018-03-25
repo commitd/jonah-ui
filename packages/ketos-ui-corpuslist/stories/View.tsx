@@ -4,7 +4,7 @@ import { storiesOf } from '@storybook/react'
 
 import View from '../src/View'
 
-const datasets = [
+const corpora = [
     {
         id: 'test',
         name: 'Data 1',
@@ -16,8 +16,8 @@ const datasets = [
     }
 ]
 storiesOf('View', module)
-    .add('No datasets', () => <View datasets={[]} />)
+    .add('No datasets', () => <View data={{ corpora: [] }} />)
     .add('All datasets', () => (
         <View
-            datasets={datasets}
+            data={{ corpora }}
         />))
