@@ -1,4 +1,4 @@
-import { GeoBox, PropertiesMap } from 'invest-types'
+import { GeoBox, PropertiesMap, PropertiesList } from 'invest-types'
 
 // Basic building blocks
 
@@ -97,7 +97,7 @@ export type Metadata = {
 export type DocumentFilter = {
     id?: string
     properties?: PropertiesMap
-    metadata?: PropertiesMap
+    metadata?: PropertiesList
     content?: string
 
     info?: {

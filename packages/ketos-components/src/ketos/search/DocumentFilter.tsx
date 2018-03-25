@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Form, Button, InputOnChangeData, Divider, Tab } from 'semantic-ui-react'
+import { Form, Button, InputOnChangeData, Divider } from 'semantic-ui-react'
 import { DocumentFilter } from '../../types'
 import { PropertiesMap, PropertiesList } from 'invest-types'
 import PropertiesFilter from './PropertiesFilter'

@@ -108,7 +108,7 @@ class Results extends React.Component<Props, State> {
         } else {
 
             // If we get anything other than a supported type, clear the sample
-            this.setSelectedLayer(e.target as Map, null, undefined)
+            this.setSelectedLayer(e.target as Map, undefined, undefined)
 
         }
     }

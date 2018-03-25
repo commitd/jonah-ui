@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Divider, Form, Button, InputOnChangeData, Segment } from 'semantic-ui-react'
+import { Divider, Form, Button, InputOnChangeData } from 'semantic-ui-react'
 import { EntityFilter } from '../../types'
 import PropertiesFilter from './PropertiesFilter'
 import { PropertiesMap } from 'invest-types'
