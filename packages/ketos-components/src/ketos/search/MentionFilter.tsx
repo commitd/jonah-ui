@@ -1,6 +1,8 @@
 import * as React from 'react'
-import { Form, Button, InputOnChangeData, Segment } from 'semantic-ui-react'
+import { Form, Button, InputOnChangeData, Segment, Divider } from 'semantic-ui-react'
 import { MentionFilter } from '../../types'
+import PropertiesFilter from './PropertiesFilter'
+import { PropertiesMap } from 'invest-types'
 
 export type Props = {
     advanced?: boolean
@@ -81,7 +83,8 @@ export default class MentionFilterForm extends React.Component<Props, State> {
                     value={filter.subType || ''}
                     onChange={this.handleChange}
                 />
-
+                <Divider horizontal={true} content="Properties" />
+                <PropertiesFilter filter={filter.properties} onChange={this.handlePropertiesChange} />
             </Segment>
         )
     }
@@ -89,6 +92,12 @@ export default class MentionFilterForm extends React.Component<Props, State> {
     private toggleAdvanced = () => {
         this.setState(state => ({
             showAdvanced: !state.showAdvanced
+        }))
+    }
+
+    private handlePropertiesChange = (propertiesMap: PropertiesMap) => {
+        this.props.onChange(Object.assign({}, this.props.filter, {
+            properties: propertiesMap
         }))
     }
 }

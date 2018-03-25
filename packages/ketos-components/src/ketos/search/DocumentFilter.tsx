@@ -1,6 +1,9 @@
 import * as React from 'react'
-import { Form, Button, InputOnChangeData, Segment, Header } from 'semantic-ui-react'
+import { Form, Button, InputOnChangeData, Divider, Tab } from 'semantic-ui-react'
 import { DocumentFilter } from '../../types'
+import { PropertiesMap, PropertiesList } from 'invest-types'
+import PropertiesFilter from './PropertiesFilter'
+import MetadataFilter from './MetadataFilter'
 
 export type Props = {
     advanced?: boolean
@@ -13,9 +16,6 @@ export type State = {
 }
 
 // TODO:
-//  - id?
-//  - metadata
-//  - properties
 //  - start/end timestamp on info
 
 export default class DocumentFilterForm extends React.Component<Props, State> {
@@ -74,8 +74,8 @@ export default class DocumentFilterForm extends React.Component<Props, State> {
         const handleInfoChange = this.handleChildChange('info')
 
         return (
-            <Segment>
-                <Header sub={true} >Document info</Header>
+            <React.Fragment>
+                <Divider horizontal={true} content="Document info" />
                 <Form.Input
                     fluid={true}
                     placeholder="Document type"
@@ -125,13 +125,30 @@ export default class DocumentFilterForm extends React.Component<Props, State> {
                     value={filter.info && filter.info.releasability || ''}
                     onChange={handleInfoChange}
                 />
-            </Segment>
+                <Divider horizontal={true} content="Properties" />
+                <PropertiesFilter filter={filter.properties} onChange={this.handlePropertiesChange} />
+                <Divider horizontal={true} content="Metadata" />
+                <MetadataFilter filter={filter.metadata} onChange={this.handleMetadataChange} />
+
+            </React.Fragment>
         )
     }
 
     private toggleAdvanced = () => {
         this.setState(state => ({
             showAdvanced: !state.showAdvanced
+        }))
+    }
+
+    private handlePropertiesChange = (propertiesMap: PropertiesMap) => {
+        this.props.onChange(Object.assign({}, this.props.filter, {
+            properties: propertiesMap
+        }))
+    }
+
+    private handleMetadataChange = (metadata: PropertiesList) => {
+        this.props.onChange(Object.assign({}, this.props.filter, {
+            metadata: metadata
         }))
     }
 }

@@ -1,7 +1,9 @@
 import * as React from 'react'
-import { Form, Button, InputOnChangeData, Segment, Header, Grid } from 'semantic-ui-react'
+import { Form, Button, InputOnChangeData, Header, Grid, Divider } from 'semantic-ui-react'
 import { RelationFilter, MentionFilter } from '../../types'
 import MentionFilterForm from './MentionFilter'
+import { PropertiesMap } from 'invest-types'
+import PropertiesFilter from './PropertiesFilter';
 
 export type Props = {
     advanced?: boolean
@@ -102,7 +104,7 @@ export default class RelationFilterForm extends React.Component<Props, State> {
 
     private renderAdvanced = (filter: RelationFilter, advanced: boolean) => {
         return (
-            <Segment>
+            <React.Fragment>
                 <Form.Input
                     fluid={true}
                     placeholder="Sub type"
@@ -110,13 +112,21 @@ export default class RelationFilterForm extends React.Component<Props, State> {
                     value={filter.subType || ''}
                     onChange={this.handleChange}
                 />
-            </Segment>
+                <Divider horizontal={true} content="Properties" />
+                <PropertiesFilter filter={filter.properties} onChange={this.handlePropertiesChange} />
+            </React.Fragment>
         )
     }
 
     private toggleAdvanced = () => {
         this.setState(state => ({
             showAdvanced: !state.showAdvanced
+        }))
+    }
+
+    private handlePropertiesChange = (propertiesMap: PropertiesMap) => {
+        this.props.onChange(Object.assign({}, this.props.filter, {
+            properties: propertiesMap
         }))
     }
 

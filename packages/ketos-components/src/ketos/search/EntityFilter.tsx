@@ -1,6 +1,8 @@
 import * as React from 'react'
-import { Form, Button, InputOnChangeData, Segment } from 'semantic-ui-react'
+import { Divider, Form, Button, InputOnChangeData, Segment } from 'semantic-ui-react'
 import { EntityFilter } from '../../types'
+import PropertiesFilter from './PropertiesFilter'
+import { PropertiesMap } from 'invest-types'
 
 export type Props = {
     advanced?: boolean
@@ -73,7 +75,8 @@ export default class EntityFilterForm extends React.Component<Props, State> {
 
     private renderAdvanced = (filter: EntityFilter, advanced: boolean) => {
         return (
-            <Segment>
+
+            <React.Fragment>
                 <Form.Input
                     fluid={true}
                     placeholder="Sub type"
@@ -81,8 +84,9 @@ export default class EntityFilterForm extends React.Component<Props, State> {
                     value={filter.subType || ''}
                     onChange={this.handleChange}
                 />
-
-            </Segment>
+                <Divider horizontal={true} content="Properties" />
+                <PropertiesFilter filter={filter.properties} onChange={this.handlePropertiesChange} />
+            </React.Fragment>
         )
     }
 
@@ -91,4 +95,11 @@ export default class EntityFilterForm extends React.Component<Props, State> {
             showAdvanced: !state.showAdvanced
         }))
     }
+
+    private handlePropertiesChange = (propertiesMap: PropertiesMap) => {
+        this.props.onChange(Object.assign({}, this.props.filter, {
+            properties: propertiesMap
+        }))
+    }
+
 }
