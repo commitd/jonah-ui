@@ -1,10 +1,12 @@
 import * as React from 'react'
 import { PluginProps } from 'invest-plugin'
-import View from './ViewContainer'
 import { DatasetSelector } from 'invest-components'
 import { Container } from 'semantic-ui-react'
 const isEqual = require('lodash.isequal')
 import { CorpusViewPayload } from 'ketos-components'
+
+import DataContainer from './DataContainer'
+import View from './View'
 
 type OwnProps = {}
 
@@ -46,7 +48,10 @@ class App extends React.Component<Props, State> {
           selectedDataset={datasetId}
           onDatasetSelected={this.handleDatasetSelected}
         />
-        {datasetId && <View dataset={datasetId} />}
+        {datasetId &&
+          <DataContainer variables={{ datasetId }} showRefresh={true}>
+            <View />
+          </DataContainer>}
       </Container>
     )
   }

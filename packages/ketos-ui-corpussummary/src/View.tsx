@@ -2,19 +2,11 @@ import * as React from 'react'
 
 import { Grid } from 'semantic-ui-react'
 import { Counter, PieChart, BarChart, TimelineChart, Card, termBinsToXY, timeBinsToXY } from 'invest-components'
-import { TermBin, TimeBin } from 'invest-types'
+
+import { Response } from './DataContainer'
 
 type OwnProps = {
-    numDocuments?: number,
-    numEntities?: number,
-    numRelations?: number,
-    numMentions?: number,
-    numEvents?: number,
-    documentTypes?: TermBin[],
-    documentLanguages?: TermBin[],
-    documentClassifications?: TermBin[],
-    mentionTypes?: TermBin[],
-    documentTimeline?: TimeBin[],
+    data?: Response
 }
 
 type Props = OwnProps
@@ -23,9 +15,23 @@ class View extends React.Component<Props> {
 
     render() {
 
-        const { numDocuments, numMentions, numEntities, numRelations,
-            documentClassifications, documentLanguages,
-            numEvents, documentTypes, mentionTypes, documentTimeline } = this.props
+        const { data } = this.props
+
+        if (!data || !data.corpus) {
+            return 'No data'
+        }
+
+        const numDocuments = data.corpus.countDocuments
+        const numMentions = data.corpus.countMentions
+        const numEntities = data.corpus.countEntities
+        const numRelations = data.corpus.countRelations
+        const documentTypes = data.corpus.documentTypes.bins
+        const documentLanguages = data.corpus.documentLanguages.bins
+        const documentClassifications = data.corpus.documentClassifications.bins
+        const mentionTypes = data.corpus.mentionTypes.bins
+        const documentTimeline = data.corpus.documentTimeline.bins.map(b => ({ ts: Date.parse(b.ts), count: b.count }))
+
+        const numEvents = null
 
         return (
             <div >

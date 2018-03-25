@@ -1,15 +1,11 @@
-import * as React from 'react'
-import { graphql, QueryProps } from 'react-apollo'
 import gql from 'graphql-tag'
+import { createDataContainer } from 'invest-components'
 
-import View from './View'
-import { Loader } from 'semantic-ui-react'
-
-interface OwnProps {
-    dataset: string
+type Variables = {
+    datasetId: string
 }
 
-interface Response {
+export type Response = {
     corpus: {
         id: string
         name: string
@@ -50,35 +46,7 @@ interface Response {
     }
 }
 
-interface GqlProps {
-    data?: QueryProps & Partial<Response>
-}
-
-type Props = OwnProps & GqlProps
-
-const container = (props: Props) => {
-    const { data } = props
-
-    if (!data || data.loading || !data.corpus) {
-        return <Loader active={true} />
-    }
-
-    return (
-        <View
-            numDocuments={data.corpus.countDocuments}
-            numMentions={data.corpus.countMentions}
-            numEntities={data.corpus.countEntities}
-            numRelations={data.corpus.countRelations}
-            documentTypes={data.corpus.documentTypes.bins}
-            documentLanguages={data.corpus.documentLanguages.bins}
-            documentClassifications={data.corpus.documentClassifications.bins}
-            mentionTypes={data.corpus.mentionTypes.bins}
-            documentTimeline={data.corpus.documentTimeline.bins.map(b => ({ ts: Date.parse(b.ts), count: b.count }))}
-        />
-    )
-}
-
-const CORPUS_INFO_QUERY = gql`
+const QUERY = gql`
 query CorpusInfo($datasetId: String!)  {
   corpus(id:$datasetId) {
     id
@@ -120,6 +88,4 @@ query CorpusInfo($datasetId: String!)  {
 }
 `
 
-export default graphql<Response, OwnProps, Props>(CORPUS_INFO_QUERY, {
-    options: ({ dataset }: OwnProps) => ({ variables: { datasetId: dataset } }),
-})(container)
+export default createDataContainer<Variables, Response>(QUERY)
