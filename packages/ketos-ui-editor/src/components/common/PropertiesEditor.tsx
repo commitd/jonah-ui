@@ -6,16 +6,22 @@ import update from 'immutability-helper'
 export type Props = {
     properties: PropertiesMap
     edit: boolean
+    ignore?: string[]
     onChange(properties: PropertiesMap): void
+
 }
 
 export default class PropertiesEditor extends React.Component<Props> {
 
     render() {
-        const { properties, edit } = this.props
+        const { properties, edit, ignore } = this.props
         const readOnly = !edit
 
-        const keys = properties == null ? [] : Object.keys(properties).sort()
+        let keys = properties == null ? [] : Object.keys(properties).sort()
+
+        if (ignore != null) {
+            keys = keys.filter(k => !ignore.includes(k))
+        }
 
         // NOTE: Key ordering is probably a messy in javascript
 

@@ -84,7 +84,18 @@ export default class MentionEditorForm extends React.Component<Props> {
 
     private handleChange = (e: {}, data: InputOnChangeData) => {
         if (this.props.item && this.props.onChange) {
-            this.props.onChange(update(this.props.item || {}, { $merge: { [data.name]: data.value } }))
+            const value = data.value
+            const name = data.name
+
+            let updated = update(this.props.item || {}, { $merge: { [name]: value } })
+
+            // If these have changed also change the property
+            if (name === 'type' || name === 'subType' || name === 'value' || name === 'begin' || name === 'end') {
+                const properties = update(updated.properties || {}, { $merge: { [name]: value } })
+                updated = update(updated, { $merge: { properties: properties } })
+            }
+
+            this.props.onChange(updated)
         }
     }
 
