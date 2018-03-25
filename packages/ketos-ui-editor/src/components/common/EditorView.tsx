@@ -1,7 +1,7 @@
 import * as React from 'react'
 import EditorSidePanel from './EditorSidePanel'
 import { ChildProps } from 'react-apollo'
-import { Grid } from 'semantic-ui-react'
+import { Grid, Message, Icon } from 'semantic-ui-react'
 
 export type EditorFormProps<R, T> = {
     edit: boolean,
@@ -21,13 +21,23 @@ export type Props<R, T> = ChildProps<{
 export type State<T> = {
     forceEdit: boolean
     item: T | undefined
+
+    showSuccess: boolean
+    showError: boolean
+    message: string
+    showProgress: boolean
 }
 
 export default class EditorView<R, T> extends React.Component<Props<R, T>, State<T>> {
 
     state: State<T> = {
         forceEdit: false,
-        item: undefined
+        item: undefined,
+
+        showSuccess: false,
+        showError: false,
+        message: '',
+        showProgress: false
     }
 
     componentWillMount() {
@@ -41,11 +51,20 @@ export default class EditorView<R, T> extends React.Component<Props<R, T>, State
     }
 
     render() {
-        const { edit } = this.props
-        const { item, forceEdit } = this.state
+        const { edit, } = this.props
+        const { item, forceEdit, showSuccess, showError, showProgress, message } = this.state
 
         if (!item) {
-            return <p>Not found</p>
+            return (
+                <Message negative={showError} icon={true}>
+                    <Icon name="question" loading={false} />
+                    <Message.Content>
+                        <Message.Header>Not found</Message.Header>
+                        <p>Unable to find a data item which matches the details provided.
+                    Maybe it has already been deleted?</p>
+                    </Message.Content>
+                </Message>
+            )
         }
 
         const editing = forceEdit || edit
@@ -72,6 +91,18 @@ export default class EditorView<R, T> extends React.Component<Props<R, T>, State
                             onSave={this.handleSave}
                             onEdit={this.handleEditMode}
                         />
+
+                        {(showSuccess || showError || showProgress) &&
+                            <Message negative={showError} positive={showSuccess} warning={showProgress} icon={true}>
+                                {showSuccess && <Icon name="check" loading={false} />}
+                                {showError && <Icon name="warning sign" loading={false} />}
+                                {showProgress && <Icon name="spinner" loading={true} />}
+
+                                <Message.Content>
+                                    {message}
+                                </Message.Content>
+                            </Message>
+                        }
                     </Grid.Column>
                 </Grid.Row>
             </Grid>
@@ -104,19 +135,49 @@ export default class EditorView<R, T> extends React.Component<Props<R, T>, State
 
     private handleSave = () => {
         if (this.state.item) {
-            this.props.onSave(this.state.item).then(b => {
-                // update from server
-                if (this.props.data) {
-                    this.props.data.refetch()
-                }
+            this.setState({
+                showSuccess: false,
+                showProgress: true,
+                showError: false,
+                message: 'Saving...'
             })
+
+            this.props.onSave(this.state.item)
+                .then(b => {
+                    this.setState({
+                        showSuccess: b,
+                        showProgress: false,
+                        showError: !b,
+                        message: b ? 'Saved successfully' : 'Error occurred saving'
+                    })
+
+                    // update from server
+                    if (this.props.data) {
+                        this.props.data.refetch()
+                    }
+                })
         }
 
     }
 
     private handleDelete = () => {
         if (this.state.item) {
-            this.props.onDelete(this.state.item)
+            this.setState({
+                showSuccess: false,
+                showProgress: true,
+                showError: false,
+                message: 'Deleting...'
+            })
+
+            this.props.onDelete(this.state.item).then(b => {
+                this.setState({
+                    showSuccess: b,
+                    showProgress: false,
+                    showError: !b,
+                    message: b ? 'Deleted successfully' : 'Error occurred deleting'
+                })
+
+            })
         }
     }
 

@@ -33,10 +33,10 @@ class App extends React.Component<Props, State> {
 
   state: State = {
     edit: false,
-    datasetId: 'enron_es',
+    datasetId: undefined,
     documentId: undefined,
     mentionId: undefined,
-    entityId: 'f126db730be7b89a6c6358aa258181293d3bb2a1b8fb3b67914724970d73a47b',
+    entityId: undefined,
     relationId: undefined
   }
 

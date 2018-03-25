@@ -30,6 +30,7 @@ class Container extends React.Component<Variables & OwnProps> {
         return (
             <DataContainer variables={this.props}>
                 <EditorView
+                    key={this.props.mentionId}
                     edit={this.props.edit}
                     onSave={this.handleSave}
                     onDelete={this.handleDelete}
