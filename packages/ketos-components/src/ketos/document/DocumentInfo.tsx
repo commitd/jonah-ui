@@ -35,7 +35,7 @@ class DocumentInfo extends React.Component<Props> {
                         <Table.Cell colSpan="2">
                             <ActionDropdown
                                 text="View"
-                                actions={[DOCUMENT_VIEW, DOCUMENT_VIEW, DOCUMENT_EDIT, DOCUMENT_DELETE]}
+                                actions={[DOCUMENT_VIEW, DOCUMENT_EDIT, DOCUMENT_DELETE]}
                                 onSelect={this.handleAction}
                             />
                         </Table.Cell>
