@@ -10,7 +10,7 @@ import { GeoRadius } from 'invest-types'
 type Props = {
     data?: Response,
     onOffsetChanged(offset: number): void,
-    onBoundsChanged(bounds: GeoRadius): void
+    onBoundsChanged(bounds?: GeoRadius): void
 }
 
 type State = {
@@ -104,23 +104,31 @@ class Results extends React.Component<Props, State> {
                 radius: r.getRadius()
             }
 
-            this.setState((state) => {
+            this.setSelectedLayer(e.target as Map, r, bounds)
+        } else {
 
-                // Remove the old selection from the map
-                const map = e.target as Map
-                if (state.selectedLayer) {
-                    map.removeLayer(state.selectedLayer)
-                }
+            // If we get anything other than a supported type, clear the sample
+            this.setSelectedLayer(e.target as Map, null, undefined)
 
-                return {
-                    selectedLayer: r
-                }
-            })
-
-            // TODO: CLick to remove
-
-            this.props.onBoundsChanged(bounds)
         }
+    }
+
+    private setSelectedLayer = (map: Map, layer?: Layer, bounds?: GeoRadius) => {
+        this.setState((state) => {
+
+            // Remove the old selection from the map
+            if (state.selectedLayer) {
+                map.removeLayer(state.selectedLayer)
+            }
+
+            return {
+                selectedLayer: layer
+            }
+        })
+
+        // TODO: CLick to remove
+
+        this.props.onBoundsChanged(bounds)
     }
 
 }
