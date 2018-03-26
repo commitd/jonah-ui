@@ -150,6 +150,7 @@ class ClusterSearchResultsView extends React.Component<Props, State> {
                         stroke="#fff"
                         fill="#8884d8"
                         content={customisedContent}
+                        isAnimationActive={false}
                     />
                 </ResponsiveContainer>
             </Segment>
