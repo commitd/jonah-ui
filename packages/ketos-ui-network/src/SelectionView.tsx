@@ -73,7 +73,6 @@ export default class SelectionView extends React.Component<Props> {
             }
             case 'Dataset': {
                 const d = data as BasicCorpusNode
-                console.log(d)
                 return (
                     <Table.Row><Table.Cell content={d.name} /></Table.Row>
                 )
