@@ -105,6 +105,8 @@ class App extends React.Component<Props, State> {
       state.documentId = p.documentId
     }
 
+    this.setState(state)
+
   }
 }
 
