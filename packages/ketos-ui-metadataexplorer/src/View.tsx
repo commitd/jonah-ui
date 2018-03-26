@@ -4,11 +4,9 @@ import { MetadataCountTable } from 'ketos-components'
 import MetadataValues from './components/MetadataValuesContainer'
 import { Response } from './DataContainer'
 
-type OwnProps = {
+type Props = {
     data?: Response
 }
-
-type Props = OwnProps
 
 type State = {
     selectedKey?: string

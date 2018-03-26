@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { PluginProps } from 'invest-plugin'
-import { graphql, QueryProps } from 'react-apollo'
+import { graphql, DataProps } from 'react-apollo'
 import gql from 'graphql-tag'
 import MetadataValues from './MetadataValues'
 import { Loader } from 'semantic-ui-react'
@@ -22,19 +22,15 @@ interface Response {
 
 }
 
-interface GqlProps {
-    data?: QueryProps & Partial<Response>
-}
-
-type OwnProps = {
+type Variables = {
     datasetId: string
     metadataKey: string
 }
 
-type Props = OwnProps & GqlProps & PluginProps
+type Props = & PluginProps & Partial<DataProps<Response, Variables>>
 
 const container = (props: Props) => {
-    const { metadataKey, data } = props
+    const { data } = props
 
     if (!data || data.loading || !data.corpus || !data.corpus.metadata) {
         return <Loader active={true} />
@@ -42,7 +38,7 @@ const container = (props: Props) => {
 
     return (
         <MetadataValues
-            metadataKey={metadataKey}
+            metadataKey={data.variables.metadataKey}
             metadataValues={data.corpus.metadata.values.bins}
             maxValues={maxValues}
         />
@@ -64,4 +60,4 @@ query getMetadataValues($datasetId: String!, $metadataKey: String!) {
   }
 `
 
-export default graphql<Response, OwnProps & PluginProps, Props>(METADATA_VALUE_QUERY)(container)
+export default graphql<PluginProps & Variables, Response, Variables>(METADATA_VALUE_QUERY)(container)
