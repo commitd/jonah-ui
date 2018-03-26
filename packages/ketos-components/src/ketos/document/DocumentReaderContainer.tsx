@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { graphql, QueryProps } from 'react-apollo'
+import { graphql, DataProps } from 'react-apollo'
 import gql from 'graphql-tag'
 
 import DocumentReader, { Document } from './DocumentReader'
@@ -14,12 +14,7 @@ interface Response {
         document: Document
     }
 }
-
-interface GqlProps {
-    data?: QueryProps & Partial<Response>
-}
-
-type Props = OwnProps & GqlProps
+type Props = OwnProps & Partial<DataProps<Response>>
 
 const container = (props: Props) => {
     const { data, datasetId } = props
@@ -70,7 +65,7 @@ query get($datasetId: String!, $documentId: String!) {
 }
 `
 
-export default graphql<Response, OwnProps, Props>(GET_DOCUMENT_QUERY, {
+export default graphql<OwnProps, Response>(GET_DOCUMENT_QUERY, {
     options: (props: Props) => ({
         variables: {
             datasetId: props.datasetId,

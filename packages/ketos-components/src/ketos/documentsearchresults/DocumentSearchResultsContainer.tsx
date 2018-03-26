@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { graphql, QueryProps } from 'react-apollo'
+import { graphql, DataProps } from 'react-apollo'
 import gql from 'graphql-tag'
 import DocumentSearchResults from './DocumentSearchResults'
 import { DocumentFilter, EntityFilter, RelationFilter, MentionFilter } from '../../types'
@@ -38,12 +38,7 @@ interface Response {
         }
     }
 }
-
-interface GqlProps {
-    data?: QueryProps & Partial<Response>
-}
-
-type Props = OwnProps & GqlProps
+type Props = OwnProps & Partial<DataProps<Response>>
 
 const container = (props: Props) => {
     const { datasetId, data, offset, size, onOffsetChange } = props
@@ -94,4 +89,4 @@ query search($datasetId: String!, $documentFilter: DocumentFilterInput!,
 }
 `
 
-export default graphql<Response, OwnProps, Props>(DOCUMENT_SEARCH_QUERY)(container)
+export default graphql<OwnProps, Response>(DOCUMENT_SEARCH_QUERY)(container)
