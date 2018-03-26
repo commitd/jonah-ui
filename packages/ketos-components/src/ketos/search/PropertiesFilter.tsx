@@ -92,7 +92,6 @@ export default class PropertiesFilterForm extends React.Component<Props, State> 
         e.preventDefault()
 
         const properties = update(this.props.filter || {}, { $unset: [k] })
-        console.log(properties)
         this.props.onChange(properties)
 
     }
