@@ -4,5 +4,11 @@
     "description": "Search documents by keyword clusters",
     "icon": "table",
     "roles": [],
-    "actions": []
+    "actions": [
+        {
+            "title": "Cluster",
+            "description": "Cluster documents",
+            "action": "document.search"
+        }
+    ]
 }

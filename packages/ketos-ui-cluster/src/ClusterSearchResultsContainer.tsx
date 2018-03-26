@@ -1,18 +1,21 @@
 import * as React from 'react'
 import { DocumentFilter, EntityFilter, RelationFilter, MentionFilter } from 'ketos-components'
-import { graphql, QueryProps } from 'react-apollo'
+import { graphql, DataProps } from 'react-apollo'
 import gql from 'graphql-tag'
 import ClusterSearchResultsView from './ClusterSearchResultsView'
 import { DocumentResult } from './types'
 
-type OwnProps = {
+type Variables = {
     datasetId: string,
     documentFilter: DocumentFilter,
     entityFilters?: EntityFilter[]
     relationFilters?: RelationFilter[]
     mentionFilters?: MentionFilter[]
     offset: number,
-    size: number,
+    size: number
+}
+
+type OwnProps = {
     onClusterSelected: (results: DocumentResult[]) => void
 }
 
@@ -34,17 +37,13 @@ interface Response {
     }
 }
 
-interface GqlProps {
-    data?: QueryProps & Partial<Response>
-}
-
-type Props = OwnProps & GqlProps
+type Props = Variables & OwnProps & Partial<DataProps<Response, Variables>>
 
 class ClusterSearchResultsContainer extends React.Component<Props> {
 
     render() {
         const { data } = this.props
-        
+
         if (!data || data.loading || !data.corpus) {
             return <div />
         }
@@ -52,7 +51,7 @@ class ClusterSearchResultsContainer extends React.Component<Props> {
         const hits = data.corpus.searchDocuments.hits
 
         return (
-            <ClusterSearchResultsView 
+            <ClusterSearchResultsView
                 count={hits.cluster.count}
                 topics={hits.cluster.topics}
                 onResultsSelect={this.props.onClusterSelected}
@@ -97,4 +96,4 @@ query search($datasetId: String!, $documentFilter: DocumentFilterInput!,
 }
 `
 
-export default graphql<Response, OwnProps, Props>(DOCUMENT_SEARCH_QUERY)(ClusterSearchResultsContainer)
+export default graphql<OwnProps & Variables, Response, Variables>(DOCUMENT_SEARCH_QUERY)(ClusterSearchResultsContainer)

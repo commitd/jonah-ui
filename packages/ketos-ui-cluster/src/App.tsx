@@ -34,11 +34,11 @@ class App extends React.Component<Props, State> {
   }
 
   handleResultsChange = (results: DocumentResult[]) => {
-    this.setState(Object.assign({}, this.state, {selectedResults: results, resultsOffset: 0}))
+    this.setState(Object.assign({}, this.state, { selectedResults: results, resultsOffset: 0 }))
   }
 
   handleOffsetNext = () => {
-    this.setState(Object.assign({}, this.state, {resultsOffset: this.state.resultsOffset + 5}))
+    this.setState(Object.assign({}, this.state, { resultsOffset: this.state.resultsOffset + 5 }))
   }
 
   render() {
@@ -50,20 +50,20 @@ class App extends React.Component<Props, State> {
           selectedDataset={datasetId}
           onDatasetSelected={this.handleDatasetSelected}
         />
-        <DocumentSearchForm search={query} onSearch={this.handleSearch}/>
-        { datasetId && submittedSearchQuery && submittedSearchQuery.documentFilter &&
+        <DocumentSearchForm search={query} onSearch={this.handleSearch} />
+        {datasetId && submittedSearchQuery && submittedSearchQuery.documentFilter &&
           <ClusterSearchResultsContainer
             datasetId={datasetId}
             documentFilter={submittedSearchQuery.documentFilter}
             entityFilters={submittedSearchQuery.entityFilters}
             relationFilters={submittedSearchQuery.relationFilters}
             mentionFilters={submittedSearchQuery.mentionFilters}
-            size={2000}
+            size={1000}
             offset={0}
             onClusterSelected={this.handleResultsChange}
           />
         }
-        { selectedResults && datasetId &&
+        {selectedResults && datasetId &&
           <DocumentSearchResultsView
             datasetId={datasetId}
             results={selectedResults.slice(resultsOffset, resultsOffset + 5)}
@@ -78,11 +78,10 @@ class App extends React.Component<Props, State> {
   }
 
   private handleDatasetSelected = (datasetId: string) => {
-    this.setState({datasetId})
+    this.setState({ datasetId })
   }
 
   private handleSearch = (search: DocumentSearch) => {
-    console.log(search)
     this.setState((state: State) => ({
       submittedSearchQuery: search,
     }))

@@ -3,7 +3,7 @@ import gql from 'graphql-tag'
 import * as React from 'react'
 import { Loader } from 'semantic-ui-react'
 import { PluginProps } from 'invest-plugin'
-import { graphql, compose, QueryProps, MutationFunc } from 'react-apollo'
+import { graphql, compose, DataProps, MutationFunc } from 'react-apollo'
 import { User } from './types'
 import UsersView from './UsersView'
 
@@ -31,8 +31,7 @@ interface SaveUserVariables {
 
 type OwnProps = {}
 
-interface GqlProps {
-    data?: QueryProps & Partial<QueryResponse>
+type GqlProps = Partial<DataProps<QueryResponse>> & {
     saveUser: MutationFunc<SaveUserResponse, SaveUserVariables>
     deleteUser: MutationFunc<DeleteUserResponse, DeleteUserVariables>
 }
@@ -109,7 +108,7 @@ class Container extends React.Component<Props> {
 }
 
 export default compose(
-    graphql<Response, OwnProps & PluginProps, Props>(GET_ALL_USERS_QUERY),
-    graphql<Response, OwnProps & PluginProps, Props>(SAVE_USER_MUTATION, { name: 'saveUser' }),
-    graphql<Response, OwnProps & PluginProps, Props>(DELETE_USER_MUTATION, { name: 'deleteUser' })
+    graphql<PluginProps, QueryResponse>(GET_ALL_USERS_QUERY),
+    graphql<PluginProps, SaveUserResponse, SaveUserVariables>(SAVE_USER_MUTATION, { name: 'saveUser' }),
+    graphql<PluginProps, DeleteUserResponse, DeleteUserVariables>(DELETE_USER_MUTATION, { name: 'deleteUser' })
 )(Container)
