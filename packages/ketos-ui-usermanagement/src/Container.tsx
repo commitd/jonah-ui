@@ -97,12 +97,12 @@ class Container extends React.Component<Props> {
     render() {
         const { data } = this.props
 
-        if (!data || data.loading || !data.users) {
+        if (!data || data.loading) {
             return <Loader active={true} />
         }
 
         return (
-            <UsersView users={data.users} onSave={this.handleSave} onDelete={this.handleDelete} />
+            <UsersView users={data.users || []} onSave={this.handleSave} onDelete={this.handleDelete} />
         )
     }
 }
