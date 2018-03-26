@@ -1,4 +1,4 @@
 export type User = {
-    username: string,
-    roles: [string]
+    username: string
+    roles: string[]
 }

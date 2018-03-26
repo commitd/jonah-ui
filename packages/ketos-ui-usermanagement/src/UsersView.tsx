@@ -1,21 +1,18 @@
 import * as React from 'react'
 import * as PropTypes from 'prop-types'
-import { Container } from 'semantic-ui-react'
 import { PluginContext } from 'invest-plugin'
-import { Response } from './UserDataContainer'
-import UsersTable from './UsersTable'
+import Users from './Users'
+import { User } from './types'
 
 type Props = {
-    data?: Response
-}
-
-type State = {
-    graph: SigmaJs.GraphData
+    users: User[]
+    onSave(user: User, password: string | null): void
+    onDelete(username: string): void
 }
 
 type Context = PluginContext
 
-class UsersView extends React.Component<Props, State> {
+class UsersView extends React.Component<Props> {
     static contextTypes = {
         pluginApi: PropTypes.object
     }
@@ -23,18 +20,15 @@ class UsersView extends React.Component<Props, State> {
     context: Context
 
     render() {
-        const { data } = this.props
-
-        if (!data || !data.users) {
-            return <p>Nothing here</p>
-        }
-
-        const { users } = data
+        const { users, onSave, onDelete } = this.props
 
         return (
-            <Container>
-                <UsersTable users={users} />
-            </Container>
+            <Users
+                users={users}
+                availableRoles={['DEV', 'ADMIN', 'USER']}
+                onSave={onSave}
+                onDelete={onDelete}
+            />
         )
     }
 }
