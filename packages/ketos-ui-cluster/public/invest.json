@@ -1,0 +1,8 @@
+{
+    "id": "ketos-ui-cluster",
+    "name": "Cluster Search",
+    "description": "Search documents by keyword clusters",
+    "icon": "table",
+    "roles": [],
+    "actions": []
+}
