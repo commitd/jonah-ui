@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { PluginProps } from 'invest-plugin'
-import { graphql, QueryProps, compose, MutationFunc } from 'react-apollo'
+import { graphql, compose, DataProps, MutateProps } from 'react-apollo'
 import gql from 'graphql-tag'
 import View from './View'
 import { Loader } from 'semantic-ui-react'
@@ -24,19 +24,16 @@ interface MutationVariables {
     feedbackId: string
 }
 
-interface GqlProps {
-    data?: QueryProps & Partial<Response>
-    mutate: MutationFunc<MutationResult, MutationVariables>
-}
-
-type OwnProps = {
+type QueryVariables = {
     offset: number
     size: number
 }
 
-type Props = OwnProps & GqlProps & PluginProps
+type Props = PluginProps
+    & Partial<DataProps<Response, QueryVariables>>
+    & MutateProps<MutationResult, MutationVariables>
 
-class Container extends React.Component<Props>  {
+class Container extends React.Component<Props> {
 
     handleDelete = (feedbackId: string) => {
         this.props.mutate({
@@ -89,6 +86,6 @@ query GetFeedback($offset: Int!, $size: Int!) {
 
 export default
     compose(
-        graphql<Response, OwnProps & PluginProps, Props>(DELETE_FEEDBACK_MUTATION),
-        graphql<Response, OwnProps & PluginProps, Props>(GET_FEEDBACK_QUERY)
+        graphql<PluginProps, MutationResult, MutationVariables>(DELETE_FEEDBACK_MUTATION),
+        graphql<PluginProps, Response, QueryVariables>(GET_FEEDBACK_QUERY)
     )(Container)

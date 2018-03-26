@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { PluginProps } from 'invest-plugin'
-import { graphql, MutationFunc, compose, QueryProps } from 'react-apollo'
+import { graphql, compose, MutateProps, DataProps } from 'react-apollo'
 import gql from 'graphql-tag'
 import { Loader } from 'semantic-ui-react'
 import View from './View'
@@ -25,14 +25,7 @@ interface QueryResponse {
     }
 }
 
-interface GqlProps {
-    data?: QueryProps & Partial<QueryResponse>,
-    mutate: MutationFunc<MutationResponse, MutationVariables>
-}
-
-type OwnProps = {}
-
-type Props = OwnProps & GqlProps & PluginProps
+type Props = Partial<DataProps<QueryResponse>> & MutateProps<MutationResponse, MutationVariables> & PluginProps
 
 type State = {
     type: string,
@@ -114,6 +107,6 @@ query GetPlugins {
 `
 
 export default compose(
-    graphql<Response, OwnProps & PluginProps, Props>(ADD_FEEDBACK_MUTATION),
-    graphql<Response, OwnProps & PluginProps, Props>(GET_PLUGINS_QUERY)
+    graphql<PluginProps, MutationResponse, MutationVariables>(ADD_FEEDBACK_MUTATION),
+    graphql<PluginProps, Response>(GET_PLUGINS_QUERY)
 )(Container)
