@@ -10,6 +10,7 @@ const maxValues = 51
 
 interface Response {
     corpus: {
+        id: string
         metadata: {
             values: {
                 bins: {
@@ -48,14 +49,15 @@ const container = (props: Props) => {
 const METADATA_VALUE_QUERY = gql`
 query getMetadataValues($datasetId: String!, $metadataKey: String!) {
     corpus(id: $datasetId) {
-      metadata(key: $metadataKey) {
-        values(size: ${maxValues}) {
-            bins {
-                value: term
-                count
+        id
+        metadata(key: $metadataKey) {
+            values(size: ${maxValues}) {
+                bins {
+                    value: term
+                    count
+                }
             }
         }
-      }
     }
   }
 `
