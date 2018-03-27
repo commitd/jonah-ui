@@ -19,9 +19,12 @@ export default class DocumentSearchResults extends React.Component<Props> {
         let pageInfo: React.ReactElement<{}>
 
         let totalResults: number
+
+        const resultsMessage = `Showing results ${offset+1} to ${results.length + offset}`
+
         if (total != null) {
             totalResults = total
-            pageInfo = <p>Showing results {offset} to {results.length + offset}, of a total of {total} matches.</p>
+            pageInfo = <p>{resultsMessage}, of a total of {total} matches.</p>
         } else {
             // If we don't know the total then we need to guess what to do
             // in reality this is only used to display Next or not in pagination so it can be course
@@ -37,7 +40,7 @@ export default class DocumentSearchResults extends React.Component<Props> {
             if (totalResults === 0) {
                 pageInfo = <p>No results found.</p>
             } else {
-                pageInfo = <p>Showing results {offset} to {results.length + offset}.</p>
+                pageInfo = <p>{resultsMessage}</p>
             }
         }
 
