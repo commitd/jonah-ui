@@ -6,6 +6,7 @@ import { User } from './types'
 
 type Props = {
     users: User[]
+    currentUser?: User
     onSave(user: User, password: string | null): void
     onDelete(username: string): void
 }
@@ -20,12 +21,13 @@ class UsersView extends React.Component<Props> {
     context: Context
 
     render() {
-        const { users, onSave, onDelete } = this.props
+        const { users, currentUser, onSave, onDelete } = this.props
 
         return (
             <Users
                 users={users}
                 availableRoles={['DEV', 'ADMIN', 'USER']}
+                currentUser={currentUser}
                 onSave={onSave}
                 onDelete={onDelete}
             />

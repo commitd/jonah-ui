@@ -9,6 +9,7 @@ import UsersView from './UsersView'
 
 interface QueryResponse {
     users: User[]
+    user: User
 }
 
 interface DeleteUserVariables {
@@ -43,6 +44,9 @@ export const GET_ALL_USERS_QUERY = gql`
         users {
             username
             roles
+        }
+        user {
+            username
         }
     }
 `
@@ -97,18 +101,30 @@ class Container extends React.Component<Props> {
     render() {
         const { data } = this.props
 
-        if (!data || data.loading) {
+        if (data != null && data.loading) {
             return <Loader active={true} />
         }
 
+        const users = data == null || data.users == null ? [] : data.users
+        const currentUser = data == null || data.user == null ? undefined : data.user
+
         return (
-            <UsersView users={data.users || []} onSave={this.handleSave} onDelete={this.handleDelete} />
+            <UsersView
+                users={users}
+                currentUser={currentUser}
+                onSave={this.handleSave}
+                onDelete={this.handleDelete}
+            />
         )
     }
 }
 
 export default compose(
     graphql<PluginProps, QueryResponse>(GET_ALL_USERS_QUERY),
-    graphql<PluginProps, SaveUserResponse, SaveUserVariables>(SAVE_USER_MUTATION, { name: 'saveUser' }),
-    graphql<PluginProps, DeleteUserResponse, DeleteUserVariables>(DELETE_USER_MUTATION, { name: 'deleteUser' })
+    graphql<PluginProps, SaveUserResponse, SaveUserVariables>(SAVE_USER_MUTATION, {
+        name: 'saveUser'
+    }),
+    graphql<PluginProps, DeleteUserResponse, DeleteUserVariables>(DELETE_USER_MUTATION, {
+        name: 'deleteUser'
+    })
 )(Container)

@@ -1,10 +1,12 @@
 import * as React from 'react'
 import { Button, List, Icon, Table, Modal, Form, Container } from 'semantic-ui-react'
-import { Ellipsis, Paginated } from 'invest-components'
+import { Ellipsis } from 'invest-components'
 import { User } from './types'
+import UserPaged from './UserPaged'
 
 export interface Props {
     users: User[]
+    currentUser?: User
     availableRoles: string[]
     onSave(user: User, password: string | null): void
     onDelete(username: string): void
@@ -26,7 +28,7 @@ const DEFAULT_STATE: State = {
     stagedForDeletion: null
 }
 
-class UsersTable extends React.Component<Props> {
+class Users extends React.Component<Props> {
     state: State = DEFAULT_STATE
 
     renderSafeValue(v: {}): React.ReactElement<{}> {
@@ -141,12 +143,20 @@ class UsersTable extends React.Component<Props> {
         this.setState({ stagedForDeletion: username })
     }
 
+    canDelete(username: string) {
+        const { currentUser } = this.props
+        if (currentUser != null && currentUser.username === username) {
+            return false
+        }
+        return true
+    }
+
     handleDelete = () => {
         const { stagedForDeletion } = this.state
-        if (stagedForDeletion != null) {
+        if (stagedForDeletion != null && this.canDelete(stagedForDeletion)) {
             this.props.onDelete(stagedForDeletion)
-            this.setState({ stagedForDeletion: null })
         }
+        this.setState({ stagedForDeletion: null })
     }
 
     handleCancelDelete = (username: string) => {
@@ -178,11 +188,13 @@ class UsersTable extends React.Component<Props> {
                                         primary={true}
                                         onClick={() => this.updateUserSelection(m)}
                                     />
-                                    <Button
-                                        icon="trash"
-                                        color="red"
-                                        onClick={this.tryDelete.bind(this, m.username)}
-                                    />
+                                    {this.canDelete(m.username) && (
+                                        <Button
+                                            icon="trash"
+                                            color="red"
+                                            onClick={this.tryDelete.bind(this, m.username)}
+                                        />
+                                    )}
                                 </Table.Cell>
                             </Table.Row>
                         ))}
@@ -228,17 +240,23 @@ class UsersTable extends React.Component<Props> {
     }
 }
 
-export default class PaginatedUsersTable extends React.Component<Props> {
+export default class PaginatedUsers extends React.Component<Props> {
     render() {
         return (
-            <Paginated items={this.props.users} itemsKey="users">
-                <UsersTable
+            <UserPaged
+                items={this.props.users}
+                itemsKey="users"
+                emptyMessage="No Users"
+                allowEmpty={true}
+            >
+                <Users
                     users={[]}
                     availableRoles={this.props.availableRoles}
                     onSave={this.props.onSave}
                     onDelete={this.props.onDelete}
+                    currentUser={this.props.currentUser}
                 />
-            </Paginated>
+            </UserPaged>
         )
     }
 }
