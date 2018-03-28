@@ -133,7 +133,7 @@ query ExpandEntity($datasetId: String!, $entityId: ID) {
 `
 
 export const EXPAND_RELATION = `
-query ExpandRelation($datasetId: String!, $relationId: ID) {
+query ExpandRelation($datasetId: String!, $relationId: String!) {
     corpus(id: $datasetId) {
       id
       relation(id: $relationId) {
@@ -143,12 +143,22 @@ query ExpandRelation($datasetId: String!, $relationId: ID) {
         source {
           id
           type
-          value          
+          value
+          entity {
+              id
+              type
+              value
+          }          
         }
         target {
           id
           type
-          value          
+          value    
+          entity {
+            id
+            type
+            value
+          }              
         }
       }
     }
