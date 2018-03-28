@@ -87,7 +87,7 @@ export default class NetworkView extends React.Component<Props, State> {
 
         return (
             <div style={{ height: '100%' }}>
-                <Segment floated="right" basic={true}>
+                <Segment floated="right" style={{zIndex: 1}} basic={true}>
                     {selected && <SelectionView {...selected} />}
                 </Segment>
                 <SimpleGraph
