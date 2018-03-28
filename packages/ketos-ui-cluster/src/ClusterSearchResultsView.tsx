@@ -23,7 +23,7 @@ type Props = {
         label: string
         keywords: Array<string>
     }>
-    onResultsSelect: (documents: DocumentResult[]) => void
+    onResultsSelect: (documents: DocumentResult[], topic: string) => void
 }
 
 type ContentProps = {
@@ -133,7 +133,7 @@ class ClusterSearchResultsView extends React.Component<Props, State> {
                 selected: this.state.selectedIndex, 
                 onclick: (index: number) => {
                     this.setState({selectedIndex: index})
-                    this.props.onResultsSelect(topic.documents)
+                    this.props.onResultsSelect(topic.documents, topic.label)
                 }
             }
         })

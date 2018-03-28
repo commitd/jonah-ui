@@ -2,7 +2,7 @@ import * as React from 'react'
 const isEqual = require('lodash.isequal')
 
 import { PluginProps } from 'invest-plugin'
-import { Container } from 'semantic-ui-react'
+import { Container, Header } from 'semantic-ui-react'
 import { DatasetSelector } from 'invest-components'
 import { DocumentSearchForm, DocumentSearch, DocumentSearchResultsView } from 'ketos-components'
 import ClusterSearchResultsContainer from './ClusterSearchResultsContainer'
@@ -16,7 +16,8 @@ type State = {
   datasetId?: string,
   query: DocumentSearch,
   submittedSearchQuery?: DocumentSearch,
-  selectedResults?: DocumentResult[]
+  selectedResults?: DocumentResult[],
+  selectedCluster?: string,
   resultsOffset: number
 }
 
@@ -33,8 +34,8 @@ class App extends React.Component<Props, State> {
     }
   }
 
-  handleResultsChange = (results: DocumentResult[]) => {
-    this.setState(Object.assign({}, this.state, { selectedResults: results, resultsOffset: 0 }))
+  handleResultsChange = (results: DocumentResult[], topic: string) => {
+    this.setState(Object.assign({}, this.state, { selectedResults: results, selectedCluster: topic, resultsOffset: 0 }))
   }
 
   handleOffsetNext = () => {
@@ -42,7 +43,7 @@ class App extends React.Component<Props, State> {
   }
 
   render() {
-    const { datasetId, query, submittedSearchQuery, selectedResults, resultsOffset } = this.state
+    const { datasetId, query, submittedSearchQuery, selectedResults, selectedCluster, resultsOffset } = this.state
     return (
       <Container fluid={true}>
         <DatasetSelector
@@ -64,14 +65,17 @@ class App extends React.Component<Props, State> {
           />
         }
         {selectedResults && datasetId &&
-          <DocumentSearchResultsView
-            datasetId={datasetId}
-            results={selectedResults.slice(resultsOffset, resultsOffset + 5)}
-            offset={resultsOffset}
-            size={5}
-            total={selectedResults.length}
-            onOffsetChange={this.handleOffsetNext}
-          />
+          <div>
+            <Header>{selectedCluster}</Header>
+            <DocumentSearchResultsView
+              datasetId={datasetId}
+              results={selectedResults.slice(resultsOffset, resultsOffset + 5)}
+              offset={resultsOffset}
+              size={5}
+              total={selectedResults.length}
+              onOffsetChange={this.handleOffsetNext}
+            />
+          </div>
         }
       </Container>
     )

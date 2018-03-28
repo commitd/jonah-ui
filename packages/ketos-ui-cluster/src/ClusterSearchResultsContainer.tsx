@@ -4,6 +4,7 @@ import { graphql, DataProps } from 'react-apollo'
 import gql from 'graphql-tag'
 import ClusterSearchResultsView from './ClusterSearchResultsView'
 import { DocumentResult } from './types'
+import { Loader } from 'semantic-ui-react'
 
 type Variables = {
     datasetId: string,
@@ -16,7 +17,7 @@ type Variables = {
 }
 
 type OwnProps = {
-    onClusterSelected: (results: DocumentResult[]) => void
+    onClusterSelected: (results: DocumentResult[], topic: string) => void
 }
 
 interface Response {
@@ -45,7 +46,7 @@ class ClusterSearchResultsContainer extends React.Component<Props> {
         const { data } = this.props
 
         if (!data || data.loading || !data.corpus) {
-            return <div />
+            return <Loader active={true} />
         }
 
         const hits = data.corpus.searchDocuments.hits
