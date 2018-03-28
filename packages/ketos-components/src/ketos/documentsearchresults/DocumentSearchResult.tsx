@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Label, Icon, Item, Segment } from 'semantic-ui-react'
 import { ActionDropdown } from 'invest-components'
-import { DOCUMENT_VIEW } from '../../Actions';
+import { DOCUMENT_VIEW } from '../../Actions'
 
 export interface DocumentResult {
     id: string
@@ -27,7 +27,10 @@ class DocumentSearchResult extends React.Component<Props> {
     handleAction = (act: (payload?: {}) => void) => {
         act({
             datasetId: this.props.datasetId,
-            documentId: this.props.document.id
+            documentId: this.props.document.id,
+            documentFilter: {
+                id: this.props.document.id
+            }
         })
     }
 
@@ -50,7 +53,7 @@ class DocumentSearchResult extends React.Component<Props> {
                     <Item.Extra>
                         {info.timestamp != null && < Label > <Icon name="calendar" />{info.timestamp}</Label>}
                         {info.type != null && info.type !== '' &&
-                            <   Label><Icon name="file outline" />Type: {info.type}</Label>}
+                            <Label><Icon name="file outline" />Type: {info.type}</Label>}
                         {info.language != null && info.language !== '' &&
                             <Label> <Icon name="talk outline" />Language: {info.language}</Label>}
                         {info.classification != null && info.classification !== '' &&

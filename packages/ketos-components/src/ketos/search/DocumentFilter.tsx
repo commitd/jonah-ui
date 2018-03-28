@@ -4,6 +4,7 @@ import { DocumentFilter } from '../../types'
 import { PropertiesMap, PropertiesList } from 'invest-types'
 import PropertiesFilter from './PropertiesFilter'
 import MetadataFilter from './MetadataFilter'
+const isEqual = require('lodash.isequal')
 
 export type Props = {
     advanced?: boolean
@@ -22,6 +23,15 @@ export default class DocumentFilterForm extends React.Component<Props, State> {
 
     state: State = {
         showAdvanced: false
+    }
+
+    componentWillReceiveProps(nextProps: Props) {
+        if (this.props.filter !== nextProps.filter || !isEqual(this.props.filter, nextProps.filter)) {
+            if (nextProps.filter && (nextProps.filter.id || nextProps.filter.info 
+                || nextProps.filter.metadata || nextProps.filter.properties)) {
+                this.setState({showAdvanced: true})
+            }
+        }   
     }
 
     render() {
@@ -70,11 +80,23 @@ export default class DocumentFilterForm extends React.Component<Props, State> {
         }))
     }
 
+    private handleIdChange = (e: React.SyntheticEvent<{}>, data: InputOnChangeData): void => {
+        this.props.onChange(Object.assign({}, this.props.filter, {id: data.value}))
+    }
+
     private renderInfo = (filter: DocumentFilter, advanced: boolean) => {
         const handleInfoChange = this.handleChildChange('info')
 
         return (
             <React.Fragment>
+                <Divider horizontal={true} content="Document ID" />
+                <Form.Input
+                    fluid={true}
+                    placeholder="Document ID"
+                    name="id"
+                    value={filter.id || ''}
+                    onChange={this.handleIdChange}
+                />
                 <Divider horizontal={true} content="Document info" />
                 <Form.Input
                     fluid={true}

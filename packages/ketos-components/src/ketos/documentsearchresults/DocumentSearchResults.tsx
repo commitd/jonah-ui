@@ -20,7 +20,7 @@ export default class DocumentSearchResults extends React.Component<Props> {
 
         let totalResults: number
 
-        const resultsMessage = `Showing results ${offset+1} to ${results.length + offset}`
+        const resultsMessage = `Showing results ${offset + 1} to ${results.length + offset}`
 
         if (total != null) {
             totalResults = total
