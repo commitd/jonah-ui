@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Table } from 'semantic-ui-react'
+import { Table, Segment, Header } from 'semantic-ui-react'
 import { ActionDropdown } from 'invest-components'
 import {
     BasicCorpusNode, BasicDocumentNode, BasicEntityNode,
@@ -20,21 +20,30 @@ export default class SelectionView extends React.Component<Props> {
 
         const action = this.getActionFromType()
         return (
-            <Table>
-                <Table.Header>
-                    <Table.Row>
-                        <Table.HeaderCell content={type} />
-                    </Table.Row>
-                </Table.Header>
-                <Table.Body>
-                    {data && this.renderByType()}
-                    {data && data.id && action && <Table.Row>
-                        <Table.Cell>
-                            <ActionDropdown key={data.id} action={action} text="View" onSelect={this.handleAction} />
-                        </Table.Cell>
-                    </Table.Row>}
-                </Table.Body>
-            </Table>
+            <Segment>
+                <Header>Selection Details</Header>
+                <Table>
+                    <Table.Header>
+                        <Table.Row>
+                            <Table.HeaderCell content={type} />
+                        </Table.Row>
+                    </Table.Header>
+                    <Table.Body>
+                        {data && this.renderByType()}
+                        {data && data.id && action && <Table.Row>
+                            <Table.Cell>
+                                <ActionDropdown 
+                                    key={data.id} 
+                                    action={action} 
+                                    text="View" 
+                                    onSelect={this.handleAction} 
+                                />
+                            </Table.Cell>
+                        </Table.Row>}
+                    </Table.Body>
+                </Table>
+                <div>Double click to expand a node</div>
+            </Segment>
         )
     }
 
