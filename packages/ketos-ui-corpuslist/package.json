@@ -1,6 +1,6 @@
 {
   "name": "ketos-ui-corpuslist",
-  "version": "0.3.0-SNAPSHOT",
+  "version": "0.5.0",
   "private": true,
   "license": "Apache-2.0",
   "dependencies": {
@@ -8,7 +8,7 @@
     "invest-components": "0.5.3",
     "invest-plugin": "0.5.3",
     "invest-types": "0.5.3",
-    "ketos-components": "^0.3.0-SNAPSHOT",
+    "ketos-components": "^0.5.0",
     "prop-types": "^15.6.1",
     "react": "^16.0.0",
     "react-apollo": "^2.1.0",
