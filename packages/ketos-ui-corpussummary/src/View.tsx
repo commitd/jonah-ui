@@ -78,7 +78,7 @@ class View extends React.Component<Props> {
                     </Grid.Column>}
                     {documentClassifications && <Grid.Column>
                         <Card title="Classifications">
-                            {documentClassifications && documentClassifications ?
+                            {documentClassifications.length > 0 ?
                                 <PieChart data={termBinsToXY(documentClassifications)} /> : <p><b>No data</b></p>}
                         </Card>
                     </Grid.Column>}
