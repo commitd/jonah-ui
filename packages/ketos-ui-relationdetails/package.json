@@ -6,9 +6,9 @@
   "dependencies": {
     "graphql": "0.13.0",
     "imports-loader": "^0.8.0",
-    "invest-components": "0.3.0",
-    "invest-plugin": "0.3.0",
-    "invest-types": "0.3.0",
+    "invest-components": "0.5.2",
+    "invest-plugin": "0.5.2",
+    "invest-types": "0.5.2",
     "ketos-components": "^0.3.0-SNAPSHOT",
     "prop-types": "^15.6.1",
     "react": "^16.0.0",

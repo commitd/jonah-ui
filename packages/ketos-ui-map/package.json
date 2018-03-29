@@ -6,9 +6,9 @@
   "dependencies": {
     "@types/graphql": "^0.12.6",
     "graphql": "0.13.0",
-    "invest-components": "0.3.0",
-    "invest-plugin": "0.3.0",
-    "invest-types": "0.3.0",
+    "invest-components": "0.5.2",
+    "invest-plugin": "0.5.2",
+    "invest-types": "0.5.2",
     "ketos-components": "^0.3.0-SNAPSHOT",
     "latlon-geohash": "^1.1.0",
     "leaflet": "^1.2.0",
