@@ -65,14 +65,21 @@ class View extends React.Component<Props> {
                 </Grid>
                 <Grid><Grid.Row columns={3}>
                     {documentTypes && <Grid.Column>
-                        <Card title="Types"><PieChart data={termBinsToXY(documentTypes)} /></Card>
+                        <Card title="Types">
+                            {documentTypes.length > 0 ?
+                                <PieChart data={termBinsToXY(documentTypes)} /> : <p><b>No data</b></p>}
+                        </Card>
                     </Grid.Column>}
                     {documentLanguages && <Grid.Column>
-                        <Card title="Languages"><PieChart data={termBinsToXY(documentLanguages)} /></Card>
+                        <Card title="Languages">
+                            {documentLanguages.length > 0 ?
+                                <PieChart data={termBinsToXY(documentLanguages)} /> : <p><b>No data</b></p>}
+                        </Card>
                     </Grid.Column>}
                     {documentClassifications && <Grid.Column>
                         <Card title="Classifications">
-                            <PieChart data={termBinsToXY(documentClassifications)} />
+                            {documentClassifications && documentClassifications ?
+                                <PieChart data={termBinsToXY(documentClassifications)} /> : <p><b>No data</b></p>}
                         </Card>
                     </Grid.Column>}
                 </Grid.Row>
