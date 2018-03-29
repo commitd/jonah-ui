@@ -56,10 +56,14 @@ class App extends React.Component<Props, State> {
         check={() => datasetId != null
           && (mentionId != null || entityId != null || relationId != null || documentId != null)}
       >
-        {datasetId && documentId && <DocumentEditor variables={{ datasetId, documentId }} edit={edit} />}
-        {datasetId && entityId && <EntityEditor variables={{ datasetId, entityId }} edit={edit} />}
-        {datasetId && mentionId && <MentionEditor variables={{ datasetId, mentionId }} edit={edit} />}
-        {datasetId && relationId && <RelationEditor variables={{ datasetId, relationId }} edit={edit} />}
+        {datasetId && documentId &&
+          <DocumentEditor variables={{ datasetId, documentId }} edit={edit} allDatasets={true} />}
+        {datasetId && entityId &&
+          <EntityEditor variables={{ datasetId, entityId }} edit={edit} allDatasets={true} />}
+        {datasetId && mentionId &&
+          <MentionEditor variables={{ datasetId, mentionId }} edit={edit} allDatasets={true} />}
+        {datasetId && relationId &&
+          <RelationEditor variables={{ datasetId, relationId }} edit={edit} allDatasets={true} />}
 
       </PrerequisiteContainer>
     )

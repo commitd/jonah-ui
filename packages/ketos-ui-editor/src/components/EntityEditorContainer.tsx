@@ -22,6 +22,7 @@ type OwnProps = {
     save: MutationFunc<SaveMutationResult>
     delete: MutationFunc<DeleteMutationResult>
     variables: Variables
+    allDatasets: boolean
 }
 
 class Container extends React.Component<OwnProps> {
@@ -42,11 +43,11 @@ class Container extends React.Component<OwnProps> {
         )
     }
 
-    private handleSave = (item: Entity, allDatasets?: boolean): Promise<boolean> => {
+    private handleSave = (item: Entity): Promise<boolean> => {
         return this.props.save({
             variables: {
 
-                datasetId: allDatasets ? undefined : this.props.variables.datasetId,
+                datasetId: this.props.allDatasets ? undefined : this.props.variables.datasetId,
                 // Clean up the document so tis got just want is requrid in it
                 entity: {
                     id: item.id || '',
@@ -62,10 +63,10 @@ class Container extends React.Component<OwnProps> {
         })
     }
 
-    private handleDelete = (item: Entity, allDatasets?: boolean): Promise<boolean> => {
+    private handleDelete = (item: Entity): Promise<boolean> => {
         return this.props.delete({
             variables: {
-                datasetId: allDatasets ? undefined : this.props.variables.datasetId,
+                datasetId: this.props.allDatasets ? undefined : this.props.variables.datasetId,
                 documentId: item.docId,
                 entityId: item.id
             }
@@ -77,7 +78,7 @@ class Container extends React.Component<OwnProps> {
 }
 
 const SAVE_MUTATION = gql`
-mutation save($datasetId: String!, $entity: BaleenEntityInput!) {
+mutation save($datasetId: String, $entity: BaleenEntityInput!) {
     saveEntity(datasetId: $datasetId, entity: $entity) {
         dataset
     }
@@ -85,7 +86,7 @@ mutation save($datasetId: String!, $entity: BaleenEntityInput!) {
 `
 
 const DELETE_MUTATION = gql`
-mutation delete($datasetId: String!, $documentId: String!, $entityId: String!) {
+mutation delete($datasetId: String, $documentId: String!, $entityId: String!) {
     deleteEntity(datasetId: $datasetId, reference: {
         documentId: $documentId,
         entityId: $entityId,

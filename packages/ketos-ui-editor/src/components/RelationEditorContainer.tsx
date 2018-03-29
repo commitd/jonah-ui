@@ -23,6 +23,7 @@ type OwnProps = {
     save: MutationFunc<SaveMutationResult>
     delete: MutationFunc<DeleteMutationResult>
     variables: Variables
+    allDatasets: boolean
 }
 
 class Container extends React.Component<OwnProps> {
@@ -43,11 +44,11 @@ class Container extends React.Component<OwnProps> {
         )
     }
 
-    private handleSave = (item: Relation, allDatasets?: boolean): Promise<boolean> => {
+    private handleSave = (item: Relation): Promise<boolean> => {
         return this.props.save({
             variables: {
 
-                datasetId: allDatasets ? undefined : this.props.variables.datasetId,
+                datasetId: this.props.allDatasets ? undefined : this.props.variables.datasetId,
                 // Clean up the document so tis got just want is requrid in it
                 relation: {
                     id: item.id || '',
@@ -67,10 +68,10 @@ class Container extends React.Component<OwnProps> {
         })
     }
 
-    private handleDelete = (item: Relation, allDatasets?: boolean): Promise<boolean> => {
+    private handleDelete = (item: Relation): Promise<boolean> => {
         return this.props.delete({
             variables: {
-                datasetId: allDatasets ? undefined : this.props.variables.datasetId,
+                datasetId: this.props.allDatasets ? undefined : this.props.variables.datasetId,
                 documentId: item.docId,
                 relationId: item.id
             }
@@ -82,7 +83,7 @@ class Container extends React.Component<OwnProps> {
 }
 
 const SAVE_MUTATION = gql`
-mutation save($datasetId: String!, $relation: BaleenRelationInput!) {
+mutation save($datasetId: String, $relation: BaleenRelationInput!) {
     saveRelation(datasetId: $datasetId, relation: $relation) {
         dataset
     }
@@ -90,7 +91,7 @@ mutation save($datasetId: String!, $relation: BaleenRelationInput!) {
 `
 
 const DELETE_MUTATION = gql`
-mutation delete($datasetId: String!, $documentId: String!, $relationId: String!) {
+mutation delete($datasetId: String, $documentId: String!, $relationId: String!) {
     deleteRelation(datasetId: $datasetId, reference: {
         documentId: $documentId,
         relationId: $relationId,

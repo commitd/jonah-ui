@@ -23,6 +23,7 @@ type OwnProps = {
     save: MutationFunc<SaveMutationResult>
     delete: MutationFunc<DeleteMutationResult>
     variables: Variables
+    allDatasets: boolean
 
 }
 
@@ -44,11 +45,11 @@ class Container extends React.Component<OwnProps> {
         )
     }
 
-    private handleSave = (item: Mention, allDatasets?: boolean): Promise<boolean> => {
+    private handleSave = (item: Mention): Promise<boolean> => {
         return this.props.save({
             variables: {
 
-                datasetId: allDatasets ? undefined : this.props.variables.datasetId,
+                datasetId: this.props.allDatasets ? undefined : this.props.variables.datasetId,
                 // Clean up the document so tis got just want is requrid in it
                 mention: cleanMention(item)
             }
@@ -57,10 +58,10 @@ class Container extends React.Component<OwnProps> {
         })
     }
 
-    private handleDelete = (item: Mention, allDatasets?: boolean): Promise<boolean> => {
+    private handleDelete = (item: Mention): Promise<boolean> => {
         return this.props.delete({
             variables: {
-                datasetId: allDatasets ? undefined : this.props.variables.datasetId,
+                datasetId: this.props.allDatasets ? undefined : this.props.variables.datasetId,
                 documentId: item.docId,
                 mentionId: item.id
             }
@@ -72,7 +73,7 @@ class Container extends React.Component<OwnProps> {
 }
 
 const SAVE_MUTATION = gql`
-mutation save($datasetId: String!, $mention: BaleenMentionInput!) {
+mutation save($datasetId: String, $mention: BaleenMentionInput!) {
     saveMention(datasetId: $datasetId, mention: $mention) {
         dataset
     }
@@ -80,7 +81,7 @@ mutation save($datasetId: String!, $mention: BaleenMentionInput!) {
 `
 
 const DELETE_MUTATION = gql`
-mutation delete($datasetId: String!, $documentId: String!, $mentionId: String!) {
+mutation delete($datasetId: String, $documentId: String!, $mentionId: String!) {
     deleteMention(datasetId: $datasetId, reference: {
         documentId: $documentId,
         mentionId: $mentionId,

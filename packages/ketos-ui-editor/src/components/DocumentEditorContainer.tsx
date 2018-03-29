@@ -22,6 +22,7 @@ type OwnProps = {
     save: MutationFunc<SaveMutationResult>
     delete: MutationFunc<DeleteMutationResult>
     variables: Variables
+    allDatasets: boolean
 }
 
 class Container extends React.Component<OwnProps> {
@@ -42,11 +43,11 @@ class Container extends React.Component<OwnProps> {
         )
     }
 
-    private handleSave = (item: Document, allDatasets?: boolean): Promise<boolean> => {
+    private handleSave = (item: Document): Promise<boolean> => {
         return this.props.save({
             variables: {
 
-                datasetId: allDatasets ? undefined : this.props.variables.datasetId,
+                datasetId: this.props.allDatasets ? undefined : this.props.variables.datasetId,
                 // Clean up the document so tis got just want is requrid in it
                 document: {
                     id: item.id || '',
@@ -60,10 +61,10 @@ class Container extends React.Component<OwnProps> {
         })
     }
 
-    private handleDelete = (item: Document, allDatasets?: boolean): Promise<boolean> => {
+    private handleDelete = (item: Document): Promise<boolean> => {
         return this.props.delete({
             variables: {
-                datasetId: allDatasets ? undefined : this.props.variables.datasetId,
+                datasetId: this.props.allDatasets ? undefined : this.props.variables.datasetId,
                 documentId: item.id
             }
         }).then(d => {
@@ -74,7 +75,7 @@ class Container extends React.Component<OwnProps> {
 }
 
 const SAVE_MUTATION = gql`
-mutation savee($datasetId: String!, $document: BaleenDocumentInput!) {
+mutation save($datasetId: String, $document: BaleenDocumentInput!) {
     saveDocument(datasetId: $datasetId, document: $document) {
         dataset
     }
@@ -82,7 +83,7 @@ mutation savee($datasetId: String!, $document: BaleenDocumentInput!) {
 `
 
 const DELETE_MUTATION = gql`
-mutation delete($datasetId: String!, $documentId: String!) {
+mutation delete($datasetId: String, $documentId: String!) {
     deleteDocument(datasetId: $datasetId, reference: {
         documentId: $documentId
     }) {
