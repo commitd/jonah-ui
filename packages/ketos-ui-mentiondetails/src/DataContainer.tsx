@@ -1,6 +1,6 @@
 import gql from 'graphql-tag'
-import { PropertiesMap } from 'invest-types'
 import { createDataContainer } from 'invest-components'
+import { PropertiesMap } from 'invest-types'
 
 type Variables = {
   datasetId: string
@@ -13,9 +13,9 @@ export type Response = {
     mention: {
       id: string
       entityId: string
-      begin: number,
-      end: number,
-      type: string,
+      begin: number
+      end: number
+      type: string
       value: string
       properties: PropertiesMap
       targetOf: {
@@ -37,7 +37,7 @@ export type Response = {
         }
       }[]
       document: {
-        id: string,
+        id: string
         content: string
       }
     }
@@ -45,21 +45,22 @@ export type Response = {
 }
 
 const QUERY = gql`
-query GetEntityView($datasetId: String!, $mentionId: ID) {
+  query GetEntityView($datasetId: String!, $mentionId: ID) {
     corpus(id: $datasetId) {
       id
       mention(id: $mentionId) {
         id
+        entityId
         begin
         end
         type
         subType
         value
-        properties 
+        properties
         targetOf {
           id
           type
-          subType 
+          subType
           source {
             value
             type
@@ -67,7 +68,7 @@ query GetEntityView($datasetId: String!, $mentionId: ID) {
         }
         sourceOf {
           id
-          type 
+          type
           subType
           target {
             value

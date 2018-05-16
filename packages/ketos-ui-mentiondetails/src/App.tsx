@@ -1,12 +1,10 @@
-import * as React from 'react'
-const isEqual = require('lodash.isequal')
-
 import { PrerequisiteContainer } from 'invest-components'
 import { PluginProps } from 'invest-plugin'
-
+import { MENTION_SEARCH, MENTION_VIEW, MentionViewPayload } from 'ketos-components'
+import * as React from 'react'
 import DataContainer from './DataContainer'
 import EntityView from './MentionView'
-import { MENTION_VIEW, MentionViewPayload, MENTION_SEARCH } from 'ketos-components'
+const isEqual = require('lodash.isequal')
 
 type OwnProps = {}
 
@@ -18,7 +16,6 @@ type State = {
 }
 
 class App extends React.Component<Props, State> {
-
   state: State = {
     mentionId: undefined,
     datasetId: undefined
@@ -44,7 +41,6 @@ class App extends React.Component<Props, State> {
           <EntityView />
         </DataContainer>
       </PrerequisiteContainer>
-
     )
   }
 
@@ -59,7 +55,7 @@ class App extends React.Component<Props, State> {
         mentionId: undefined
       })
     } else if (action === MENTION_VIEW) {
-      const p = ((payload || {}) as MentionViewPayload)
+      const p = (payload || {}) as MentionViewPayload
       this.setState({
         datasetId: p.datasetId,
         mentionId: p.mentionId
