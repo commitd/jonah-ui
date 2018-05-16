@@ -1,36 +1,44 @@
-import * as React from 'react'
-const isEqual = require('lodash.isequal')
-
-import { PluginProps } from 'invest-plugin'
 import { PrerequisiteContainer } from 'invest-components'
+import { PluginProps } from 'invest-plugin'
 import {
-  MENTION_EDIT, MENTION_DELETE,
-  ENTITY_EDIT, ENTITY_DELETE,
-  RELATION_EDIT, RELATION_DELETE,
-  DOCUMENT_EDIT, DOCUMENT_DELETE,
-  MentionEditPayload, EntityEditPayload, RelationEditPayload, DocumentEditPayload,
-  MentionDeletePayload, EntityDeletePayload, RelationDeletePayload, DocumentDeletePayload
+  DOCUMENT_DELETE,
+  DOCUMENT_EDIT,
+  DocumentDeletePayload,
+  DocumentEditPayload,
+  ENTITY_DELETE,
+  ENTITY_EDIT,
+  EntityDeletePayload,
+  EntityEditPayload,
+  MENTION_DELETE,
+  MENTION_EDIT,
+  MentionDeletePayload,
+  MentionEditPayload,
+  RELATION_DELETE,
+  RELATION_EDIT,
+  RelationDeletePayload,
+  RelationEditPayload
 } from 'ketos-components'
+import * as React from 'react'
 import DocumentEditor from './components/DocumentEditorContainer'
-import RelationEditor from './components/RelationEditorContainer'
 import EntityEditor from './components/EntityEditorContainer'
 import MentionEditor from './components/MentionEditorContainer'
+import RelationEditor from './components/RelationEditorContainer'
+const isEqual = require('lodash.isequal')
 
 type OwnProps = {}
 
 type Props = OwnProps & PluginProps
 
 type State = {
-  datasetId?: string,
-  mentionId?: string,
-  entityId?: string,
-  relationId?: string,
+  datasetId?: string
+  mentionId?: string
+  entityId?: string
+  relationId?: string
   documentId?: string
   edit: boolean
 }
 
 class App extends React.Component<Props, State> {
-
   state: State = {
     edit: false,
     datasetId: undefined,
@@ -53,18 +61,17 @@ class App extends React.Component<Props, State> {
       <PrerequisiteContainer
         missingTitle="Item required"
         missingDescription="This view needs an mention, entity, relation or document to display"
-        check={() => datasetId != null
-          && (mentionId != null || entityId != null || relationId != null || documentId != null)}
+        check={() =>
+          datasetId != null && (mentionId != null || entityId != null || relationId != null || documentId != null)
+        }
       >
-        {datasetId && documentId &&
-          <DocumentEditor variables={{ datasetId, documentId }} edit={edit} allDatasets={true} />}
-        {datasetId && entityId &&
-          <EntityEditor variables={{ datasetId, entityId }} edit={edit} allDatasets={true} />}
-        {datasetId && mentionId &&
-          <MentionEditor variables={{ datasetId, mentionId }} edit={edit} allDatasets={true} />}
-        {datasetId && relationId &&
-          <RelationEditor variables={{ datasetId, relationId }} edit={edit} allDatasets={true} />}
-
+        {datasetId &&
+          documentId && <DocumentEditor variables={{ datasetId, documentId }} edit={edit} allDatasets={true} />}
+        {datasetId && entityId && <EntityEditor variables={{ datasetId, entityId }} edit={edit} allDatasets={true} />}
+        {datasetId &&
+          mentionId && <MentionEditor variables={{ datasetId, mentionId }} edit={edit} allDatasets={true} />}
+        {datasetId &&
+          relationId && <RelationEditor variables={{ datasetId, relationId }} edit={edit} allDatasets={true} />}
       </PrerequisiteContainer>
     )
   }
@@ -88,8 +95,8 @@ class App extends React.Component<Props, State> {
       return
     }
 
-    state.edit = action === MENTION_EDIT || action === ENTITY_EDIT
-      || action === RELATION_EDIT || action === DOCUMENT_EDIT
+    state.edit =
+      action === MENTION_EDIT || action === ENTITY_EDIT || action === RELATION_EDIT || action === DOCUMENT_EDIT
 
     if (action === MENTION_EDIT || action === MENTION_DELETE) {
       const p = payload as MentionEditPayload | MentionDeletePayload
@@ -110,7 +117,6 @@ class App extends React.Component<Props, State> {
     }
 
     this.setState(state)
-
   }
 }
 
