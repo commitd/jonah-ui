@@ -1,30 +1,35 @@
-import * as React from 'react'
-const isEqual = require('lodash.isequal')
+import { PrerequisiteContainer } from 'invest-components'
 import { PluginProps } from 'invest-plugin'
-import { MessageBox, PrerequisiteContainer } from 'invest-components'
-import NetworkExpander from './NetworkModel'
 import {
-  RELATION_VIEW, ENTITY_VIEW, MENTION_VIEW, DocumentViewPayload,
-  MentionViewPayload, EntityViewPayload, RelationViewPayload, DOCUMENT_VIEW, ENTITY_SEARCH
+  DOCUMENT_VIEW,
+  DocumentViewPayload,
+  ENTITY_SEARCH,
+  ENTITY_VIEW,
+  EntityViewPayload,
+  MENTION_VIEW,
+  MentionViewPayload,
+  RELATION_VIEW,
+  RelationViewPayload
 } from 'ketos-components'
+import * as React from 'react'
+import NetworkExpander from './NetworkModel'
+const isEqual = require('lodash.isequal')
 
 type OwnProps = {}
 
 type Props = OwnProps & PluginProps
 
 type State = {
-  datasetId?: string,
-  entityId?: string,
-  relationId?: string,
-  documentId?: string,
+  datasetId?: string
+  entityId?: string
+  relationId?: string
+  documentId?: string
   mentionId?: string
 }
 
 class App extends React.Component<Props, State> {
-
   state: State = {
-    datasetId: 'news_es',
-    entityId: '05e50a85-3b3e-4e66-bd68-bb09e0ac39e2'
+    datasetId: undefined
   }
 
   componentWillReceiveProps(nextProps: Props) {
@@ -36,15 +41,6 @@ class App extends React.Component<Props, State> {
   render() {
     const { entityId, mentionId, relationId, documentId, datasetId } = this.state
 
-    if (datasetId == null) {
-      return (
-        <MessageBox
-          title="No entity or dataset"
-          description="Please use another plugin to select an entity of dataset"
-        />
-      )
-    }
-
     return (
       <PrerequisiteContainer
         fluid={true}
@@ -53,23 +49,25 @@ class App extends React.Component<Props, State> {
           'This view needs an mention, entity, document or relation to display. ' +
           'An entity is a good start point to explore its graph.'
         }
-        check={() => datasetId != null
-          && (entityId != null || mentionId != null || relationId != null || documentId != null)}
+        check={() =>
+          datasetId != null && (entityId != null || mentionId != null || relationId != null || documentId != null)
+        }
         fulfillingAction={ENTITY_SEARCH}
       >
-        <NetworkExpander
-          datasetId={datasetId}
-          entityId={entityId}
-          mentionId={mentionId}
-          relationId={relationId}
-          documentId={documentId}
-        />
+        {datasetId != null && (
+          <NetworkExpander
+            datasetId={datasetId}
+            entityId={entityId}
+            mentionId={mentionId}
+            relationId={relationId}
+            documentId={documentId}
+          />
+        )}
       </PrerequisiteContainer>
     )
   }
 
   private onAction = (action?: string, payload?: {}) => {
-
     if (action === RELATION_VIEW) {
       const p = payload as RelationViewPayload
       this.setState({
@@ -77,7 +75,7 @@ class App extends React.Component<Props, State> {
         mentionId: undefined,
         entityId: undefined,
         relationId: p.relationId,
-        documentId: undefined,
+        documentId: undefined
       })
     } else if (action === ENTITY_VIEW) {
       const p = payload as EntityViewPayload
@@ -86,7 +84,7 @@ class App extends React.Component<Props, State> {
         mentionId: undefined,
         entityId: p.entityId,
         relationId: undefined,
-        documentId: undefined,
+        documentId: undefined
       })
     } else if (action === MENTION_VIEW) {
       const p = payload as MentionViewPayload
@@ -95,7 +93,7 @@ class App extends React.Component<Props, State> {
         mentionId: p.mentionId,
         entityId: undefined,
         relationId: undefined,
-        documentId: undefined,
+        documentId: undefined
       })
     } else if (action === DOCUMENT_VIEW) {
       const p = payload as DocumentViewPayload
@@ -104,10 +102,9 @@ class App extends React.Component<Props, State> {
         mentionId: undefined,
         entityId: undefined,
         relationId: undefined,
-        documentId: p.documentId,
+        documentId: p.documentId
       })
     }
-
   }
 }
 
