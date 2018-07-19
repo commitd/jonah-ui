@@ -1,30 +1,29 @@
-import * as React from 'react'
+import { DatasetSelector } from 'invest-components'
 import { PluginProps } from 'invest-plugin'
+import { GeoRadius } from 'invest-types'
+import { DocumentSearch, DocumentSearchForm } from 'ketos-components'
+import * as React from 'react'
+import { Container, Divider } from 'semantic-ui-react'
 import DataContainer from './DataContainer'
 import Results from './Results'
-import { Container, InputOnChangeData, Divider } from 'semantic-ui-react'
-import { DatasetSelector } from 'invest-components'
-import { DocumentSearch, DocumentSearchForm } from 'ketos-components'
-import { GeoRadius } from 'invest-types'
 
 type OwnProps = {}
 
 type Props = OwnProps & PluginProps
 
 type State = {
-  datasetId?: string,
-  query?: string,
-  offset: number,
+  datasetId?: string
+  query?: string
+  offset: number
   size: number
   bounds?: GeoRadius
 
   submittedQuery?: DocumentSearch
 }
 
-// TODO: Handle action 
+// TODO: Handle action
 
 class App extends React.Component<Props, State> {
-
   state: State = {
     datasetId: undefined,
     query: undefined,
@@ -39,14 +38,8 @@ class App extends React.Component<Props, State> {
     })
   }
 
-  handleFormChange = (event: React.SyntheticEvent<HTMLInputElement>, data: InputOnChangeData) => {
-    this.setState({
-      [data.name]: data.value
-    })
-  }
-
   handleSearch = (search: DocumentSearch) => {
-    this.setState((state) => ({
+    this.setState(state => ({
       submittedQuery: search,
       offset: 0
     }))
@@ -66,23 +59,24 @@ class App extends React.Component<Props, State> {
 
         <DocumentSearchForm onSearch={this.handleSearch} />
         <Divider hidden={true} />
-        {
-          datasetId != null && submittedQuery != null && <DataContainer
-            variables={{
-              datasetId,
-              documentFilter: submittedQuery.documentFilter,
-              entityFilters: submittedQuery.entityFilters || [],
-              mentionFilters: submittedQuery.mentionFilters || [],
-              relationFilters: submittedQuery.relationFilters || [],
-              bounds,
-              offset, size
-            }}
-          >
-            <Results onOffsetChanged={this.handleOffsetChanged} onBoundsChanged={this.handleBoundsChanged} />
-          </DataContainer>
-        }
-
-      </Container >
+        {datasetId != null &&
+          submittedQuery != null && (
+            <DataContainer
+              variables={{
+                datasetId,
+                documentFilter: submittedQuery.documentFilter,
+                entityFilters: submittedQuery.entityFilters || [],
+                mentionFilters: submittedQuery.mentionFilters || [],
+                relationFilters: submittedQuery.relationFilters || [],
+                bounds,
+                offset,
+                size
+              }}
+            >
+              <Results onOffsetChanged={this.handleOffsetChanged} onBoundsChanged={this.handleBoundsChanged} />
+            </DataContainer>
+          )}
+      </Container>
     )
   }
 
